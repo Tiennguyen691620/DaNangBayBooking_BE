@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\DATA\\Graduation Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj": {}
+    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj": {}
   },
   "projects": {
-    "G:\\DATA\\Graduation Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj": {
+    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj",
+        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj",
         "projectName": "DaNangBayBooking.WebApp",
-        "projectPath": "G:\\DATA\\Graduation Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj",
+        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\DaNangBayBooking.WebApp.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\obj\\",
+        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
         }
       }
     }

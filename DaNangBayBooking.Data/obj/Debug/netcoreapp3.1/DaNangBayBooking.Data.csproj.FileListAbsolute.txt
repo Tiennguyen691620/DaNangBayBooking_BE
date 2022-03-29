@@ -1,0 +1,13 @@
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.deps.json
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.runtimeconfig.json
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.runtimeconfig.dev.json
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.csproj.AssemblyReference.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.GeneratedMSBuildEditorConfig.editorconfig
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.AssemblyInfoInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.AssemblyInfo.cs
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.csproj.CoreCompileInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Data\obj\Debug\netcoreapp3.1\DaNangBayBooking.Data.genruntimeconfig.cache

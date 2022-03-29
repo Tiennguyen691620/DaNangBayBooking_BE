@@ -1,0 +1,10 @@
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.deps.json
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.AssemblyReference.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.AssemblyInfoInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.AssemblyInfo.cs
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CoreCompileInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb

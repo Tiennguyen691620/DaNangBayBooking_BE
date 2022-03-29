@@ -1,0 +1,10 @@
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.csproj.AssemblyReference.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.GeneratedMSBuildEditorConfig.editorconfig
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.AssemblyInfoInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.AssemblyInfo.cs
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.csproj.CoreCompileInputs.cache
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.deps.json
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.pdb
