@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DaNangBayBooking.Data.Migrations
 {
-    [DbContext(typeof(DangNangDbContext))]
+    [DbContext(typeof(DaNangDbContext))]
     partial class DangNangDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -8,9 +8,9 @@ using System.IO;
 
 namespace DaNangBayBooking.Data.EF
 {
-    public class DaNangDbContextFactory : IDesignTimeDbContextFactory<DangNangDbContext>
+    public class DaNangDbContextFactory : IDesignTimeDbContextFactory<DaNangDbContext>
     {
-        public DangNangDbContext CreateDbContext(string[] args)
+        public DaNangDbContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -19,11 +19,11 @@ namespace DaNangBayBooking.Data.EF
 
             var connectionString = configuration.GetConnectionString("DaNangBayDb");
 
-            var optionsBuilder = new DbContextOptionsBuilder<DangNangDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DaNangDbContext>();
             optionsBuilder.UseSqlServer(connectionString);
 
 
-            return new DangNangDbContext(optionsBuilder.Options);
+            return new DaNangDbContext(optionsBuilder.Options);
         }
     }
 }

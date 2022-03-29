@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DaNangBayBooking.Data.EF
 {
-    public class DangNangDbContext : IdentityDbContext<AppUser, AppRole, Guid>
+    public class DaNangDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
-        public DangNangDbContext( DbContextOptions options) : base(options)
+        public DaNangDbContext( DbContextOptions options) : base(options)
         {
         }
         

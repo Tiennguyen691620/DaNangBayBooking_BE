@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DaNangBayBooking.Data.Migrations
 {
-    [DbContext(typeof(DangNangDbContext))]
+    [DbContext(typeof(DaNangDbContext))]
     [Migration("20220329074504_initial")]
     partial class initial
     {

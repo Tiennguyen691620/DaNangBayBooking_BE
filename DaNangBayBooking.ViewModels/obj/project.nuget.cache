@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "yWkYGZ7ZuMihA31ki/YrYxOcKxRlnWhzCcjLRxTJi10NkdKPj2VXnTA4fiX119sSHEyoZi2iu5OB9sTTtSxUrw==",
+  "dgSpecHash": "AzCoj+BgBi6dgwOfx9mc0ZdLSeHeKDlzVCFUAgGgXZ/F/v2BmXKiRPB7FKN870xO2l6N01hdOFf+Mqj3yl1ZJA==",
   "success": true,
   "projectFilePath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation\\10.4.0\\fluentvalidation.10.4.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.4.0\\fluentvalidation.aspnetcore.10.4.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.4.0\\fluentvalidation.dependencyinjectionextensions.10.4.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.15\\microsoft.aspnetcore.http.features.5.0.15.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
