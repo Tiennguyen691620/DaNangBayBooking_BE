@@ -8,3 +8,8 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\D
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.pdb
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ApiIntegration\obj\Debug\netcoreapp3.1\DaNangBayBooking.ApiIntegration.csproj.CopyComplete

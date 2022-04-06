@@ -1,6 +1,7 @@
 ﻿using DaNangBayBooking.Application.System.Users;
 using DaNangBayBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace DaNangBayBooking.BackendApi.Controllers
 {
+    //[EnableCors()]
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -21,8 +23,8 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             _userService = userService;
         }
-
-        [HttpPost("authenticate")]
+        
+        [HttpPost("login")] 
         [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
@@ -31,13 +33,27 @@ namespace DaNangBayBooking.BackendApi.Controllers
 
             var result = await _userService.Authencate(request);
 
-            if (string.IsNullOrEmpty(result.ResultObj))
+            if (result==null)
             {
                 return BadRequest(result);
             }
             return Ok(result);
         }
 
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Register(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
 
     }
 }

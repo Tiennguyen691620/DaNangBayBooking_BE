@@ -19,5 +19,7 @@ namespace DaNangBayBooking.Data.Entities
         public District District { get; set; }
 
         public List<Accommodation> Accommodations { get; set; }
+
+        public List<AppUser> AppUsers { get; set; }
     }
 }

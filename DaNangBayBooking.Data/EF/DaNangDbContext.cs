@@ -6,6 +6,7 @@ using DaNangBayBooking.Data.Configurations;
 using DaNangBayBooking.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using DaNangBayBooking.Data.Extensions;
 
 namespace DaNangBayBooking.Data.EF
 {
@@ -31,6 +32,7 @@ namespace DaNangBayBooking.Data.EF
             modelBuilder.ApplyConfiguration(new RoomTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UtilityConfiguration());
             modelBuilder.ApplyConfiguration(new WardConfiguration());
+            modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -40,7 +42,7 @@ namespace DaNangBayBooking.Data.EF
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
             //Data seeding
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
             //base.OnModelCreating(modelBuilder);
 
         }
@@ -58,5 +60,6 @@ namespace DaNangBayBooking.Data.EF
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Utility> Utilities { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<Province> Provinces { get; set; }
     }
 }

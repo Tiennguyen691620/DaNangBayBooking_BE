@@ -298,3 +298,8 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\Da
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\Prometheus.NetCore.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\Prometheus.NetStandard.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\DaNangBayBooking.BackendApi.xml
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Debug\netcoreapp3.1\DaNangBayBooking.BackendApi.xml

@@ -19,10 +19,13 @@ namespace DaNangBayBooking.BackendApi.Controllers
             _roleService = roleService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        /// <summary>
+        /// Lấy tất cả quyền
+        ///</summary>
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAllData()
         {
-            var roles = await _roleService.GetAll();
+            var roles = await _roleService.GetAllData();
             return Ok(roles);
         }
     }

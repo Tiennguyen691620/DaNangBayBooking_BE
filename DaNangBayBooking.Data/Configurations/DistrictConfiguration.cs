@@ -17,6 +17,9 @@ namespace DaNangBayBooking.Data.Configurations
 
             builder.Property(x => x.Name).HasMaxLength(50).IsRequired();
             builder.Property(x => x.No).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.SortOrder);
+
+            builder.HasOne(x => x.Province).WithMany(x => x.Districts).HasForeignKey(x => x.ProvinceID);
         }
     }
 }

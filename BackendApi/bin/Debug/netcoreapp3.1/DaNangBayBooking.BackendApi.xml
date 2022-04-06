@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DaNangBayBooking.BackendApi</name>
+    </assembly>
+    <members>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetProvinceAll">
+            <summary>
+            Lấy tất cả tỉnh thành
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetById(System.Guid)">
+            <summary>
+            Lấy tỉnh/thành phố theo ID tỉnh/thành phố
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetDistrictAll(System.Guid)">
+            <summary>
+            Lấy quận/huyện theo ID tỉnh/thành phố
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetWardAll(System.Guid)">
+            <summary>
+            Lấy phường/xã theo ID quận/huyện
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RolesController.GetAllData">
+             <summary>
+             Lấy tất cả quyền
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.GetAllRoomType">
+            <summary>
+            Lấy tất cả loại phòng 
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.Post(DaNangBayBooking.ViewModels.Catalog.RoomTypes.RoomTypeRequest)">
+            <summary>
+            Tạo mới loại phòng
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.GetAllPaging(DaNangBayBooking.ViewModels.Catalog.RoomTypes.GetRoomTypePagingRequest)">
+            <summary>
+            Lấy danh sách loại phòng phân trang và tìm kiếm
+            </summary>
+        </member>
+    </members>
+</doc>

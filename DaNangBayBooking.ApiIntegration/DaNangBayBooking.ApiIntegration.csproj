@@ -8,4 +8,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DaNangBayBooking.Utilities\DaNangBayBooking.Utilities.csproj" />
+    <ProjectReference Include="..\DaNangBayBooking.ViewModels\DaNangBayBooking.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

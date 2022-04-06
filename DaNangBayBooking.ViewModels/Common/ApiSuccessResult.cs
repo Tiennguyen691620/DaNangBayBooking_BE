@@ -6,22 +6,16 @@ namespace DaNangBayBooking.ViewModels.Common
 {
     public class ApiSuccessResult<T> : ApiResult<T>
     {
-        private string v;
-
-        public ApiSuccessResult(T resultObj)
+        public ApiSuccessResult(T data)
         {
             IsSuccessed = true;
-            ResultObj = resultObj;
+            Data = data;
         }
 
         public ApiSuccessResult()
         {
             IsSuccessed = true;
         }
-
-        public ApiSuccessResult(string v)
-        {
-            this.v = v;
-        }
+       
     }
 }

@@ -4,14 +4,16 @@ using DaNangBayBooking.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DaNangBayBooking.Data.Migrations
 {
     [DbContext(typeof(DaNangDbContext))]
-    partial class DangNangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220404034647_fourth")]
+    partial class fourth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +116,16 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
+                            ConcurrencyStamp = "bf9eb70f-49a4-448d-a51d-bf7bfad68c51",
+                            Description = "Administrator role",
+                            Name = "admin",
+                            NormalizedName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.AppUser", b =>
@@ -125,11 +137,17 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ActiveDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("AppRoleID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -148,8 +166,15 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<DateTime>("LastLoginDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("IdentityCard")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -184,11 +209,43 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("WardID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppRoleID");
 
+                    b.HasIndex("WardID");
+
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"),
+                            AccessFailedCount = 0,
+                            ActiveDate = new DateTime(2022, 4, 4, 10, 46, 47, 18, DateTimeKind.Local).AddTicks(7415),
+                            Address = "100, Âu Cơ",
+                            AppRoleID = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
+                            ConcurrencyStamp = "e59f8a46-49d4-4e67-9a47-0f09bfa50d6d",
+                            Dob = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tiennguyen691620@gmail.com",
+                            EmailConfirmed = true,
+                            FullName = "Nguyễn Tân Tiến",
+                            Gender = "Nam",
+                            IdentityCard = "241777698",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "tiennguyen691620@gmail.com",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGUv7HVLdljeg52wC7vPwmRgwnm57cP1sINZDj+zCcwWQJKWh8qHMyTNWklf/YQbvA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            Status = 1,
+                            TwoFactorEnabled = false,
+                            UserName = "admin",
+                            WardID = new Guid("ad4a9655-2853-48c1-bc51-cfc722accb3c")
+                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.BookRoom", b =>
@@ -323,12 +380,27 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<Guid>("ProvinceID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
                     b.HasKey("DistrictID");
 
+                    b.HasIndex("ProvinceID");
+
                     b.ToTable("Districts");
+
+                    b.HasData(
+                        new
+                        {
+                            DistrictID = new Guid("6bff281c-0fc4-4635-9a46-6fb6f34c6732"),
+                            Name = "Quận Liên Chiểu",
+                            No = "490",
+                            ProvinceID = new Guid("8a0f40a0-5fff-4afa-b878-0eb7c43bdd59"),
+                            SortOrder = 360
+                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.ImageAccommodation", b =>
@@ -373,6 +445,39 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasIndex("RoomID");
 
                     b.ToTable("ImageRooms");
+                });
+
+            modelBuilder.Entity("DaNangBayBooking.Data.Entities.Province", b =>
+                {
+                    b.Property<Guid>("ProvinceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("No")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProvinceID");
+
+                    b.ToTable("Provinces");
+
+                    b.HasData(
+                        new
+                        {
+                            ProvinceID = new Guid("8a0f40a0-5fff-4afa-b878-0eb7c43bdd59"),
+                            Name = "Thành phố Đà Nẵng",
+                            No = "48",
+                            SortOrder = 32
+                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.RateComment", b =>
@@ -539,6 +644,16 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasIndex("DistrictID");
 
                     b.ToTable("Wards");
+
+                    b.HasData(
+                        new
+                        {
+                            WardID = new Guid("ad4a9655-2853-48c1-bc51-cfc722accb3c"),
+                            DistrictID = new Guid("6bff281c-0fc4-4635-9a46-6fb6f34c6732"),
+                            Name = "Phường Hòa Hiệp Bắc",
+                            No = "20194",
+                            SortOrder = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -614,6 +729,13 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"),
+                            RoleId = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -652,6 +774,12 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasForeignKey("AppRoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DaNangBayBooking.Data.Entities.Ward", "Ward")
+                        .WithMany("AppUsers")
+                        .HasForeignKey("WardID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.BookRoom", b =>
@@ -665,7 +793,7 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasOne("DaNangBayBooking.Data.Entities.AppUser", "AppUser")
                         .WithMany("BookRooms")
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
@@ -681,6 +809,15 @@ namespace DaNangBayBooking.Data.Migrations
                         .WithOne("BookRoomDetails")
                         .HasForeignKey("DaNangBayBooking.Data.Entities.BookRoomDetail", "RoomID")
                         .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DaNangBayBooking.Data.Entities.District", b =>
+                {
+                    b.HasOne("DaNangBayBooking.Data.Entities.Province", "Province")
+                        .WithMany("Districts")
+                        .HasForeignKey("ProvinceID")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

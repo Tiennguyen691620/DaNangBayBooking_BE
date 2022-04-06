@@ -21,6 +21,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using DaNangBayBooking.Application.System.Users;
 using DaNangBayBooking.ViewModels.System.Users;
+using Microsoft.AspNetCore.Http;
+using DaNangBayBooking.Application.Catalog.Provinces;
+using DaNangBayBooking.Application.Catalog.Districts;
+using DaNangBayBooking.Application.Catalog.Wards;
+using System.Reflection;
+using System.IO;
+using DaNangBayBooking.Application.Catalog.RoomTypes;
 
 namespace BackendApi
 {
@@ -30,7 +37,7 @@ namespace BackendApi
         {
             Configuration = configuration;
         }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,15 +49,20 @@ namespace BackendApi
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<DaNangDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddRazorPages();
+            services.AddRazorPages();
 
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
+            services.AddTransient<IProvinceService, ProvinceService>();
+            services.AddTransient<IDistrictService, DistrictService>();
+            services.AddTransient<IWardService, WardService>();
+            services.AddTransient<IRoomTypeService, RoomTypeService>();
+
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
-
+            services.AddCors();
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
@@ -86,6 +98,8 @@ namespace BackendApi
                         new List<string>()
                       }
                     });
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
 
             string issuer = Configuration.GetValue<string>("Tokens:Issuer");
@@ -134,7 +148,9 @@ namespace BackendApi
 
             app.UseAuthentication();
             app.UseRouting();
-
+            app.UseCors( options => options.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             app.UseAuthorization();
 
             app.UseSwagger();
