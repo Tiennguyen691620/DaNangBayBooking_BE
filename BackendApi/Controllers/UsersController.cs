@@ -80,6 +80,27 @@ namespace DaNangBayBooking.BackendApi.Controllers
             }
             return Ok(result);
         }
-
+        /// <summary>
+        /// Lấy danh sách  tài khoản phân trang 
+        /// </summary>
+        /// 
+        [HttpGet("get-all-paging")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<List<UserVm>>>> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        {
+            var user = await _userService.GetUsersAllPaging(request);
+            return Ok(user);
+        }
+        /// <summary>
+        /// Lấy thông tin chi tiết tài khoản
+        /// </summary>
+        /// 
+        [HttpGet("get-by-id/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserVm>> GetById(Guid id)
+        {
+            var user = await _userService.GetById(id);
+            return Ok(user);
+        }
     }
 }

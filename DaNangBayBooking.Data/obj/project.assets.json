@@ -6012,19 +6012,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
       "projectName": "DaNangBayBooking.Data",
-      "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\obj\\",
+      "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6094,7 +6094,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

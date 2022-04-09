@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\BackendApi\\DaNangBayBooking.BackendApi.csproj": {}
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\BackendApi\\DaNangBayBooking.BackendApi.csproj": {}
   },
   "projects": {
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\BackendApi\\DaNangBayBooking.BackendApi.csproj": {
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\BackendApi\\DaNangBayBooking.BackendApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\BackendApi\\DaNangBayBooking.BackendApi.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\BackendApi\\DaNangBayBooking.BackendApi.csproj",
         "projectName": "DaNangBayBooking.BackendApi",
-        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\BackendApi\\DaNangBayBooking.BackendApi.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\BackendApi\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\BackendApi\\DaNangBayBooking.BackendApi.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\BackendApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,24 +22,23 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj"
               },
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
               },
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj"
               },
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"
               }
             }
           }
@@ -93,21 +92,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj": {
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj",
         "projectName": "DaNangBayBooking.Application",
-        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Application\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\DaNangBayBooking.Application.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -115,18 +114,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
               },
-              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
-                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"
               }
             }
           }
@@ -165,21 +163,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
         "projectName": "DaNangBayBooking.Data",
-        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -187,7 +185,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -250,21 +247,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj",
         "projectName": "DaNangBayBooking.Utilities",
-        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Utilities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -272,7 +269,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -305,21 +301,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
+    "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj",
         "projectName": "DaNangBayBooking.ViewModels",
-        "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.ViewModels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -327,13 +323,16 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\DaNangBayBooking_BE\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -370,7 +369,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

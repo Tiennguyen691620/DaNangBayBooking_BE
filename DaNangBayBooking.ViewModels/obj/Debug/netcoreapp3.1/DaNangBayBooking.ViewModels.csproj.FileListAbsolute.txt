@@ -8,3 +8,16 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CoreCompileInputs.cache
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.deps.json
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.AssemblyInfo.cs
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CopyComplete

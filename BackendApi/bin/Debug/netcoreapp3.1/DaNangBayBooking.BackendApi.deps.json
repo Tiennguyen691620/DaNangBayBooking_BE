@@ -1615,11 +1615,7 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ComponentModel.Annotations/4.7.0": {
-        "compile": {
-          "ref/netstandard2.1/System.ComponentModel.Annotations.dll": {}
-        }
-      },
+      "System.ComponentModel.Annotations/4.7.0": {},
       "System.ComponentModel.Primitives/4.3.0": {
         "dependencies": {
           "System.ComponentModel": "4.3.0",
@@ -2547,6 +2543,7 @@
       },
       "DaNangBayBooking.ViewModels/1.0.0": {
         "dependencies": {
+          "DaNangBayBooking.Data": "1.0.0",
           "FluentValidation.AspNetCore": "10.4.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.15"
         },
