@@ -2,13 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="prometheus-net" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DaNangBayBooking.Application\DaNangBayBooking.Application.csproj" />
+    <ProjectReference Include="..\DaNangBayBooking.Data\DaNangBayBooking.Data.csproj" />
+    <ProjectReference Include="..\DaNangBayBooking.Utilities\DaNangBayBooking.Utilities.csproj" />
+    <ProjectReference Include="..\DaNangBayBooking.ViewModels\DaNangBayBooking.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

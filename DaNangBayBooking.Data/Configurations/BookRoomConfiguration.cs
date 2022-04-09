@@ -29,7 +29,7 @@ namespace DaNangBayBooking.Data.Configurations
             builder.Property(x => x.Status);
 
             builder.HasOne(x => x.Accommodation).WithMany(x => x.BookRooms).HasForeignKey(x => x.AccommodationID);
-            builder.HasOne(x => x.AppUser).WithMany(x => x.BookRooms).HasForeignKey(x => x.UserID);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.BookRooms).HasForeignKey(x => x.UserID).OnDelete(DeleteBehavior.ClientCascade);
 
         }
     }

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DaNangBayBooking.BackendApi</name>
+    </assembly>
+    <members>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAll">
+            <summary>
+            Lấy tất cả loại CSLT
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RolesController.GetAllData">
+             <summary>
+             Lấy tất cả quyền
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.GetAllRoomType">
+            <summary>
+            Lấy tất cả loại phòng 
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.GetByID(System.Guid)">
+            <summary>
+            Lấy loại phòng theo ID
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.Post(DaNangBayBooking.ViewModels.Catalog.RoomTypes.RoomTypeRequest)">
+            <summary>
+            Tạo mới loại phòng
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.GetAllPaging(DaNangBayBooking.ViewModels.Catalog.RoomTypes.GetRoomTypePagingRequest)">
+            <summary>
+            Lấy danh sách loại phòng phân trang và tìm kiếm
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.Delete(DaNangBayBooking.ViewModels.Catalog.RoomTypes.RoomTypeDeleteRequest)">
+            <summary>
+            Xóa và vô hiệu hóa loại phòng
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.Update(DaNangBayBooking.ViewModels.Catalog.RoomTypes.RoomTypeUpdateRequest)">
+            <summary>
+            Cập nhật loại phòng
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.LoginClient(DaNangBayBooking.ViewModels.System.Users.LoginRequest)">
+            <summary>
+            Đăng nhập dành cho khách hàng
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.LoginAdmin(DaNangBayBooking.ViewModels.System.Users.LoginRequest)">
+            <summary>
+            Đăng nhập dành cho admin
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.Register(DaNangBayBooking.ViewModels.System.Users.RegisterRequest)">
+            <summary>
+            Đăng kí tài khoản khách hàng
+            </summary>
+        </member>
+    </members>
+</doc>

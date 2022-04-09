@@ -8,3 +8,8 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\obj\Debu
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.csproj.CoreCompileInputs.cache
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.csproj.CopyComplete

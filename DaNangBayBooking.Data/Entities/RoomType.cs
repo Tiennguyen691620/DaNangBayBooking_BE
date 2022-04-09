@@ -14,6 +14,8 @@ namespace DaNangBayBooking.Data.Entities
 
         public string No { get; set; }
 
+        public bool Status { get; set; }
+
         public List<Room> Rooms { get; set; }
     }
 }
