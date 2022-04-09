@@ -31,17 +31,21 @@ namespace DaNangBayBooking.Application.System.Users
             _config = config;
         }
 
-        public async Task<ApiResult<LoginUser>> Authencate(LoginRequest request)
+        public async Task<ApiResult<LoginUser>> LoginAdmin(LoginRequest request)
         {
+            
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null) return new ApiErrorResult<LoginUser>("Tài khoản không tồn tại");
+
+            var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
+            if (roles.Name.ToUpper() == "CLIENT") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản quản trị viên.");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
                 return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
             }
-            var roles = await _userManager.GetRolesAsync(user);
+            //var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
@@ -66,7 +70,51 @@ namespace DaNangBayBooking.Application.System.Users
                 Id = user.Id,
                 UserName = user.UserName,
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
-                Roles = roles
+                RoleName = roles.Name
+            };
+            return new ApiSuccessResult<LoginUser>(loginUser);
+        }
+
+        public async Task<ApiResult<LoginUser>> LoginClient(LoginRequest request)
+        {
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null) return new ApiErrorResult<LoginUser>("Tài khoản không tồn tại");
+
+            var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
+            if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận quản khách hàng.");
+
+            var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
+            if (!result.Succeeded)
+            {
+                return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
+            }
+            //var roles = await _userManager.GetRolesAsync(user);
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.GivenName,user.FullName),
+                new Claim(ClaimTypes.Role, string.Join(";",roles)),
+                new Claim(ClaimTypes.Name, user.UserName)
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+                _config["Tokens:Issuer"],
+                claims,
+                expires: DateTime.Now.AddHours(3),
+                signingCredentials: creds);
+            var loginUser = new LoginUser()
+            {
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FullName = user.FullName,
+                Dob = user.Dob,
+                Id = user.Id,
+                UserName = user.UserName,
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
+                RoleName = roles.Name
             };
             return new ApiSuccessResult<LoginUser>(loginUser);
         }

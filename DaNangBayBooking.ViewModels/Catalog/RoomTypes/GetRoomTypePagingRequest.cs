@@ -7,6 +7,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.RoomTypes
 {
     public class GetRoomTypePagingRequest : PagingRequestBase
     {
-        public string SearchKey { get; set; }
+        public string searchKey { get; set; }
     }
 }

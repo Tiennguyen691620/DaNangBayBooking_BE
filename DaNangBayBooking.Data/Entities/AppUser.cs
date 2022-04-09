@@ -12,7 +12,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public Guid AppRoleID { get; set; }
 
-        public Guid WardID { get; set; }
+        public Guid LocationID { get; set; }
 
         public DateTime Dob { get; set; }
 
@@ -30,7 +30,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public AppRole AppRole { get; set; }
 
-        public Ward Ward { get; set; }
+        public Location Location { get; set; }
 
         public List<BookRoom> BookRooms { get; set; }
 

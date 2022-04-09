@@ -9,7 +9,8 @@ namespace DaNangBayBooking.Application.System.Users
 {
     public interface IUserService
     {
-        Task<ApiResult<LoginUser>> Authencate(LoginRequest request);
+        Task<ApiResult<LoginUser>> LoginAdmin(LoginRequest request);
+        Task<ApiResult<LoginUser>> LoginClient(LoginRequest request);
         Task<ApiResult<bool>> Register(RegisterRequest request);
     }
 }

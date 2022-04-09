@@ -1,5 +1,7 @@
 ﻿using DaNangBayBooking.Application.Catalog.RoomTypes;
+using DaNangBayBooking.Data.Entities;
 using DaNangBayBooking.ViewModels.Catalog.RoomTypes;
+using DaNangBayBooking.ViewModels.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -28,9 +30,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy tất cả loại phòng 
         /// </summary>
         [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllRoomType()
+        public async Task<ActionResult<ApiResult<List<RoomTypeVm>>>> GetAllRoomType()
         {
             var roomTypes = await _roomTypeService.GetAll();
+            return Ok(roomTypes);
+        }
+
+        /// <summary>
+        /// Lấy loại phòng theo ID
+        /// </summary>
+        [HttpGet("get/{roomTypeID}")]
+        public async Task<ActionResult<ApiResult<RoomTypeVm>>> GetByID(Guid roomTypeID)
+        {
+            var roomTypes = await _roomTypeService.GetByID(roomTypeID);
             return Ok(roomTypes);
         }
 
@@ -38,7 +50,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Tạo mới loại phòng
         /// </summary>
         [HttpPost("create")]
-        public async Task<IActionResult> Post(RoomTypeRequest request)
+        public async Task<ActionResult> Post(RoomTypeRequest request)
         {
             var roomTypes = await _roomTypeService.Post(request);
             return Ok(roomTypes);
@@ -47,10 +59,30 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// <summary>
         /// Lấy danh sách loại phòng phân trang và tìm kiếm
         /// </summary>
-        [HttpGet("filter/")]
-        public async Task<IActionResult> GetAllPaging([FromQuery] GetRoomTypePagingRequest request)
+        [HttpGet("filter")]
+        public async Task<ActionResult> GetAllPaging([FromQuery] GetRoomTypePagingRequest request)
         {
             var roomTypes = await _roomTypeService.GetAllPaging(request);
+            return Ok(roomTypes);
+        }
+
+        /// <summary>
+        /// Xóa và vô hiệu hóa loại phòng
+        /// </summary>
+        [HttpDelete("delete")]
+        public async Task<ActionResult<ApiResult<bool>>> Delete([FromBody] RoomTypeDeleteRequest request)
+        {
+            var roomTypes = await _roomTypeService.Delete(request);
+            return Ok(roomTypes);
+        }
+
+        /// <summary>
+        /// Cập nhật loại phòng
+        /// </summary>
+        [HttpPut("update")]
+        public async Task<ActionResult<ApiResult<bool>>> Update([FromBody] RoomTypeUpdateRequest request)
+        {
+            var roomTypes = await _roomTypeService.Update(request);
             return Ok(roomTypes);
         }
     }

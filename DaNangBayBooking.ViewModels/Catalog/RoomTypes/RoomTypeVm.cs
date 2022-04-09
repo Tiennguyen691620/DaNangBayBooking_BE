@@ -13,5 +13,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.RoomTypes
         public string Description { get; set; }
 
         public string No { get; set; }
+
+        public bool Status { get; set; }
     }
 }

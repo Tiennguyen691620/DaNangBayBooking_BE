@@ -22,12 +22,11 @@ using Microsoft.IdentityModel.Tokens;
 using DaNangBayBooking.Application.System.Users;
 using DaNangBayBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
-using DaNangBayBooking.Application.Catalog.Provinces;
-using DaNangBayBooking.Application.Catalog.Districts;
 using DaNangBayBooking.Application.Catalog.Wards;
 using System.Reflection;
 using System.IO;
 using DaNangBayBooking.Application.Catalog.RoomTypes;
+using DaNangBayBooking.Application.Catalog.AccommodationType;
 
 namespace BackendApi
 {
@@ -55,10 +54,9 @@ namespace BackendApi
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
-            services.AddTransient<IProvinceService, ProvinceService>();
-            services.AddTransient<IDistrictService, DistrictService>();
-            services.AddTransient<IWardService, WardService>();
+            //services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IRoomTypeService, RoomTypeService>();
+            services.AddTransient<IAccommodationTypeService, AccommodationTypeService>();
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();

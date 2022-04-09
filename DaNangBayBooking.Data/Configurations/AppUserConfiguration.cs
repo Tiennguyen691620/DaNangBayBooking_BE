@@ -20,7 +20,7 @@ namespace DaNangBayBooking.Data.Configurations
             builder.Property(x => x.Avatar);
 
             builder.HasOne(x => x.AppRole).WithMany(x => x.AppUsers).HasForeignKey(x => x.AppRoleID);
-            builder.HasOne(x => x.Ward).WithMany(x => x.AppUsers).HasForeignKey(x => x.WardID);
+            builder.HasOne(x => x.Location).WithMany(x => x.AppUsers).HasForeignKey(x => x.LocationID);
 
         }
     }

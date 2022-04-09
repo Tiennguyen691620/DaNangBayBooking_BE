@@ -13,7 +13,6 @@ namespace DaNangBayBooking.ViewModels.System.Users
         public string Email { get; set; }
         public DateTime Dob { get; set; }
         public string AccessToken { get; set; }
-
-        public IList<string> Roles { get; set; }
+        public string RoleName { get; set; }
     }
 }

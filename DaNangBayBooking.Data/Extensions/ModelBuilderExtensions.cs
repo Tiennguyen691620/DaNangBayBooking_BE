@@ -11,50 +11,46 @@ namespace DaNangBayBooking.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            var ProvinceID = new Guid("8A0F40A0-5FFF-4AFA-B878-0EB7C43BDD59");
-            var DistrictID = new Guid("6BFF281C-0FC4-4635-9A46-6FB6F34C6732");
-            var WardID = new Guid("AD4A9655-2853-48C1-BC51-CFC722ACCB3C");
-            modelBuilder.Entity<Ward>().HasData(new Ward
+            var LocationID = new Guid("f4f9a364-599c-11ec-ab77-0639800004fa");
+            modelBuilder.Entity<Location>().HasData(new Location
             {
-                WardID = WardID,
-                Name = "Phường Hòa Hiệp Bắc",
-                No = "20194",
-                SortOrder = 1,
-                DistrictID = DistrictID,
-            });
-            modelBuilder.Entity<District>().HasData(new District
-            {
-                DistrictID = DistrictID,
-                Name = "Quận Liên Chiểu",
-                No = "490",
-                SortOrder = 360,
-                ProvinceID = ProvinceID,
-            });
-            modelBuilder.Entity<Province>().HasData(new Province
-            {
-                ProvinceID = ProvinceID,
-                Name = "Thành phố Đà Nẵng",
-                No = "48",
-                SortOrder = 32,
+                LocationID = LocationID,
+                IsDeleted = false,
+                Name = "Tỉnh Sóc Trăng",
+                Type = "Province",
+                ParentID = new Guid("0c0103f5-792f-11ec-8f95-0639800004fa"),
+                SortOrder = 51,
+                Code = "SM97",
             });
 
             //any guid
-            var roleID = new Guid("3FBC6C82-5EA2-47C8-BC7C-0D9ED0281045");
+            var roleID1 = new Guid("3FBC6C82-5EA2-47C8-BC7C-0D9ED0281045");
+            var roleID2 = new Guid("1A31C9DF-861D-4E53-B076-C3081E1C2666");
             var roleAdmin = new Guid("06FDB157-C52F-4E71-ADF5-0F08BB0AF468");
+            var roleClientID = new Guid("4D4F5B12-BC9A-46B1-BA0B-07CEA34E35F8");
 
             modelBuilder.Entity<AppRole>().HasData(new AppRole
             {
-                Id = roleID,
+                Id = roleID1,
                 Name = "admin",
                 NormalizedName = "admin",
                 Description = "Administrator role"
-            });
+            },
+            new AppRole
+            {
+                Id = roleID2,
+                Name = "Client",
+                NormalizedName = "Client",
+                Description = "Cliener role"
+            }
+            );
+
 
             var hasher = new PasswordHasher<AppUser>();
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 Id = roleAdmin,
-                AppRoleID = roleID,
+                AppRoleID = roleID1,
                 UserName = "admin",
                 NormalizedUserName = "admin",
                 Email = "tiennguyen691620@gmail.com",
@@ -67,16 +63,43 @@ namespace DaNangBayBooking.Data.Extensions
                 IdentityCard= "241777698",
                 Gender = "Nam",
                 Address = "100, Âu Cơ",
-                WardID = WardID,
+                LocationID = LocationID,
                 ActiveDate = DateTime.Now,
                 Status = Enums.Status.Active,
-            });
+            },
+            new AppUser
+            {
+                Id = roleClientID,
+                AppRoleID = roleID2,
+                UserName = "tiennguyen",
+                NormalizedUserName = "tiennguyen",
+                Email = "tiennguyen3129@gmail.com",
+                NormalizedEmail = "tiennguyen3129@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "0889161328Tn@"),
+                SecurityStamp = string.Empty,
+                FullName = "Nguyễn Tân Tiến",
+                Dob = new DateTime(2000, 01, 06),
+                IdentityCard = "241777698",
+                Gender = "Nam",
+                Address = "100, Âu Cơ",
+                LocationID = LocationID,
+                ActiveDate = DateTime.Now,
+                Status = Enums.Status.Active,
+            }
+            );
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
             {
-                RoleId = roleID,
+                RoleId = roleID1,
                 UserId = roleAdmin
-            });
+            },
+            new IdentityUserRole<Guid>
+            {
+                RoleId = roleID2,
+                UserId = roleClientID
+            }
+            );
 
             
         }

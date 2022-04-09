@@ -1,6 +1,4 @@
-﻿using DaNangBayBooking.Application.Catalog.Districts;
-using DaNangBayBooking.Application.Catalog.Provinces;
-using DaNangBayBooking.Application.Catalog.Wards;
+﻿using DaNangBayBooking.Application.Catalog.Wards;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,60 +16,54 @@ namespace DaNangBayBooking.BackendApi.Controllers
     //[Authorize]
     public class MasterDataController : ControllerBase
     {
-        private readonly IProvinceService _provinceService;
-        private readonly IDistrictService _districtService;
-        private readonly IWardService _wardService;
+        private readonly ILocationService _locationService;
 
         public MasterDataController(
-            IProvinceService provinceService,
-            IDistrictService districtService,
-            IWardService wardService
+            ILocationService wardService
 
             )
         {
-            _provinceService = provinceService;
-            _districtService = districtService;
-            _wardService = wardService;
+            _locationService = wardService;
         }
 
         /// <summary>
         /// Lấy tất cả tỉnh thành
         /// </summary>
-        [HttpGet("loacation/get-all/province")]
+        /*[HttpGet("loacation/get-all/province")]
         public async Task<IActionResult> GetProvinceAll()
         {
             var provinces = await _provinceService.GetAll();
             return Ok(provinces);
-        }
+        }*/
 
         /// <summary>
         /// Lấy tỉnh/thành phố theo ID tỉnh/thành phố
         /// </summary>
-        [HttpGet("loacation/{provinceID}/province")]
+        /*[HttpGet("loacation/{provinceID}/province")]
         public async Task<IActionResult> GetById(Guid provinceID)
         {
             var provinces = await _provinceService.GetById(provinceID);
             return Ok(provinces);
-        }
+        }*/
 
         ///<summary>
         ///Lấy quận/huyện theo ID tỉnh/thành phố
         ///</summary>
-        [HttpGet("loacation/{provinceID}/district")]
+       /* [HttpGet("loacation/{provinceID}/district")]
         public async Task<IActionResult> GetDistrictAll(Guid provinceID)
         {
             var districts = await _districtService.GetAll(provinceID);
             return Ok(districts);
-        }
+        }*/
 
         /// <summary>
         /// Lấy phường/xã theo ID quận/huyện
         /// </summary>
-        [HttpGet("loacation/{districtID}/ward")]
+       /* [HttpGet("loacation/{districtID}/ward")]
         public async Task<IActionResult> GetWardAll(Guid districtID)
         {
             var wards = await _wardService.GetAll(districtID);
             return Ok(wards);
-        }
+        }*/
     }
 }

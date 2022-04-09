@@ -19,20 +19,19 @@ namespace DaNangBayBooking.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AccommodationConfiguration());
+            modelBuilder.ApplyConfiguration(new AccommodationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
             modelBuilder.ApplyConfiguration(new BookRoomConfiguration());
             modelBuilder.ApplyConfiguration(new BookRoomDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.ApplyConfiguration(new ImageAccommodationConfiguration());
             modelBuilder.ApplyConfiguration(new ImageRoomConfiguration());
             modelBuilder.ApplyConfiguration(new RateCommentConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new RoomTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UtilityConfiguration());
-            modelBuilder.ApplyConfiguration(new WardConfiguration());
-            modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -50,16 +49,15 @@ namespace DaNangBayBooking.Data.EF
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<AppConfig> AppConfigs { get; set; }
         public DbSet<Accommodation> Accommodations { get; set; }
+        public DbSet<AccommodationType> AccommodationTypes { get; set; }
         public DbSet<BookRoom> BookRooms { get; set; }
         public DbSet<BookRoomDetail> BookRoomDetails { get; set; }
-        public DbSet<District> Districts { get; set; }
         public DbSet<ImageAccommodation> ImageAccommodations { get; set; }
         public DbSet<ImageRoom> ImageRooms { get; set; }
         public DbSet<RateComment> RateComments { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Utility> Utilities { get; set; }
-        public DbSet<Ward> Wards { get; set; }
-        public DbSet<Province> Provinces { get; set; }
+        public DbSet<Location> Locations { get; set; }
     }
 }

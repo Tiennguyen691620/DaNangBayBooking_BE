@@ -9,7 +9,9 @@ namespace DaNangBayBooking.Data.Entities
     {
         public Guid AccommodationID { get; set; }
 
-        public Guid WardID { get; set; }
+        public Guid LocationID { get; set; }
+
+        public Guid AccommodationTypeID { get; set; }
 
         public string Name { get; set; }
 
@@ -29,7 +31,9 @@ namespace DaNangBayBooking.Data.Entities
 
         public Status Status { get; set; }
 
-        public Ward Ward { get; set; }
+        public Location Location { get; set; }
+
+        public AccommodationType AccommodationType { get; set; }
 
         public List<Utility> Utilities { get; set; }
 

@@ -25,7 +25,8 @@ namespace DaNangBayBooking.Data.Configurations
             builder.Property(x => x.Phone).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Status);
 
-            builder.HasOne(x => x.Ward).WithMany(x => x.Accommodations).HasForeignKey(x => x.WardID);
+            builder.HasOne(x => x.Location).WithMany(x => x.Accommodations).HasForeignKey(x => x.LocationID);
+            builder.HasOne(x => x.AccommodationType).WithMany(x => x.Accommodations).HasForeignKey(x => x.AccommodationTypeID);
 
         }
     }

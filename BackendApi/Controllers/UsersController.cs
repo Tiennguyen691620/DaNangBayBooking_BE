@@ -1,4 +1,5 @@
 ﻿using DaNangBayBooking.Application.System.Users;
+using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -23,15 +24,37 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             _userService = userService;
         }
-        
-        [HttpPost("login")] 
+
+        /// <summary>
+        /// Đăng nhập dành cho khách hàng
+        /// </summary>
+        [HttpPost("login-client")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
+        public async Task<ActionResult<ApiResult<LoginUser>>> LoginClient([FromBody] LoginRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _userService.Authencate(request);
+            var result = await _userService.LoginClient(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Đăng nhập dành cho admin
+        /// </summary>
+        [HttpPost("login-admin")] 
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<LoginUser>>> LoginAdmin([FromBody] LoginRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.LoginAdmin(request);
 
             if (result==null)
             {
@@ -40,9 +63,12 @@ namespace DaNangBayBooking.BackendApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("register")]
+        /// <summary>
+        /// Đăng kí tài khoản khách hàng
+        /// </summary>
+        [HttpPost("register-client")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<ActionResult<ApiResult<bool>>> Register([FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
