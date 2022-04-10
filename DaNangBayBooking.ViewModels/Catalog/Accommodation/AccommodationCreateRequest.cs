@@ -1,9 +1,11 @@
 ﻿using DaNangBayBooking.Data.Enums;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
 using DaNangBayBooking.ViewModels.Catalog.BookRooms;
+using DaNangBayBooking.ViewModels.Catalog.Images;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
 using DaNangBayBooking.ViewModels.Catalog.Utilities;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,11 +38,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public Status Status { get; set; }
 
-        public LocationVm Location { get; set; }
-
-        public AccommodationTypeVm AccommodationType { get; set; }
-
-        public List<ImageAccommodationVm> ImageAccommodations { get; set; }
+        public List<ImageAccommodationCreateRequest> Image { get; set; }
 
     }
 }

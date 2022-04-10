@@ -21,4 +21,9 @@
     <ProjectReference Include="..\DaNangBayBooking.ViewModels\DaNangBayBooking.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\Images\Accommodation-content\" />
+  </ItemGroup>
+
 </Project>
