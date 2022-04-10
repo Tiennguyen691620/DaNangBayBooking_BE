@@ -1,4 +1,5 @@
 ﻿using DaNangBayBooking.ViewModels.Catalog.Accommodation;
+using DaNangBayBooking.ViewModels.Catalog.Images;
 using DaNangBayBooking.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
     {
         Task<ApiResult<PagedResult<AccommodationVm>>> GetAccommodationsAllPaging(GetAccommodationPagingRequest request);
         Task<ApiResult<AccommodationVm>> GetById(Guid id);
-        //Task<ApiResult<bool>> CreateAccommodation(AccommodationCreateRequest request);
-
+        Task<ApiResult<bool>> CreateAccommodation(AccommodationCreateRequest request);
+        Task<ApiResult<ImageVm>> AddImage(ImageCreateRequest request);
     }
 }
