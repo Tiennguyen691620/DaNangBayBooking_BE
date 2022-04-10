@@ -2890,6 +2890,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "DaNangBayBooking.Data": "1.0.0",
           "FluentValidation.AspNetCore": "10.4.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.15"
         },

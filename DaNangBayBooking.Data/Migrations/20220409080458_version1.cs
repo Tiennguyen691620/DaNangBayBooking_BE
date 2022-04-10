@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DaNangBayBooking.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class version1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -415,12 +415,20 @@ namespace DaNangBayBooking.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), "bc5fc421-77d9-4e94-8de6-a337e98eb9c0", "Administrator role", "admin", "admin" });
+                values: new object[,]
+                {
+                    { new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), "d74899e6-15ad-4e85-87fb-78e63141c41f", "Administrator role", "admin", "admin" },
+                    { new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), "f62a107b-3437-426b-8f66-3602bac0509c", "Cliener role", "Client", "Client" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AppUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045") });
+                values: new object[,]
+                {
+                    { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045") },
+                    { new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"), new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666") }
+                });
 
             migrationBuilder.InsertData(
                 table: "Locations",
@@ -430,7 +438,12 @@ namespace DaNangBayBooking.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), 0, new DateTime(2022, 4, 9, 12, 4, 50, 157, DateTimeKind.Local).AddTicks(6252), "100, Âu Cơ", new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), null, "6bc99e80-b204-4071-812c-f435d74d5881", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen691620@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "tiennguyen691620@gmail.com", "admin", "AQAAAAEAACcQAAAAENxyClQYFwGpSZQxVtwMgz6XYtJWcHFebm4Z4fwjezKdKf5j46/SmY+rFh5YCI7Q/w==", null, false, "", 1, false, "admin" });
+                values: new object[] { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), 0, new DateTime(2022, 4, 9, 15, 4, 57, 540, DateTimeKind.Local).AddTicks(5745), "100, Âu Cơ", new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), null, "313a2585-2245-4a4d-8b26-65daf9722df9", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen691620@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "tiennguyen691620@gmail.com", "admin", "AQAAAAEAACcQAAAAELQaqertjSF9V72IS+KgtJUkUB3oF2R6ej0teHyyRc2y+Y81yFH9Nt+sHGWCSDjyAQ==", null, false, "", 1, false, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"), 0, new DateTime(2022, 4, 9, 15, 4, 57, 549, DateTimeKind.Local).AddTicks(9345), "100, Âu Cơ", new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), null, "b2aad5a1-6607-468b-8916-227283ffc5c5", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen3129@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "tiennguyen3129@gmail.com", "tiennguyen", "AQAAAAEAACcQAAAAEP3qXqNdhQGbAORuVqUY931q5tdG39tyfA5U4/ZANI132wyMX9RlOGm7ClxvQm3xdQ==", null, false, "", 1, false, "tiennguyen" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accommodations_AccommodationTypeID",

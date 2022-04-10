@@ -4,10 +4,17 @@
         <name>DaNangBayBooking.BackendApi</name>
     </assembly>
     <members>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAll">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAllPaging(DaNangBayBooking.ViewModels.Catalog.Accommodation.GetAccommodationPagingRequest)">
             <summary>
-            Lấy tất cả loại CSLT
+            Lấy danh sách  tài khoản phân trang 
             </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetById(System.Guid)">
+            <summary>
+            Lấy thông tin chi tiết tài khoản
+            </summary>
+            
         </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.RolesController.GetAllData">
              <summary>
@@ -58,6 +65,18 @@
             <summary>
             Đăng kí tài khoản khách hàng
             </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
+            <summary>
+            Lấy danh sách  tài khoản phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetById(System.Guid)">
+            <summary>
+            Lấy thông tin chi tiết tài khoản
+            </summary>
+            
         </member>
     </members>
 </doc>

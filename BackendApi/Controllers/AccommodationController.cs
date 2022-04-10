@@ -1,6 +1,8 @@
-﻿using DaNangBayBooking.Application.Catalog.AccommodationType;
+﻿using DaNangBayBooking.Application.Catalog.Accommodations;
+using DaNangBayBooking.ViewModels.Catalog.Accommodation;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
 using DaNangBayBooking.ViewModels.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,24 +17,37 @@ namespace DaNangBayBooking.BackendApi.Controllers
     [ApiController]
     public class AccommodationController : ControllerBase
     {
-        private readonly IAccommodationTypeService _accommodationTypeService;
+        private readonly IAccommodationService _accommodationService;
 
         public AccommodationController(
-            IAccommodationTypeService accommodationTypeService
+            IAccommodationService accommodationService
 
             )
         {
-            _accommodationTypeService = accommodationTypeService;
+            _accommodationService = accommodationService;
         }
 
         /// <summary>
-        /// Lấy tất cả loại CSLT
+        /// Lấy danh sách  tài khoản phân trang 
         /// </summary>
-        [HttpGet("accommodationType/get-all")]
-        public async Task<ActionResult<ApiResult<List<AccommodationTypeVm>>>> GetAll()
+        /// 
+        [HttpGet("get-all-paging")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<List<AccommodationVm>>>> GetAllPaging([FromQuery] GetAccommodationPagingRequest request)
         {
-            var accommodationTypes = await _accommodationTypeService.GetAll();
-            return Ok(accommodationTypes);
+            var Accommodation = await _accommodationService.GetAccommodationsAllPaging(request);
+            return Ok(Accommodation);
+        }
+        /// <summary>
+        /// Lấy thông tin chi tiết tài khoản
+        /// </summary>
+        /// 
+        [HttpGet("get-by-id/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<AccommodationVm>> GetById(Guid id)
+        {
+            var Accommodation = await _accommodationService.GetById(id);
+            return Ok(Accommodation);
         }
     }
 }

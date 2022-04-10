@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DaNangBayBooking.Data.Migrations
 {
     [DbContext(typeof(DaNangDbContext))]
-    [Migration("20220409065142_second")]
-    partial class second
+    [Migration("20220409080458_version1")]
+    partial class version1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,7 +150,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "7eabacc7-8f8c-41f0-82c4-22292e9217ac",
+                            ConcurrencyStamp = "d74899e6-15ad-4e85-87fb-78e63141c41f",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -158,7 +158,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "aedac7d5-8861-44ef-af69-e3da9fd0e74b",
+                            ConcurrencyStamp = "f62a107b-3437-426b-8f66-3602bac0509c",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -262,10 +262,10 @@ namespace DaNangBayBooking.Data.Migrations
                         {
                             Id = new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"),
                             AccessFailedCount = 0,
-                            ActiveDate = new DateTime(2022, 4, 9, 13, 51, 41, 631, DateTimeKind.Local).AddTicks(7258),
+                            ActiveDate = new DateTime(2022, 4, 9, 15, 4, 57, 540, DateTimeKind.Local).AddTicks(5745),
                             Address = "100, Âu Cơ",
                             AppRoleID = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "8fd88555-d2db-4339-8735-302e9ce29b58",
+                            ConcurrencyStamp = "313a2585-2245-4a4d-8b26-65daf9722df9",
                             Dob = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tiennguyen691620@gmail.com",
                             EmailConfirmed = true,
@@ -276,7 +276,7 @@ namespace DaNangBayBooking.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "tiennguyen691620@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEweHZq94KjzFIT9/oYf5EXI3xZ4MgobErzTgCyF42otvfRjdAAZmrWlyDV67LYoxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELQaqertjSF9V72IS+KgtJUkUB3oF2R6ej0teHyyRc2y+Y81yFH9Nt+sHGWCSDjyAQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 1,
@@ -287,10 +287,10 @@ namespace DaNangBayBooking.Data.Migrations
                         {
                             Id = new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"),
                             AccessFailedCount = 0,
-                            ActiveDate = new DateTime(2022, 4, 9, 13, 51, 41, 640, DateTimeKind.Local).AddTicks(9923),
+                            ActiveDate = new DateTime(2022, 4, 9, 15, 4, 57, 549, DateTimeKind.Local).AddTicks(9345),
                             Address = "100, Âu Cơ",
                             AppRoleID = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "28684c24-c026-4aca-b820-e5659658eca5",
+                            ConcurrencyStamp = "b2aad5a1-6607-468b-8916-227283ffc5c5",
                             Dob = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tiennguyen3129@gmail.com",
                             EmailConfirmed = true,
@@ -301,7 +301,7 @@ namespace DaNangBayBooking.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "tiennguyen3129@gmail.com",
                             NormalizedUserName = "tiennguyen",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPX1L1vOh8STUUMT+JTZfH55/L1NhjK+dyiQbgkZzUnoZgVX/vGhtLZ7nKG3y9acGw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP3qXqNdhQGbAORuVqUY931q5tdG39tyfA5U4/ZANI132wyMX9RlOGm7ClxvQm3xdQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Status = 1,
