@@ -11,5 +11,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
     {
         Task<ApiResult<PagedResult<AccommodationVm>>> GetAccommodationsAllPaging(GetAccommodationPagingRequest request);
         Task<ApiResult<AccommodationVm>> GetById(Guid id);
+        //Task<ApiResult<bool>> CreateAccommodation(AccommodationCreateRequest request);
+
     }
 }
