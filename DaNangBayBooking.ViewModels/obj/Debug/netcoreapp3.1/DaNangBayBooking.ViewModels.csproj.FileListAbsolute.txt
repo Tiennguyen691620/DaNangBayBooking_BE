@@ -21,3 +21,6 @@ C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\ne
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CopyComplete
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.ViewModels\obj\Debug\netcoreapp3.1\DaNangBayBooking.ViewModels.csproj.CopyComplete
