@@ -12,5 +12,7 @@ namespace DaNangBayBooking.Application.System.Users
         Task<ApiResult<LoginUser>> LoginAdmin(LoginRequest request);
         Task<ApiResult<LoginUser>> LoginClient(LoginRequest request);
         Task<ApiResult<bool>> Register(RegisterRequest request);
+        Task<ApiResult<PagedResult<UserVm>>> GetUsersAllPaging(GetUserPagingRequest request);
+        Task<ApiResult<UserVm>> GetById(Guid id);
     }
 }

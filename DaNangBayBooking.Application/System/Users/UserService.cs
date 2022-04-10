@@ -1,4 +1,5 @@
-﻿using DaNangBayBooking.Data.Entities;
+﻿using DaNangBayBooking.Data.EF;
+using DaNangBayBooking.Data.Entities;
 using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using DaNangBayBooking.ViewModels.System.Roles;
+using DaNangBayBooking.ViewModels.Catalog.BookRooms;
+using DaNangBayBooking.ViewModels.Catalog.Locations;
+
 namespace DaNangBayBooking.Application.System.Users
 {
     public class UserService : IUserService
@@ -19,16 +26,18 @@ namespace DaNangBayBooking.Application.System.Users
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
-
+        private readonly DaNangDbContext _context;
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager,
-            IConfiguration config)
+            IConfiguration config,
+            DaNangDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _context = context;
         }
 
         public async Task<ApiResult<LoginUser>> LoginAdmin(LoginRequest request)
@@ -170,7 +179,8 @@ namespace DaNangBayBooking.Application.System.Users
             {
                 return new ApiErrorResult<UserVm>("User không tồn tại");
             }
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
+            var broom = from br in _context.BookRooms select br;
             var userVm = new UserVm()
             {
                 Email = user.Email,
@@ -179,9 +189,125 @@ namespace DaNangBayBooking.Application.System.Users
                 Dob = user.Dob,
                 Id = user.Id,
                 UserName = user.UserName,
-                Roles = roles
+                IdentityCard = user.IdentityCard,
+                Gender = user.Gender,
+                Status = user.Status,
+                ActiveDate = user.ActiveDate,
+                Address = user.Address,
+                Avatar = user.Avatar,
+                LocationID = user.LocationID,
+                Role = new RoleVm()
+                {
+                    RoleID = roles.Id,
+                    Name = roles.Name,
+                    Description = roles.Description
+                },
+                BookRooms = broom.Where(b => b.UserID == user.Id).Select(br => new BookRoomVm()
+                {
+                    BookRoomID = br.BookRoomID,
+                    BookingDate = br.BookingDate,
+                    UserID = user.Id,
+                    AccommodationID = br.AccommodationID,
+                    No = br.No,
+                    Qty = br.Qty,
+                    BookingUser = br.BookingUser,
+                    FromDate = br.FromDate,
+                    ToDate = br.ToDate,
+                    CheckInIdentityCard = br.CheckInIdentityCard,
+                    CheckInMail = br.CheckInMail,
+                    CheckInName = br.CheckInName,
+                    CheckInNote = br.CheckInNote,
+                    Status = br.Status,
+                    TotalPrice = br.TotalPrice
+                }).ToList()
             };
             return new ApiSuccessResult<UserVm>(userVm);
+        }
+
+        public async Task<ApiResult<PagedResult<UserVm>>> GetUsersAllPaging(GetUserPagingRequest request)
+        {
+            var query = from u in _context.AppUsers
+                        join r in _context.Roles on u.AppRoleID equals r.Id
+                        join l in _context.Locations on u.LocationID equals l.LocationID
+                        join b in _context.BookRooms on u.Id equals b.UserID into br
+                        from b in br.DefaultIfEmpty()
+                        select new { u, r ,b , l};
+
+            var broom = from br in _context.BookRooms select br;
+
+            //var patient = _context.Patients;
+
+            if (!string.IsNullOrEmpty(request.SearchKey))
+            {
+                query = query.Where(x => x.u.UserName.Contains(request.SearchKey)
+                 || x.u.PhoneNumber.Contains(request.SearchKey));
+            }
+          
+            //3. Paging
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new UserVm()
+                {
+                    Email = x.u.Email,
+                    PhoneNumber = x.u.PhoneNumber,
+                    UserName = x.u.UserName,
+                    Gender = x.u.Gender,
+                    Id = x.u.Id,
+                    FullName = x.u.FullName,
+                    Status = x.u.Status,
+                    Avatar = x.u.Avatar,
+                    Dob = x.u.Dob,
+                    ActiveDate = x.u.ActiveDate,
+                    LocationID = x.u.LocationID,
+                    IdentityCard = x.u.IdentityCard,
+                    Address = x.u.Address,
+                    Location = new LocationVm()
+                    {
+                        LocationID = x.l.LocationID,
+                        Name = x.l.Name,
+                        IsDeleted = x.l.IsDeleted,
+                        Code = x.l.Code,
+                        SortOrder = x.l.SortOrder,
+                        ParentID = x.l.ParentID,
+                        Type = x.l.Type
+                    },
+                    Role = new RoleVm()
+                    {
+                        RoleID = x.r.Id,
+                        Description = x.r.Description,
+                        Name = x.r.Name
+                    } ,
+                    BookRooms = broom.Where(b=>b.UserID == x.u.Id).Select(br => new BookRoomVm()
+                    {
+                        BookRoomID = br.BookRoomID,
+                        BookingDate = br.BookingDate,
+                        UserID = x.u.Id,
+                        AccommodationID = br.AccommodationID,
+                        No = br.No,
+                        Qty = br.Qty,
+                        BookingUser = br.BookingUser,
+                        FromDate = br.FromDate,
+                        ToDate = br.ToDate,
+                        CheckInIdentityCard = br.CheckInIdentityCard,
+                        CheckInMail = br.CheckInMail,
+                        CheckInName = br.CheckInName,
+                        CheckInNote = br.CheckInNote,
+                        Status = br.Status,
+                        TotalPrice = br.TotalPrice
+                    }).ToList()
+                }).ToListAsync();
+
+            //4. Select and projection
+            var pagedResult = new PagedResult<UserVm>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = data
+            };
+            return new ApiSuccessResult<PagedResult<UserVm>>(pagedResult);
         }
     }
 }

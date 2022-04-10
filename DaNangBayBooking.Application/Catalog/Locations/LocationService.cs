@@ -1,5 +1,5 @@
 ﻿using DaNangBayBooking.Data.EF;
-using DaNangBayBooking.ViewModels.Catalog.Wards;
+using DaNangBayBooking.ViewModels.Catalog.Locations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

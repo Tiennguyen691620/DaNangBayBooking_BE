@@ -1,4 +1,4 @@
-﻿using DaNangBayBooking.ViewModels.Catalog.Wards;
+﻿using DaNangBayBooking.ViewModels.Catalog.Locations;
 using System;
 using System.Collections.Generic;
 using System.Text;

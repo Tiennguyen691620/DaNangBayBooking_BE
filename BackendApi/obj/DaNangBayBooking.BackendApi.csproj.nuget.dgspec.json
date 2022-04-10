@@ -333,7 +333,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

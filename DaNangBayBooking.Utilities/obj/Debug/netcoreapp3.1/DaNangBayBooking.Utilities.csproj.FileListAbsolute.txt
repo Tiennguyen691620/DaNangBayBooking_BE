@@ -8,3 +8,13 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\obj\Debug\
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.csproj.CoreCompileInputs.cache
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.deps.json
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.AssemblyInfo.cs
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
+C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb

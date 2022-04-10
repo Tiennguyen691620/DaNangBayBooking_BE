@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DaNangBayBooking.ViewModels.Catalog.Wards
+namespace DaNangBayBooking.ViewModels.Catalog.Locations
 {
     public class LocationVm
     {
-        public Guid WardID { get; set; }
-
+        public Guid LocationID { get; set; }
+        public bool IsDeleted { get; set; }
         public string Name { get; set; }
-
-        public string No { get; set; }
-
+        public string Type { get; set; }
+        public Guid? ParentID { get; set; }
         public int SortOrder { get; set; }
+        public string Code { get; set; }
     }
 }
