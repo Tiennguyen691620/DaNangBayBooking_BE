@@ -8,5 +8,7 @@ namespace DaNangBayBooking.ViewModels.System.Users
     public class GetUserPagingRequest :  PagingRequestBase
     {
         public string SearchKey { get; set; }
+
+        public Guid RoleID { get; set; }
     }
 }

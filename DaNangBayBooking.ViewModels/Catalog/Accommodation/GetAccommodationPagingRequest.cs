@@ -8,5 +8,9 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
     public class GetAccommodationPagingRequest : PagingRequestBase
     {
         public string SearchKey { get; set; }
+
+        public Guid AccommodationTypeID { get; set; }
+
+        public Guid LocationID { get; set; }
     }
 }
