@@ -1,4 +1,6 @@
 ﻿using DaNangBayBooking.Application.Catalog.Wards;
+using DaNangBayBooking.ViewModels.Catalog.Locations;
+using DaNangBayBooking.ViewModels.Common;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,51 +21,55 @@ namespace DaNangBayBooking.BackendApi.Controllers
         private readonly ILocationService _locationService;
 
         public MasterDataController(
-            ILocationService wardService
+            ILocationService locationService
 
             )
         {
-            _locationService = wardService;
+            _locationService = locationService;
         }
 
         /// <summary>
-        /// Lấy tất cả tỉnh thành
+        /// Lấy phường/xã theo id
         /// </summary>
-        /*[HttpGet("loacation/get-all/province")]
-        public async Task<IActionResult> GetProvinceAll()
+        /// 
+        [HttpGet("location/get-by-id/{Id}")]
+        public async Task<ActionResult<ApiResult<LocationVm>>> GetById(Guid Id)
         {
-            var provinces = await _provinceService.GetAll();
-            return Ok(provinces);
-        }*/
+            var result = await _locationService.GetById(Id);
+            if (result == null)
+                return BadRequest("Cannot find location");
+            return Ok(result);
+        }
 
         /// <summary>
-        /// Lấy tỉnh/thành phố theo ID tỉnh/thành phố
+        /// Lấy tất cả danh sách phường/xã theo quận/huyện
         /// </summary>
-        /*[HttpGet("loacation/{provinceID}/province")]
-        public async Task<IActionResult> GetById(Guid provinceID)
+        /// 
+        [HttpGet("location/get-all${district}/subDistrict")]
+        public async Task<ActionResult<ApiResult<List<LocationVm>>>> GetAllSubDistrict(Guid district)
         {
-            var provinces = await _provinceService.GetById(provinceID);
-            return Ok(provinces);
-        }*/
-
-        ///<summary>
-        ///Lấy quận/huyện theo ID tỉnh/thành phố
-        ///</summary>
-       /* [HttpGet("loacation/{provinceID}/district")]
-        public async Task<IActionResult> GetDistrictAll(Guid provinceID)
-        {
-            var districts = await _districtService.GetAll(provinceID);
-            return Ok(districts);
-        }*/
-
+            var result = await _locationService.GetAllSubDistrict(district);
+            return Ok(result);
+        }
         /// <summary>
-        /// Lấy phường/xã theo ID quận/huyện
+        /// Lấy tất cả danh sách quận/huyện theo tỉnh/TP
         /// </summary>
-       /* [HttpGet("loacation/{districtID}/ward")]
-        public async Task<IActionResult> GetWardAll(Guid districtID)
+        /// 
+        [HttpGet("location/get-all/${province}/district")]
+        public async Task<ActionResult<ApiResult<List<LocationVm>>>> GetAllDictrict(Guid province)
         {
-            var wards = await _wardService.GetAll(districtID);
-            return Ok(wards);
-        }*/
+            var result = await _locationService.GetAllDistrict(province);
+            return Ok(result);
+        }
+        /// <summary>
+        /// Lấy tất cả danh sách tỉnh/thành phố
+        /// </summary>
+        /// 
+        [HttpGet("location/get-all/province")]
+        public async Task<ActionResult<ApiResult<List<LocationVm>>>> GetAllProvince()
+        {
+            var result = await _locationService.GetAllProvince();
+            return Ok(result);
+        }
     }
 }

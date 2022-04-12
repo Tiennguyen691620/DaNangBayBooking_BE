@@ -86,6 +86,16 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                  || x.a.Email.Contains(request.SearchKey));
             }
 
+            if (!string.IsNullOrEmpty(request.AccommodationTypeID.ToString()))
+            {
+                query = query.Where(x => x.a.AccommodationTypeID == request.AccommodationTypeID);
+            }
+
+            if (!string.IsNullOrEmpty(request.LocationID.ToString()))
+            {
+                query = query.Where(x => x.a.LocationID == request.LocationID);
+            }
+
             //3. Paging
             int totalRow = await query.CountAsync();
 

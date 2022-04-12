@@ -22,6 +22,42 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAllAccommodationType">
+            <summary>
+            Lấy danh sách tất cả loại CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.CreateAccommodationType(DaNangBayBooking.ViewModels.Catalog.AccommodationType.AccommodationTypeCreateRequest)">
+            <summary>
+            Tạo mới loại CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetById(System.Guid)">
+            <summary>
+            Lấy phường/xã theo id
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetAllSubDistrict(System.Guid)">
+            <summary>
+            Lấy tất cả danh sách phường/xã theo quận/huyện
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetAllDictrict(System.Guid)">
+            <summary>
+            Lấy tất cả danh sách quận/huyện theo tỉnh/TP
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetAllProvince">
+            <summary>
+            Lấy tất cả danh sách tỉnh/thành phố
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.RolesController.GetAllData">
              <summary>
              Lấy tất cả quyền
