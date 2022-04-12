@@ -26,8 +26,9 @@ using DaNangBayBooking.Application.Catalog.Wards;
 using System.Reflection;
 using System.IO;
 using DaNangBayBooking.Application.Catalog.RoomTypes;
-using DaNangBayBooking.Application.Catalog.AccommodationType;
+using DaNangBayBooking.Application.Catalog.AccommodationTypes;
 using DaNangBayBooking.Application.Catalog.Accommodations;
+using DaNangBayBooking.Application.Common.Storage;
 
 namespace BackendApi
 {
@@ -55,10 +56,11 @@ namespace BackendApi
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
 
-            //services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IRoomTypeService, RoomTypeService>();
             services.AddTransient<IAccommodationService, AccommodationService>();
             services.AddTransient<IAccommodationTypeService, AccommodationTypeService>();
+            services.AddTransient<IStorageService, FileStorageService>();
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();

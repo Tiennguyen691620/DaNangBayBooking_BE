@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DaNangBayBooking.Application.Catalog.AccommodationType
+namespace DaNangBayBooking.Application.Catalog.AccommodationTypes
 {
     public interface IAccommodationTypeService
     {
         Task<ApiResult<List<AccommodationTypeVm>>> GetAll();
+        Task<ApiResult<bool>> Create(AccommodationTypeCreateRequest request);
     }
 }

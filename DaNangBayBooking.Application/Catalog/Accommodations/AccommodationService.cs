@@ -12,17 +12,60 @@ using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Catalog.Utilities;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
+using DaNangBayBooking.ViewModels.Catalog.Images;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using System.IO;
+using DaNangBayBooking.Application.Common.Storage;
+using DaNangBayBooking.Data.Entities;
 
 namespace DaNangBayBooking.Application.Catalog.Accommodations
 {
     public class AccommodationService : IAccommodationService
     {
         private readonly DaNangDbContext _context;
+        private readonly IStorageService _storageService;
         public AccommodationService(
-            DaNangDbContext context)
+            DaNangDbContext context,
+            IStorageService iStorageService
+            )
         {
             _context = context;
+            _storageService = iStorageService;
         }
+
+        public async Task<ApiResult<ImageVm>> AddImage(ImageCreateRequest request)
+        {
+            var img = new ImageVm();
+            if (request.File != null)
+            {
+                img = await this.SaveFile(request.File);
+                //var dt = request.File.Length;
+            }
+
+            //await _context.SaveChangesAsync();
+            return new ApiSuccessResult<ImageVm>(img);
+        }
+        private async Task<ImageVm> SaveFile(IFormFile? file)
+        {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            var orgFileExtension = Path.GetExtension(originalFileName);
+            var guid = Guid.NewGuid();
+            var fileName = $"{guid}{orgFileExtension}";
+            var fileRequest = await _storageService.SaveFileImgAsync(file.OpenReadStream(), fileName);
+            return new ImageVm()
+            {
+                ImageID = guid,
+                FileName = fileName,
+                OrgFileName = originalFileName,
+                OrgFileExtension = orgFileExtension,
+                FileUrl = fileRequest.FileUrl,
+                Container = fileRequest.Container
+            };
+        }
+
         public async Task<ApiResult<PagedResult<AccommodationVm>>> GetAccommodationsAllPaging(GetAccommodationPagingRequest request)
         {
             var query = from a in _context.Accommodations
@@ -41,6 +84,16 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             {
                 query = query.Where(x => x.a.Name.Contains(request.SearchKey)
                  || x.a.Email.Contains(request.SearchKey));
+            }
+
+            if (!string.IsNullOrEmpty(request.AccommodationTypeID.ToString()))
+            {
+                query = query.Where(x => x.a.AccommodationTypeID == request.AccommodationTypeID);
+            }
+
+            if (!string.IsNullOrEmpty(request.LocationID.ToString()))
+            {
+                query = query.Where(x => x.a.LocationID == request.LocationID);
             }
 
             //3. Paging
@@ -227,6 +280,37 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 }).ToList()
             };
             return new ApiSuccessResult<AccommodationVm>(accommodationVm);
+        }
+
+        public async Task<ApiResult<bool>> CreateAccommodation(AccommodationCreateRequest request)
+        {
+            var accommodation = new Accommodation()
+            {
+                AccommodationID = request.AccommodationID,
+                LocationID = request.LocationID,
+                AccommodationTypeID = request.AccommodationTypeID,
+                Name = request.Name,
+                AbbreviationName = request.AbbreviationName,
+                Address = request.Address,
+                Email = request.Email,
+                Phone = request.Phone,
+                Description = request.Description,
+                MapURL = request.MapURL,
+                No = request.No,
+                Status = request.Status,
+                imageAccommodations = request.Image.Select(i => new ImageAccommodation() {
+                    ImageAccommodationID = i.Id,
+                    Image = i.Image,
+                    SortOrder = 1,
+                }).ToList(),
+            };
+            _context.Accommodations.Add(accommodation);
+            var result = await _context.SaveChangesAsync();
+            if(result == 0)
+            {
+            return new ApiSuccessResult<bool>(false);
+            }
+            return new ApiSuccessResult<bool>(true);
         }
     }
 }

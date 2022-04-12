@@ -131,6 +131,7 @@ namespace DaNangBayBooking.Application.System.Users
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
+            var role = await _roleManager.FindByNameAsync("Client");
             if (user != null)
             {
                 return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
@@ -148,12 +149,16 @@ namespace DaNangBayBooking.Application.System.Users
                 Gender = request.Gender,
                 IdentityCard = request.IdentityCard,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber
+                PhoneNumber = request.PhoneNumber,
+                LocationID = request.LocationID,
+                ActiveDate = DateTime.Now,
+                AppRoleID = role.Id,
+                Status = Data.Enums.Status.Active,
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new ApiSuccessResult<bool>(result.Succeeded);
             }
             return new ApiErrorResult<bool>("Đăng ký không thành công");
         }
@@ -242,7 +247,12 @@ namespace DaNangBayBooking.Application.System.Users
                 query = query.Where(x => x.u.UserName.Contains(request.SearchKey)
                  || x.u.PhoneNumber.Contains(request.SearchKey));
             }
-          
+
+            if (!string.IsNullOrEmpty(request.RoleID.ToString()))
+            {
+                query = query.Where(x => x.u.AppRoleID == request.RoleID);
+            }
+
             //3. Paging
             int totalRow = await query.CountAsync();
 
