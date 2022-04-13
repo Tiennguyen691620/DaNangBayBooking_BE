@@ -34,6 +34,18 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetRoom(System.Guid)">
+            <summary>
+            Xem chi tiết phòng của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.CreateRoom(System.Guid,DaNangBayBooking.ViewModels.Catalog.Rooms.CreateRoomRequest)">
+            <summary>
+            Tạo mới phòng của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetById(System.Guid)">
             <summary>
             Lấy phường/xã theo id
