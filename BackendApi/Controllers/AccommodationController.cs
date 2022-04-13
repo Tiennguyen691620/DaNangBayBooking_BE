@@ -1,7 +1,9 @@
 ﻿using DaNangBayBooking.Application.Catalog.Accommodations;
 using DaNangBayBooking.Application.Catalog.AccommodationTypes;
+using DaNangBayBooking.Application.Catalog.Rooms;
 using DaNangBayBooking.ViewModels.Catalog.Accommodation;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
+using DaNangBayBooking.ViewModels.Catalog.Rooms;
 using DaNangBayBooking.ViewModels.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -20,15 +22,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
     {
         private readonly IAccommodationService _accommodationService;
         private readonly IAccommodationTypeService _accommodationTypeService;
+        private readonly IRoomService _roomService;
 
         public AccommodationController(
             IAccommodationService accommodationService,
-            IAccommodationTypeService iAccommodationTypeService
+            IAccommodationTypeService iAccommodationTypeService,
+            IRoomService roomService
 
             )
         {
             _accommodationService = accommodationService;
             _accommodationTypeService = iAccommodationTypeService;
+            _roomService = roomService;
         }
 
         /// <summary>
@@ -88,6 +93,30 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             var AccommodationType = await _accommodationTypeService.Create(request);
             return Ok(AccommodationType);
+        }
+
+        /// <summary>
+        /// Xem chi tiết phòng của CSLT
+        /// </summary>
+        /// 
+        [HttpGet("room/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<RoomVm>>> GetRoom(Guid accommodationID)
+        {
+            var Room = await _roomService.GetRoomDetail(accommodationID);
+            return Ok(Room);
+        }
+
+        /// <summary>
+        /// Tạo mới phòng của CSLT
+        /// </summary>
+        /// 
+        [HttpPost("room/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> CreateRoom(Guid accommodationID, CreateRoomRequest request)
+        {
+            var Room = await _roomService.CreateRoom(accommodationID, request);
+            return Ok(Room);
         }
     }
 }

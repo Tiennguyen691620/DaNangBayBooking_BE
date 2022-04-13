@@ -286,7 +286,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         {
             var accommodation = new Accommodation()
             {
-                AccommodationID = request.AccommodationID,
+                //AccommodationID = request.AccommodationID,
                 LocationID = request.LocationID,
                 AccommodationTypeID = request.AccommodationTypeID,
                 Name = request.Name,
