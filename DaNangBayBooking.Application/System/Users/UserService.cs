@@ -91,7 +91,7 @@ namespace DaNangBayBooking.Application.System.Users
             if (user == null) return new ApiErrorResult<LoginUser>("Tài khoản không tồn tại");
 
             var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
-            if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận quản khách hàng.");
+            if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản khách hàng.");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)

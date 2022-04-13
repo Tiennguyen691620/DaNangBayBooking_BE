@@ -45,7 +45,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy tất cả danh sách phường/xã theo quận/huyện
         /// </summary>
         /// 
-        [HttpGet("location/get-all${district}/subDistrict")]
+        [HttpGet("location/get-all/{district}/subDistrict")]
         public async Task<ActionResult<ApiResult<List<LocationVm>>>> GetAllSubDistrict(Guid district)
         {
             var result = await _locationService.GetAllSubDistrict(district);
@@ -55,7 +55,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy tất cả danh sách quận/huyện theo tỉnh/TP
         /// </summary>
         /// 
-        [HttpGet("location/get-all/${province}/district")]
+        [HttpGet("location/get-all/{province}/district")]
         public async Task<ActionResult<ApiResult<List<LocationVm>>>> GetAllDictrict(Guid province)
         {
             var result = await _locationService.GetAllDistrict(province);
