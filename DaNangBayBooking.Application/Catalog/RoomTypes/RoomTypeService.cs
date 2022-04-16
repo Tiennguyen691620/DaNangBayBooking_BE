@@ -93,7 +93,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
             return  new ApiSuccessResult<RoomTypeVm>(result);
         }
 
-        public async Task<ApiResult<RoomType>> Post( RoomTypeRequest request )
+        public async Task<ApiResult<RoomType>> Create( RoomTypeRequest request )
         {
             string year = DateTime.Now.ToString("yy");
             int count = await _context.RoomTypes.Where(x => x.No.Contains("RT-" + year)).CountAsync();

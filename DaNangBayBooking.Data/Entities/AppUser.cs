@@ -24,6 +24,8 @@ namespace DaNangBayBooking.Data.Entities
 
         public string Avatar { get; set; }
 
+        public string No { get; set; }
+
         public DateTime ActiveDate { get; set; }
 
         public Status Status  { get; set; }

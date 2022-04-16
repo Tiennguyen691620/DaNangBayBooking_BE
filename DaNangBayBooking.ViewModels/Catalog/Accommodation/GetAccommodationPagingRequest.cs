@@ -9,8 +9,8 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
     {
         public string SearchKey { get; set; }
 
-        public Guid AccommodationTypeID { get; set; }
+        public Guid? AccommodationTypeID { get; set; }
 
-        public Guid LocationID { get; set; }
+        public Guid? LocationID { get; set; }
     }
 }

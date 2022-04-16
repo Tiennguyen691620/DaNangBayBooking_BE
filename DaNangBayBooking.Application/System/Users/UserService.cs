@@ -200,6 +200,7 @@ namespace DaNangBayBooking.Application.System.Users
                 ActiveDate = user.ActiveDate,
                 Address = user.Address,
                 Avatar = user.Avatar,
+                No = user.No,
                 LocationID = user.LocationID,
                 Role = new RoleVm()
                 {
@@ -270,9 +271,10 @@ namespace DaNangBayBooking.Application.System.Users
                     Avatar = x.u.Avatar,
                     Dob = x.u.Dob,
                     ActiveDate = x.u.ActiveDate,
-                    LocationID = x.u.LocationID,
+                    //LocationID = x.u.LocationID,
                     IdentityCard = x.u.IdentityCard,
                     Address = x.u.Address,
+                    No = x.u.No,
                     Location = new LocationVm()
                     {
                         LocationID = x.l.LocationID,

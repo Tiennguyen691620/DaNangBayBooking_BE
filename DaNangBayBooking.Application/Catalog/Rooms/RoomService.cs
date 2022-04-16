@@ -65,10 +65,8 @@ namespace DaNangBayBooking.Application.Catalog.Rooms
             No = x.No,
             ImageRooms = imageRooms.Where(i => i.RoomID == x.RoomID).Select(i => new ImageAccommodationVm()
                {
-                  ImageAccommodationID = i.ImageRoomID,
-                  //AccommodationID = x.RoomID,
+                  Id = i.ImageRoomID,
                   Image = i.Image,
-                  SortOrder = i.SortOrder
                }).ToList(),
         }).ToListAsync();
             return new ApiSuccessResult<List<RoomVm>>(rooms);

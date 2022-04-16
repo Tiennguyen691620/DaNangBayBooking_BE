@@ -14,9 +14,9 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
     {
         public Guid AccommodationID { get; set; }
 
-        public Guid LocationID { get; set; }
+        //public Guid LocationID { get; set; }
 
-        public Guid AccommodationTypeID { get; set; }
+        //public Guid AccommodationTypeID { get; set; }
 
         public string Name { get; set; }
 
@@ -28,7 +28,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public string Email { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string MapURL { get; set; }
 
@@ -40,12 +40,12 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public AccommodationTypeVm AccommodationType { get; set; }
 
-        public List<UtilityVm> Utilities { get; set; }
+        //public List<UtilityVm> Utilities { get; set; }
 
-        public List<ImageAccommodationVm> ImageAccommodations { get; set; }
+        public List<ImageAccommodationVm> Images { get; set; }
 
-        public List<RoomVm> Rooms { get; set; }
+        //public List<RoomVm> Rooms { get; set; }
 
-        public List<BookRoomVm> BookRooms { get; set; }
+        //public List<BookRoomVm> BookRooms { get; set; }
     }
 }

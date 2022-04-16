@@ -19,8 +19,8 @@ namespace DaNangBayBooking.Data.Configurations
             builder.Property(x => x.AbbreviationName).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Address).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.MapURL).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(int.MaxValue);
+            builder.Property(x => x.MapURL).HasMaxLength(int.MaxValue);
             builder.Property(x => x.No).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Phone).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Status);

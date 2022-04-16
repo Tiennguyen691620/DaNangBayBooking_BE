@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DaNangBayBooking.Data.Migrations
 {
-    public partial class version1 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -160,10 +160,10 @@ namespace DaNangBayBooking.Data.Migrations
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     AbbreviationName = table.Column<string>(maxLength: 200, nullable: false),
                     Address = table.Column<string>(maxLength: 200, nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: false),
+                    Description = table.Column<string>(maxLength: 2147483647, nullable: true),
                     Email = table.Column<string>(maxLength: 200, nullable: false),
-                    Phone = table.Column<int>(maxLength: 200, nullable: false),
-                    MapURL = table.Column<string>(maxLength: 200, nullable: false),
+                    Phone = table.Column<string>(maxLength: 200, nullable: false),
+                    MapURL = table.Column<string>(maxLength: 2147483647, nullable: true),
                     No = table.Column<string>(maxLength: 200, nullable: false),
                     Status = table.Column<int>(nullable: false)
                 },
@@ -197,7 +197,7 @@ namespace DaNangBayBooking.Data.Migrations
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(maxLength: 15, nullable: false),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
@@ -211,6 +211,7 @@ namespace DaNangBayBooking.Data.Migrations
                     IdentityCard = table.Column<string>(maxLength: 100, nullable: false),
                     Gender = table.Column<string>(maxLength: 10, nullable: false),
                     Avatar = table.Column<string>(nullable: true),
+                    No = table.Column<string>(nullable: true),
                     ActiveDate = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false)
                 },
@@ -417,8 +418,8 @@ namespace DaNangBayBooking.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), "d74899e6-15ad-4e85-87fb-78e63141c41f", "Administrator role", "admin", "admin" },
-                    { new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), "f62a107b-3437-426b-8f66-3602bac0509c", "Cliener role", "Client", "Client" }
+                    { new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), "e4f3ddb6-21de-4418-b58c-85d642b210d8", "Administrator role", "admin", "admin" },
+                    { new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), "b2c7328d-3c0b-429b-90e1-b8df8a1d837c", "Cliener role", "Client", "Client" }
                 });
 
             migrationBuilder.InsertData(
@@ -437,13 +438,13 @@ namespace DaNangBayBooking.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), 0, new DateTime(2022, 4, 9, 15, 4, 57, 540, DateTimeKind.Local).AddTicks(5745), "100, Âu Cơ", new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), null, "313a2585-2245-4a4d-8b26-65daf9722df9", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen691620@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "tiennguyen691620@gmail.com", "admin", "AQAAAAEAACcQAAAAELQaqertjSF9V72IS+KgtJUkUB3oF2R6ej0teHyyRc2y+Y81yFH9Nt+sHGWCSDjyAQ==", null, false, "", 1, false, "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "No", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"), 0, new DateTime(2022, 4, 14, 8, 49, 5, 969, DateTimeKind.Local).AddTicks(7753), "100, Âu Cơ", new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"), null, "f995975a-11fb-48ba-9ebd-e28d815737fe", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen691620@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "DNB-22-00001", "tiennguyen691620@gmail.com", "admin", "AQAAAAEAACcQAAAAEDSb4BW2uRn+A8Sul3bUbKIkl+D83unBzP+o4IWeC9WDbAVvLfriDlDFy85uq4HqQw==", "0889161328", false, "", 2, false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"), 0, new DateTime(2022, 4, 9, 15, 4, 57, 549, DateTimeKind.Local).AddTicks(9345), "100, Âu Cơ", new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), null, "b2aad5a1-6607-468b-8916-227283ffc5c5", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen3129@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "tiennguyen3129@gmail.com", "tiennguyen", "AQAAAAEAACcQAAAAEP3qXqNdhQGbAORuVqUY931q5tdG39tyfA5U4/ZANI132wyMX9RlOGm7ClxvQm3xdQ==", null, false, "", 1, false, "tiennguyen" });
+                columns: new[] { "Id", "AccessFailedCount", "ActiveDate", "Address", "AppRoleID", "Avatar", "ConcurrencyStamp", "Dob", "Email", "EmailConfirmed", "FullName", "Gender", "IdentityCard", "LocationID", "LockoutEnabled", "LockoutEnd", "No", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"), 0, new DateTime(2022, 4, 14, 8, 49, 5, 976, DateTimeKind.Local).AddTicks(9398), "100, Âu Cơ", new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"), null, "c82b0919-b51a-4dc7-b6c0-f2f369fc5940", new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "tiennguyen3129@gmail.com", true, "Nguyễn Tân Tiến", "Nam", "241777698", new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"), false, null, "DNB-22-00002", "tiennguyen3129@gmail.com", "tiennguyen", "AQAAAAEAACcQAAAAEOeVXBXtu+YutFXDmWJ5oW3fuoeDM/zs6FkJvJgSi7H8tAJujzYh2wpgq6ZRO5gyJA==", "0889161329", false, "", 2, false, "tiennguyen" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accommodations_AccommodationTypeID",

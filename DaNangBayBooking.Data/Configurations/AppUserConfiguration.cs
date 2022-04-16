@@ -17,6 +17,7 @@ namespace DaNangBayBooking.Data.Configurations
             builder.Property(x => x.Dob).IsRequired();
             builder.Property(x => x.IdentityCard).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Gender).HasMaxLength(10).IsRequired();
+            builder.Property(x => x.PhoneNumber).HasMaxLength(15).IsRequired();
             builder.Property(x => x.Avatar);
 
             builder.HasOne(x => x.AppRole).WithMany(x => x.AppUsers).HasForeignKey(x => x.AppRoleID);

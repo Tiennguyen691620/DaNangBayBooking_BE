@@ -50,9 +50,9 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Tạo mới loại phòng
         /// </summary>
         [HttpPost("create")]
-        public async Task<ActionResult> Post(RoomTypeRequest request)
+        public async Task<ActionResult<RoomType>> Post(RoomTypeRequest request)
         {
-            var roomTypes = await _roomTypeService.Post(request);
+            var roomTypes = await _roomTypeService.Create(request);
             return Ok(roomTypes);
         }
 
@@ -60,7 +60,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy danh sách loại phòng phân trang và tìm kiếm
         /// </summary>
         [HttpGet("filter")]
-        public async Task<ActionResult> GetAllPaging([FromQuery] GetRoomTypePagingRequest request)
+        public async Task<ActionResult<PagedResult<RoomTypeVm>>> GetAllPaging([FromQuery] GetRoomTypePagingRequest request)
         {
             var roomTypes = await _roomTypeService.GetAllPaging(request);
             return Ok(roomTypes);
