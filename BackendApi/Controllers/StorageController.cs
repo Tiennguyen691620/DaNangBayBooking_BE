@@ -24,7 +24,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Thêm ảnh
         /// </summary>
         /// 
-        [HttpPost("images")]
+        [HttpPost("images/upload/")]
         public async Task<ActionResult<ApiResult<ImageVm>>> Create([FromForm] ImageCreateRequest request)
         {
             if (!ModelState.IsValid)

@@ -22,6 +22,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.DeleteAccommodation(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationDeleteRequest)">
+            <summary>
+            Xóa CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAllAccommodationType">
             <summary>
             Lấy danh sách tất cả loại CSLT
