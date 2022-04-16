@@ -84,9 +84,9 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy danh sách  tài khoản phân trang 
         /// </summary>
         /// 
-        [HttpGet("get-all-paging")]
+        [HttpGet("filter")]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<List<UserVm>>>> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        public async Task<ActionResult<PagedResult<UserVm>>> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
             var user = await _userService.GetUsersAllPaging(request);
             return Ok(user);

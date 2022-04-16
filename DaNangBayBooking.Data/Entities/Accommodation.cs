@@ -23,7 +23,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public string Email { get; set; }
 
-        public int Phone { get; set; }
+        public string Phone { get; set; }
 
         public string MapURL { get; set; }
 

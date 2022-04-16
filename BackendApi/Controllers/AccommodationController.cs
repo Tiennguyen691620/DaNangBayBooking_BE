@@ -40,9 +40,9 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy danh sách CSLT phân trang 
         /// </summary>
         /// 
-        [HttpGet("get-all-paging")]
+        [HttpGet("filter")]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<List<AccommodationVm>>>> GetAllPaging([FromQuery] GetAccommodationPagingRequest request)
+        public async Task<ActionResult<PagedResult<AccommodationVm>>> GetAllPaging([FromQuery] GetAccommodationPagingRequest request)
         {
             var Accommodation = await _accommodationService.GetAccommodationsAllPaging(request);
             return Ok(Accommodation);
@@ -51,7 +51,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy thông tin chi tiết CSLT
         /// </summary>
         /// 
-        [HttpGet("get-by-id/{id}")]
+        [HttpGet("detail/{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<AccommodationVm>> GetById(Guid id)
         {
@@ -68,6 +68,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         public async Task<ActionResult<ApiResult<bool>>> Post(AccommodationCreateRequest request)
         {
             var Accommodation = await _accommodationService.CreateAccommodation(request);
+            return Ok(Accommodation);
+        }
+
+        /// <summary>
+        /// Xóa CSLT
+        /// </summary>
+        /// 
+        [HttpDelete("delete")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> DeleteAccommodation([FromBody] AccommodationDeleteRequest request)
+        {
+            var Accommodation = await _accommodationService.DeleteAccommodation(request);
             return Ok(Accommodation);
         }
 
@@ -118,5 +130,6 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var Room = await _roomService.CreateRoom(accommodationID, request);
             return Ok(Room);
         }
+        
     }
 }
