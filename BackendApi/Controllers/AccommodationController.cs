@@ -1,9 +1,11 @@
 ﻿using DaNangBayBooking.Application.Catalog.Accommodations;
 using DaNangBayBooking.Application.Catalog.AccommodationTypes;
 using DaNangBayBooking.Application.Catalog.Rooms;
+using DaNangBayBooking.Application.Catalog.Utilities;
 using DaNangBayBooking.ViewModels.Catalog.Accommodation;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
+using DaNangBayBooking.ViewModels.Catalog.Utilities;
 using DaNangBayBooking.ViewModels.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -23,17 +25,20 @@ namespace DaNangBayBooking.BackendApi.Controllers
         private readonly IAccommodationService _accommodationService;
         private readonly IAccommodationTypeService _accommodationTypeService;
         private readonly IRoomService _roomService;
+        private readonly IUtilityService _utilityService;
 
         public AccommodationController(
             IAccommodationService accommodationService,
             IAccommodationTypeService iAccommodationTypeService,
-            IRoomService roomService
+            IRoomService roomService,
+            IUtilityService iutilityService
 
             )
         {
             _accommodationService = accommodationService;
             _accommodationTypeService = iAccommodationTypeService;
             _roomService = roomService;
+            _utilityService = iutilityService;
         }
 
         /// <summary>
@@ -111,7 +116,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Xem chi tiết phòng của CSLT
         /// </summary>
         /// 
-        [HttpGet("room/{accommodationID}")]
+        [HttpGet("get/room/{accommodationID}")]
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<RoomVm>>> GetRoom(Guid accommodationID)
         {
@@ -123,13 +128,53 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Tạo mới phòng của CSLT
         /// </summary>
         /// 
-        [HttpPost("room/{accommodationID}")]
+        [HttpPost("create/room/{accommodationID}")]
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<bool>>> CreateRoom(Guid accommodationID, CreateRoomRequest request)
         {
             var Room = await _roomService.CreateRoom(accommodationID, request);
             return Ok(Room);
         }
+
+
+
+
+
+        /// <summary>
+        /// Xem chi tiết tiện ích của CSLT
+        /// </summary>
+        /// 
+        [HttpGet("get/utility/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<List<UtilityVm>>>> GetDetailUtility(Guid accommodationID)
+        {
+            var Utilities = await _utilityService.GetDetailUtility(accommodationID);
+            return Ok(Utilities);
+        }
         
+        /// <summary>
+        /// Tạo mới tiện ích của CSLT
+        /// </summary>
+        /// 
+        [HttpPost("create/utility/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> CreateUtility(List<CreateUtilityRequest> request, Guid accommodationID)
+        {
+            var Utilities = await _utilityService.CreateUtility(request, accommodationID);
+            return Ok(Utilities);
+        }
+
+        /// <summary>
+        /// Cập nhật tiện ích của CSLT
+        /// </summary>
+        /// 
+        [HttpPut("update/utility/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateUtility(List<UpdateUtilityRequest> request, Guid accommodationID)
+        {
+            var Utilities = await _utilityService.UpdateUtility(request, accommodationID);
+            return Ok(Utilities);
+        }
+
     }
 }

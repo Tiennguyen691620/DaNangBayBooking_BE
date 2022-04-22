@@ -1667,6 +1667,16 @@
           "bin/placeholder/DaNangBayBooking.Data.dll": {}
         }
       },
+      "DaNangBayBooking.Utilities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/DaNangBayBooking.Utilities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DaNangBayBooking.Utilities.dll": {}
+        }
+      },
       "DaNangBayBooking.ViewModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -6133,6 +6143,11 @@
       "path": "../DaNangBayBooking.Data/DaNangBayBooking.Data.csproj",
       "msbuildProject": "../DaNangBayBooking.Data/DaNangBayBooking.Data.csproj"
     },
+    "DaNangBayBooking.Utilities/1.0.0": {
+      "type": "project",
+      "path": "../DaNangBayBooking.Utilities/DaNangBayBooking.Utilities.csproj",
+      "msbuildProject": "../DaNangBayBooking.Utilities/DaNangBayBooking.Utilities.csproj"
+    },
     "DaNangBayBooking.ViewModels/1.0.0": {
       "type": "project",
       "path": "../DaNangBayBooking.ViewModels/DaNangBayBooking.ViewModels.csproj",
@@ -6142,6 +6157,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "DaNangBayBooking.Data >= 1.0.0",
+      "DaNangBayBooking.Utilities >= 1.0.0",
       "DaNangBayBooking.ViewModels >= 1.0.0",
       "Microsoft.IdentityModel.Tokens >= 6.16.0",
       "System.IdentityModel.Tokens.Jwt >= 6.16.0"
@@ -6176,6 +6192,9 @@
           "projectReferences": {
             "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
               "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+            },
+            "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
+              "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj"
             },
             "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
               "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"

@@ -21,7 +21,7 @@ namespace DaNangBayBooking.ViewModels.System.Users
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Giới tính")]
-        public string Gender { get; set; }
+        public bool Gender { get; set; }
 
         [Display(Name = "CMND/CCCD")]
         public string IdentityCard { get; set; }

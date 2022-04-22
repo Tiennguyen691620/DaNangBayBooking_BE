@@ -81,16 +81,49 @@ namespace DaNangBayBooking.BackendApi.Controllers
             return Ok(result);
         }
         /// <summary>
-        /// Lấy danh sách  tài khoản phân trang 
+        /// Lấy danh sách tài khoản khách hàng phân trang 
         /// </summary>
         /// 
-        [HttpGet("filter")]
+        [HttpGet("filter/customer")]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<UserVm>>> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        public async Task<ActionResult<PagedResult<UserVm>>> GetUsersAllPaging([FromQuery] GetUserPagingRequest request)
         {
-            var user = await _userService.GetUsersAllPaging(request);
+            var user = await _userService.GetCustomerAllPaging(request);
             return Ok(user);
         }
+
+
+        /// <summary>
+        /// Tạo tài khoản Admin
+        /// </summary>
+        [HttpPost("create/admin")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> CreateAdmin([FromBody] CreateAdminRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.CreateAdmin(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Lấy danh sách  tài khoản admin phân trang 
+        /// </summary>
+        /// 
+        [HttpGet("filter/admin")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<UserVm>>> Customer([FromQuery] GetUserPagingRequest request)
+        {
+            var user = await _userService.GetAdminAllPaging(request);
+            return Ok(user);
+        }
+
         /// <summary>
         /// Lấy thông tin chi tiết tài khoản
         /// </summary>

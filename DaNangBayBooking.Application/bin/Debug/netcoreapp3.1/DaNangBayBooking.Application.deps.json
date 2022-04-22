@@ -9,6 +9,7 @@
       "DaNangBayBooking.Application/1.0.0": {
         "dependencies": {
           "DaNangBayBooking.Data": "1.0.0",
+          "DaNangBayBooking.Utilities": "1.0.0",
           "DaNangBayBooking.ViewModels": "1.0.0",
           "Microsoft.IdentityModel.Tokens": "6.16.0",
           "System.IdentityModel.Tokens.Jwt": "6.16.0"
@@ -1194,6 +1195,11 @@
           "DaNangBayBooking.Data.dll": {}
         }
       },
+      "DaNangBayBooking.Utilities/1.0.0": {
+        "runtime": {
+          "DaNangBayBooking.Utilities.dll": {}
+        }
+      },
       "DaNangBayBooking.ViewModels/1.0.0": {
         "dependencies": {
           "DaNangBayBooking.Data": "1.0.0",
@@ -2004,6 +2010,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "DaNangBayBooking.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DaNangBayBooking.Utilities/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -14,7 +14,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 {
     public class AccommodationCreateRequest
     {
-        //public Guid AccommodationID { get; set; }
+        public Guid AccommodationID { get; set; }
 
         public LocationRequest Location { get; set; }
 

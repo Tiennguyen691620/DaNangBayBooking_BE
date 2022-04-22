@@ -132,48 +132,11 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                         ParentID = x.l.ParentID,
                         Type = x.l.Type
                     },
-                    /*Utilities = utilities.Where(u => u.AccommodationID == x.a.AccommodationID).Select(u => new UtilityVm()
-                    {
-                        UtilityID = u.UtilityID,
-                        AccommodationID = x.a.AccommodationID,
-                        UtilityType = u.UtilityType,
-                        IsPrivate = u.IsPrivate
-                    }).ToList(),*/
-                    /*Rooms = rooms.Where(r => r.AccommodationID == x.a.AccommodationID).Select(r => new RoomVm()
-                    {
-                        RoomID = r.RoomID,
-                        AccommodationID = x.a.AccommodationID,
-                        RoomTypeID = r.RoomTypeID,
-                        Name = r.Name,
-                        AvailableQty = r.AvailableQty,
-                        Price = r.Price,
-                        BookedQty = r.BookedQty,
-                        PurchasedQty = r.PurchasedQty,
-                        MaximumPeople = r.MaximumPeople,
-                        No = r.No
-                    }).ToList(),*/
                     Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
                     {
                         Id = i.ImageAccommodationID,
                         Image = i.Image,
                     }).ToList(),
-                    /*BookRooms = broom.Where(b => b.AccommodationID == x.a.AccommodationID).Select(br => new BookRoomVm()
-                    {
-                        BookRoomID = br.BookRoomID,
-                        BookingDate = br.BookingDate,
-                        AccommodationID = x.a.AccommodationID,
-                        No = br.No,
-                        Qty = br.Qty,
-                        BookingUser = br.BookingUser,
-                        FromDate = br.FromDate,
-                        ToDate = br.ToDate,
-                        CheckInIdentityCard = br.CheckInIdentityCard,
-                        CheckInMail = br.CheckInMail,
-                        CheckInName = br.CheckInName,
-                        CheckInNote = br.CheckInNote,
-                        Status = br.Status,
-                        TotalPrice = br.TotalPrice
-                    }).ToList()*/
                 }).ToListAsync();
 
             //4. Select and projection
@@ -213,8 +176,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 No = accommodation.No,
                 Address = accommodation.Address,
                 Status = accommodation.Status,
-                //LocationID = accommodation.LocationID,
-                //AccommodationTypeID = accommodation.AccommodationTypeID,
                 AccommodationType = new AccommodationTypeVm()
                 {
                     AccommodationTypeID = accommodationtype.AccommodationTypeID,
@@ -232,48 +193,11 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     ParentID = location.ParentID,
                     Type = location.Type
                 },
-                /*Utilities = utilities.Where(u => u.AccommodationID == accommodation.AccommodationID).Select(u => new UtilityVm()
-                { 
-                    UtilityID = u.UtilityID,
-                    AccommodationID = u.AccommodationID,
-                    UtilityType = u.UtilityType,
-                    IsPrivate = u.IsPrivate
-                }).ToList(),*/
-                /*Rooms = rooms.Where(r => r.AccommodationID == accommodation.AccommodationID).Select(r => new RoomVm()
-                {
-                    RoomID = r.RoomID,
-                    AccommodationID = accommodation.AccommodationID,
-                    RoomTypeID = r.RoomTypeID,
-                    Name = r.Name,
-                    AvailableQty = r.AvailableQty,
-                    Price = r.Price,
-                    BookedQty = r.BookedQty,
-                    PurchasedQty = r.PurchasedQty,
-                    MaximumPeople = r.MaximumPeople,
-                    No = r.No
-                }).ToList(),*/
                 Images = imageAccommodations.Where(i => i.AccommodationID == accommodation.AccommodationID).Select(i => new ImageAccommodationVm()
                 {
                     Id = i.ImageAccommodationID,
                     Image = i.Image,
                 }).ToList(),
-                /*BookRooms = broom.Where(b => b.AccommodationID == accommodation.AccommodationID).Select(br => new BookRoomVm()
-                {
-                    BookRoomID = br.BookRoomID,
-                    BookingDate = br.BookingDate,
-                    AccommodationID = accommodation.AccommodationID,
-                    No = br.No,
-                    Qty = br.Qty,
-                    BookingUser = br.BookingUser,
-                    FromDate = br.FromDate,
-                    ToDate = br.ToDate,
-                    CheckInIdentityCard = br.CheckInIdentityCard,
-                    CheckInMail = br.CheckInMail,
-                    CheckInName = br.CheckInName,
-                    CheckInNote = br.CheckInNote,
-                    Status = br.Status,
-                    TotalPrice = br.TotalPrice
-                }).ToList()*/
             };
             return new ApiSuccessResult<AccommodationVm>(accommodationVm);
         }
@@ -289,7 +213,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             else if (count < 9999) str = "ACC-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
             var accommodation = new Accommodation()
             {
-                //AccommodationID = request.AccommodationID,
+                AccommodationID = request.AccommodationID,
                 Name = request.Name,
                 AbbreviationName = request.AbbreviationName,
                 Address = request.Address,

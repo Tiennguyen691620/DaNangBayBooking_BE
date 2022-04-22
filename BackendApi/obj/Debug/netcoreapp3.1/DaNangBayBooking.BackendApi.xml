@@ -52,6 +52,24 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetDetailUtility(System.Guid)">
+            <summary>
+            Xem chi tiết tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.CreateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.CreateUtilityRequest},System.Guid)">
+            <summary>
+            Tạo mới tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.UpdateUtilityRequest},System.Guid)">
+            <summary>
+            Cập nhật tiện ích của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetById(System.Guid)">
             <summary>
             Lấy phường/xã theo id
@@ -132,9 +150,20 @@
             Đăng kí tài khoản khách hàng
             </summary>
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetUsersAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
             <summary>
-            Lấy danh sách  tài khoản phân trang 
+            Lấy danh sách tài khoản khách hàng phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.CreateAdmin(DaNangBayBooking.ViewModels.System.Users.CreateAdminRequest)">
+            <summary>
+            Tạo tài khoản Admin
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.Customer(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
+            <summary>
+            Lấy danh sách  tài khoản admin phân trang 
             </summary>
             
         </member>

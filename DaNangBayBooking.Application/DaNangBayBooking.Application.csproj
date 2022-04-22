@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DaNangBayBooking.Data\DaNangBayBooking.Data.csproj" />
+    <ProjectReference Include="..\DaNangBayBooking.Utilities\DaNangBayBooking.Utilities.csproj" />
     <ProjectReference Include="..\DaNangBayBooking.ViewModels\DaNangBayBooking.ViewModels.csproj" />
   </ItemGroup>
 

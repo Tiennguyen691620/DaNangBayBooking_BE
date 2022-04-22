@@ -28,13 +28,13 @@ namespace DaNangBayBooking.ViewModels.System.Users
         [Display(Name = "Ngày sinh")]
         public DateTime Dob { get; set; }
 
-        public Guid LocationID { get; set; }
+        //public Guid LocationID { get; set; }
 
         public string Address { get; set; }
 
         public string IdentityCard { get; set; }
 
-        public string Gender { get; set; }
+        public bool Gender { get; set; }
 
         public string Avatar { get; set; }
 
@@ -46,7 +46,13 @@ namespace DaNangBayBooking.ViewModels.System.Users
 
         public RoleVm Role { get; set; }
 
-        public LocationVm Location { get; set; }
+        public LocationProvince Province { get; set; }
+
+        public LocationDistrict District { get; set; }
+
+        public LocationSubDistrict SubDistrict { get; set; }
+
+        //public LocationVm Location { get; set; }
 
         public List<BookRoomVm> BookRooms { get; set; }
     }

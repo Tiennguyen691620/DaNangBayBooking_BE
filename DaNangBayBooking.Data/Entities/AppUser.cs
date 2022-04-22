@@ -20,7 +20,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public string IdentityCard { get; set; }
 
-        public string Gender { get; set; }
+        public bool Gender { get; set; }
 
         public string Avatar { get; set; }
 
