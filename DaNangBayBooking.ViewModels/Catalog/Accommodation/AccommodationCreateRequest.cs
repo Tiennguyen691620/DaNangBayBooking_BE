@@ -36,7 +36,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public string No { get; set; }
 
-        public Status Status { get; set; }
+        public bool Status { get; set; }
 
         public List<ImageAccommodationCreateRequest> Images { get; set; }
 

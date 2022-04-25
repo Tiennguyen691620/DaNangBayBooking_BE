@@ -22,6 +22,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateStatusAccommodation(System.Guid,System.Boolean)">
+            <summary>
+            Cập nhật trạng thái của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.DeleteAccommodation(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationDeleteRequest)">
             <summary>
             Xóa CSLT
@@ -164,6 +170,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.Customer(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
             <summary>
             Lấy danh sách  tài khoản admin phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.UpdateStatusAdmin(System.Guid,System.Boolean)">
+            <summary>
+            Trạng thái tài khoản của Admin
             </summary>
             
         </member>

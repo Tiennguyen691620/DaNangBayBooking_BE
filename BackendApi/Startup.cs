@@ -154,7 +154,7 @@ namespace BackendApi
 
             app.UseAuthentication();
             app.UseRouting();
-            app.UseCors( options => options.WithOrigins("http://localhost:4200")
+            app.UseCors( options => options.WithOrigins("http://localhost:4200", "http://localhost:5200")   
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             app.UseAuthorization();

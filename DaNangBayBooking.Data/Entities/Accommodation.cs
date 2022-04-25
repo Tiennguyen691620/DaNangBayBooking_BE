@@ -29,7 +29,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public string No { get; set; }
 
-        public Status Status { get; set; }
+        public bool Status { get; set; }
 
         public Location Location { get; set; }
 

@@ -32,6 +32,7 @@ namespace DaNangBayBooking.Data.EF
             modelBuilder.ApplyConfiguration(new RoomTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UtilityConfiguration());
             modelBuilder.ApplyConfiguration(new LocationConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -59,5 +60,6 @@ namespace DaNangBayBooking.Data.EF
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Utility> Utilities { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Status> Status { get; set; }
     }
 }

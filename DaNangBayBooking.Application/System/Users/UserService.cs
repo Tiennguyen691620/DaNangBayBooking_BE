@@ -17,6 +17,8 @@ using System.Linq;
 using DaNangBayBooking.ViewModels.System.Roles;
 using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
+using DaNangBayBooking.Utilities.Extensions;
+using DaNangBayBooking.Data.Enums;
 
 namespace DaNangBayBooking.Application.System.Users
 {
@@ -153,7 +155,8 @@ namespace DaNangBayBooking.Application.System.Users
                 LocationID = request.LocationID,
                 ActiveDate = DateTime.Now,
                 AppRoleID = role.Id,
-                Status = Data.Enums.Status.Active,
+                //Status = request.Status.ToDictionaryItemDto<Status>(),
+                //Status = Data.Enums.Status.Active,
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
@@ -198,13 +201,13 @@ namespace DaNangBayBooking.Application.System.Users
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 FullName = user.FullName,
-                Dob = user.Dob,
+                Dob = user.Dob.ToSecondsTimestamp(),
                 Id = user.Id,
                 UserName = user.UserName,
                 IdentityCard = user.IdentityCard,
                 Gender = user.Gender,
-                Status = user.Status,
-                ActiveDate = user.ActiveDate,
+                //Status = user.Status.ToDictionaryItemDto<Data.Enums.Status>(),
+                ActiveDate = user.ActiveDate.ToSecondsTimestamp(),
                 Address = user.Address,
                 Avatar = user.Avatar,
                 No = user.No,
@@ -245,24 +248,6 @@ namespace DaNangBayBooking.Application.System.Users
                     Name = roles.Name,
                     Description = roles.Description
                 },
-                BookRooms = broom.Where(b => b.UserID == user.Id).Select(br => new BookRoomVm()
-                {
-                    BookRoomID = br.BookRoomID,
-                    BookingDate = br.BookingDate,
-                    UserID = user.Id,
-                    AccommodationID = br.AccommodationID,
-                    No = br.No,
-                    Qty = br.Qty,
-                    BookingUser = br.BookingUser,
-                    FromDate = br.FromDate,
-                    ToDate = br.ToDate,
-                    CheckInIdentityCard = br.CheckInIdentityCard,
-                    CheckInMail = br.CheckInMail,
-                    CheckInName = br.CheckInName,
-                    CheckInNote = br.CheckInNote,
-                    Status = br.Status,
-                    TotalPrice = br.TotalPrice
-                }).ToList()
             };
             return new ApiSuccessResult<UserVm>(userVm);
         }
@@ -285,8 +270,8 @@ namespace DaNangBayBooking.Application.System.Users
 
             if (!string.IsNullOrEmpty(request.SearchKey))
             {
-                query = query.Where(x => x.u.UserName.Contains(request.SearchKey)
-                 || x.u.PhoneNumber.Contains(request.SearchKey));
+                query = query.Where(x => x.u.FullName.Contains(request.SearchKey)
+                 || x.u.PhoneNumber.Contains(request.SearchKey) || x.u.Email.Contains(request.SearchKey));
             }
 
             //3. Paging
@@ -302,10 +287,10 @@ namespace DaNangBayBooking.Application.System.Users
                     Gender = x.u.Gender,
                     Id = x.u.Id,
                     FullName = x.u.FullName,
-                    Status = x.u.Status,
+                   // Status = x.u.Status.ToDictionaryItemDto<Data.Enums.Status>(),
                     Avatar = x.u.Avatar,
-                    Dob = x.u.Dob,
-                    ActiveDate = x.u.ActiveDate,
+                    Dob = x.u.Dob.ToSecondsTimestamp(),
+                    ActiveDate = x.u.ActiveDate.ToSecondsTimestamp(),
                     IdentityCard = x.u.IdentityCard,
                     Address = x.u.Address,
                     No = x.u.No,
@@ -345,24 +330,6 @@ namespace DaNangBayBooking.Application.System.Users
                         Description = x.r.Description,
                         Name = x.r.Name
                     } ,
-                    BookRooms = broom.Where(b=>b.UserID == x.u.Id).Select(br => new BookRoomVm()
-                    {
-                        BookRoomID = br.BookRoomID,
-                        BookingDate = br.BookingDate,
-                        UserID = x.u.Id,
-                        AccommodationID = br.AccommodationID,
-                        No = br.No,
-                        Qty = br.Qty,
-                        BookingUser = br.BookingUser,
-                        FromDate = br.FromDate,
-                        ToDate = br.ToDate,
-                        CheckInIdentityCard = br.CheckInIdentityCard,
-                        CheckInMail = br.CheckInMail,
-                        CheckInName = br.CheckInName,
-                        CheckInNote = br.CheckInNote,
-                        Status = br.Status,
-                        TotalPrice = br.TotalPrice
-                    }).ToList()
                 }).ToListAsync();
 
             //4. Select and projection
@@ -383,6 +350,7 @@ namespace DaNangBayBooking.Application.System.Users
                         join sd in _context.Locations on u.LocationID equals sd.LocationID
                         join d in _context.Locations on sd.ParentID equals d.LocationID
                         join p in _context.Locations on d.ParentID equals p.LocationID
+                        //join s in _context.Status on u.Status equals s.Key
                         join b in _context.BookRooms on u.Id equals b.UserID into br
                         from b in br.DefaultIfEmpty()
                         where r.Name.ToUpper() == "ADMIN"
@@ -394,8 +362,8 @@ namespace DaNangBayBooking.Application.System.Users
 
             if (!string.IsNullOrEmpty(request.SearchKey))
             {
-                query = query.Where(x => x.u.UserName.Contains(request.SearchKey)
-                 || x.u.PhoneNumber.Contains(request.SearchKey));
+                query = query.Where(x => x.u.FullName.Contains(request.SearchKey)
+                 || x.u.PhoneNumber.Contains(request.SearchKey) || x.u.Email.Contains(request.SearchKey));
             }
 
             //3. Paging
@@ -413,8 +381,8 @@ namespace DaNangBayBooking.Application.System.Users
                     FullName = x.u.FullName,
                     Status = x.u.Status,
                     Avatar = x.u.Avatar,
-                    Dob = x.u.Dob,
-                    ActiveDate = x.u.ActiveDate,
+                    Dob = x.u.Dob.ToSecondsTimestamp(),
+                    ActiveDate = x.u.ActiveDate.ToSecondsTimestamp(),
                     IdentityCard = x.u.IdentityCard,
                     Address = x.u.Address,
                     No = x.u.No,
@@ -454,24 +422,6 @@ namespace DaNangBayBooking.Application.System.Users
                         Description = x.r.Description,
                         Name = x.r.Name
                     },
-                    BookRooms = broom.Where(b => b.UserID == x.u.Id).Select(br => new BookRoomVm()
-                    {
-                        BookRoomID = br.BookRoomID,
-                        BookingDate = br.BookingDate,
-                        UserID = x.u.Id,
-                        AccommodationID = br.AccommodationID,
-                        No = br.No,
-                        Qty = br.Qty,
-                        BookingUser = br.BookingUser,
-                        FromDate = br.FromDate,
-                        ToDate = br.ToDate,
-                        CheckInIdentityCard = br.CheckInIdentityCard,
-                        CheckInMail = br.CheckInMail,
-                        CheckInName = br.CheckInName,
-                        CheckInNote = br.CheckInNote,
-                        Status = br.Status,
-                        TotalPrice = br.TotalPrice
-                    }).ToList()
                 }).ToListAsync();
 
             //4. Select and projection
@@ -503,15 +453,15 @@ namespace DaNangBayBooking.Application.System.Users
                 FullName = request.FullName,
                 PhoneNumber = request.PhoneNumber,
                 Email = request.Email,
-                Dob = request.Dob,
+                Dob = request.Dob.FromUnixTimeStamp(),
                 Address = request.Address,
                 IdentityCard = request.IdentityCard,
                 Gender = request.Gender,
                 Avatar = request.Avatar,
                 UserName = str,
                 No = str,
-                ActiveDate = request.ActiveDate,
-                Status = request.Status,
+                ActiveDate = DateTime.Now,
+                Status = true,
                 LocationID = request.SubDistrict.LocationID,
                 AppRoleID = role.Id,
             };
@@ -521,6 +471,30 @@ namespace DaNangBayBooking.Application.System.Users
                 return new ApiSuccessResult<bool>(false);
             }
             return new ApiSuccessResult<bool>(true);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusAdmin(Guid UserAdminID, bool Status)
+        {
+            var checkStatus = await _context.AppUsers.FindAsync(UserAdminID);
+            if (checkStatus == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            if (checkStatus.Status == true)
+            {
+                checkStatus.Status = false;
+            }
+            else
+            {
+                checkStatus.Status = true;
+            }
+            //checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public DateTime ActiveDate { get; set; }
 
-        public Status Status  { get; set; }
+        public bool Status  { get; set; }
 
         public AppRole AppRole { get; set; }
 

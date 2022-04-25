@@ -1,4 +1,6 @@
-﻿using DaNangBayBooking.ViewModels.Common;
+﻿//using DaNangBayBooking.Data.Entities;
+using DaNangBayBooking.Data.Enums;
+using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Users;
 using System;
 using System.Collections.Generic;
@@ -16,5 +18,6 @@ namespace DaNangBayBooking.Application.System.Users
         Task<ApiResult<PagedResult<UserVm>>> GetAdminAllPaging(GetUserPagingRequest request);
         Task<ApiResult<UserVm>> GetById(Guid id);
         Task<ApiResult<bool>> CreateAdmin(CreateAdminRequest request);
+        Task<ApiResult<bool>> UpdateStatusAdmin(Guid UserAdminID, bool Status);
     }
 }

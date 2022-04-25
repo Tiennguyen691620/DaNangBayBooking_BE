@@ -76,6 +76,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
             return Ok(Accommodation);
         }
 
+
+        /// <summary>
+        /// Cập nhật trạng thái của CSLT
+        /// </summary>
+        /// 
+        [HttpPut("update/{AccommodationID}/status")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusAccommodation( Guid AccommodationID,  bool Status)
+        {
+            var Accommodation = await _accommodationService.UpdateStatusAccommodation(AccommodationID, Status);
+            return Ok(Accommodation);
+        }
+
         /// <summary>
         /// Xóa CSLT
         /// </summary>

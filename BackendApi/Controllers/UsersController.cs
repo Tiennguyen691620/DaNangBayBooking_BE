@@ -1,4 +1,5 @@
-﻿using DaNangBayBooking.Application.System.Users;
+﻿ using DaNangBayBooking.Application.System.Users;
+using DaNangBayBooking.Data.Enums;
 using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -122,6 +123,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             var user = await _userService.GetAdminAllPaging(request);
             return Ok(user);
+        }
+
+        /// <summary>
+        /// Trạng thái tài khoản của Admin
+        /// </summary>
+        /// 
+        [HttpPut("update/{UserAdminID}/status/admin")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusAdmin( Guid UserAdminID, bool Status)
+        {
+            var UserAdmin = await _userService.UpdateStatusAdmin(UserAdminID, Status);
+            return Ok(UserAdmin);
         }
 
         /// <summary>

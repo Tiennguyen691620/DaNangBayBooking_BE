@@ -18,6 +18,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using DaNangBayBooking.Application.Common.Storage;
 using DaNangBayBooking.Data.Entities;
+using DaNangBayBooking.Data.Enums;
 
 namespace DaNangBayBooking.Application.Catalog.Accommodations
 {
@@ -113,8 +114,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     No = x.a.No,
                     Address = x.a.Address,
                     Status = x.a.Status,
-                    //LocationID = x.a.LocationID,
-                    //AccommodationTypeID = x.a.AccommodationTypeID,
                     AccommodationType = new AccommodationTypeVm()
                     {
                         AccommodationTypeID = x.t.AccommodationTypeID,
@@ -272,6 +271,21 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             _context.Accommodations.Remove(deleteAccommodation);
             var result = await _context.SaveChangesAsync();
             if (result != 0) { 
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusAccommodation(Guid AccommodationID, bool Status)
+        {
+            var checkStatus = await _context.Accommodations.FindAsync(AccommodationID);
+            if(checkStatus == null) {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiSuccessResult<bool>(false);

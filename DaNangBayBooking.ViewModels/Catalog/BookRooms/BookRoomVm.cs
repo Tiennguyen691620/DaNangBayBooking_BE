@@ -35,6 +35,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 
         public Decimal TotalPrice { get; set; }
 
-        public Status Status { get; set; }
+        public StatusEnum Status { get; set; }
     }
 }

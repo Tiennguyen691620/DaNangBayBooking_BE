@@ -1,6 +1,7 @@
 ﻿using DaNangBayBooking.Data.Enums;
 using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
+using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Roles;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,7 @@ namespace DaNangBayBooking.ViewModels.System.Users
         public string Email { get; set; }
 
         [Display(Name = "Ngày sinh")]
-        public DateTime Dob { get; set; }
-
-        //public Guid LocationID { get; set; }
+        public long? Dob { get; set; }
 
         public string Address { get; set; }
 
@@ -40,9 +39,9 @@ namespace DaNangBayBooking.ViewModels.System.Users
 
         public string No { get; set; }
 
-        public DateTime ActiveDate { get; set; }
+        public long? ActiveDate { get; set; }
 
-        public Status Status { get; set; }
+        public bool Status { get; set; }
 
         public RoleVm Role { get; set; }
 
@@ -52,8 +51,6 @@ namespace DaNangBayBooking.ViewModels.System.Users
 
         public LocationSubDistrict SubDistrict { get; set; }
 
-        //public LocationVm Location { get; set; }
-
-        public List<BookRoomVm> BookRooms { get; set; }
+        //public List<BookRoomVm> BookRooms { get; set; }
     }
 }
