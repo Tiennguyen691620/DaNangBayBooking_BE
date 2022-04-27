@@ -125,6 +125,9 @@
               "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
                 "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
               },
+              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
+                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj"
+              },
               "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj": {
                 "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.ViewModels\\DaNangBayBooking.ViewModels.csproj"
               }
@@ -141,6 +144,14 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "AutoMapper.Collection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[6.16.0, )"
@@ -278,7 +289,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
-            "projectReferences": {}
+            "projectReferences": {
+              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
+                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -290,6 +305,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -336,6 +357,9 @@
             "projectReferences": {
               "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj": {
                 "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Data\\DaNangBayBooking.Data.csproj"
+              },
+              "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj": {
+                "projectPath": "G:\\DATA\\Graduation-Thesis\\DaNangBayBooking\\DaNangBayBooking.Utilities\\DaNangBayBooking.Utilities.csproj"
               }
             }
           }

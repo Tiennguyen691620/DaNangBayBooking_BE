@@ -18,6 +18,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using DaNangBayBooking.Application.Common.Storage;
 using DaNangBayBooking.Data.Entities;
+using DaNangBayBooking.Data.Enums;
 
 namespace DaNangBayBooking.Application.Catalog.Accommodations
 {
@@ -113,8 +114,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     No = x.a.No,
                     Address = x.a.Address,
                     Status = x.a.Status,
-                    //LocationID = x.a.LocationID,
-                    //AccommodationTypeID = x.a.AccommodationTypeID,
                     AccommodationType = new AccommodationTypeVm()
                     {
                         AccommodationTypeID = x.t.AccommodationTypeID,
@@ -132,48 +131,11 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                         ParentID = x.l.ParentID,
                         Type = x.l.Type
                     },
-                    /*Utilities = utilities.Where(u => u.AccommodationID == x.a.AccommodationID).Select(u => new UtilityVm()
-                    {
-                        UtilityID = u.UtilityID,
-                        AccommodationID = x.a.AccommodationID,
-                        UtilityType = u.UtilityType,
-                        IsPrivate = u.IsPrivate
-                    }).ToList(),*/
-                    /*Rooms = rooms.Where(r => r.AccommodationID == x.a.AccommodationID).Select(r => new RoomVm()
-                    {
-                        RoomID = r.RoomID,
-                        AccommodationID = x.a.AccommodationID,
-                        RoomTypeID = r.RoomTypeID,
-                        Name = r.Name,
-                        AvailableQty = r.AvailableQty,
-                        Price = r.Price,
-                        BookedQty = r.BookedQty,
-                        PurchasedQty = r.PurchasedQty,
-                        MaximumPeople = r.MaximumPeople,
-                        No = r.No
-                    }).ToList(),*/
                     Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
                     {
                         Id = i.ImageAccommodationID,
                         Image = i.Image,
                     }).ToList(),
-                    /*BookRooms = broom.Where(b => b.AccommodationID == x.a.AccommodationID).Select(br => new BookRoomVm()
-                    {
-                        BookRoomID = br.BookRoomID,
-                        BookingDate = br.BookingDate,
-                        AccommodationID = x.a.AccommodationID,
-                        No = br.No,
-                        Qty = br.Qty,
-                        BookingUser = br.BookingUser,
-                        FromDate = br.FromDate,
-                        ToDate = br.ToDate,
-                        CheckInIdentityCard = br.CheckInIdentityCard,
-                        CheckInMail = br.CheckInMail,
-                        CheckInName = br.CheckInName,
-                        CheckInNote = br.CheckInNote,
-                        Status = br.Status,
-                        TotalPrice = br.TotalPrice
-                    }).ToList()*/
                 }).ToListAsync();
 
             //4. Select and projection
@@ -213,8 +175,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 No = accommodation.No,
                 Address = accommodation.Address,
                 Status = accommodation.Status,
-                //LocationID = accommodation.LocationID,
-                //AccommodationTypeID = accommodation.AccommodationTypeID,
                 AccommodationType = new AccommodationTypeVm()
                 {
                     AccommodationTypeID = accommodationtype.AccommodationTypeID,
@@ -232,48 +192,11 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     ParentID = location.ParentID,
                     Type = location.Type
                 },
-                /*Utilities = utilities.Where(u => u.AccommodationID == accommodation.AccommodationID).Select(u => new UtilityVm()
-                { 
-                    UtilityID = u.UtilityID,
-                    AccommodationID = u.AccommodationID,
-                    UtilityType = u.UtilityType,
-                    IsPrivate = u.IsPrivate
-                }).ToList(),*/
-                /*Rooms = rooms.Where(r => r.AccommodationID == accommodation.AccommodationID).Select(r => new RoomVm()
-                {
-                    RoomID = r.RoomID,
-                    AccommodationID = accommodation.AccommodationID,
-                    RoomTypeID = r.RoomTypeID,
-                    Name = r.Name,
-                    AvailableQty = r.AvailableQty,
-                    Price = r.Price,
-                    BookedQty = r.BookedQty,
-                    PurchasedQty = r.PurchasedQty,
-                    MaximumPeople = r.MaximumPeople,
-                    No = r.No
-                }).ToList(),*/
                 Images = imageAccommodations.Where(i => i.AccommodationID == accommodation.AccommodationID).Select(i => new ImageAccommodationVm()
                 {
                     Id = i.ImageAccommodationID,
                     Image = i.Image,
                 }).ToList(),
-                /*BookRooms = broom.Where(b => b.AccommodationID == accommodation.AccommodationID).Select(br => new BookRoomVm()
-                {
-                    BookRoomID = br.BookRoomID,
-                    BookingDate = br.BookingDate,
-                    AccommodationID = accommodation.AccommodationID,
-                    No = br.No,
-                    Qty = br.Qty,
-                    BookingUser = br.BookingUser,
-                    FromDate = br.FromDate,
-                    ToDate = br.ToDate,
-                    CheckInIdentityCard = br.CheckInIdentityCard,
-                    CheckInMail = br.CheckInMail,
-                    CheckInName = br.CheckInName,
-                    CheckInNote = br.CheckInNote,
-                    Status = br.Status,
-                    TotalPrice = br.TotalPrice
-                }).ToList()*/
             };
             return new ApiSuccessResult<AccommodationVm>(accommodationVm);
         }
@@ -289,7 +212,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             else if (count < 9999) str = "ACC-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
             var accommodation = new Accommodation()
             {
-                //AccommodationID = request.AccommodationID,
+                AccommodationID = request.AccommodationID,
                 Name = request.Name,
                 AbbreviationName = request.AbbreviationName,
                 Address = request.Address,
@@ -348,6 +271,21 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             _context.Accommodations.Remove(deleteAccommodation);
             var result = await _context.SaveChangesAsync();
             if (result != 0) { 
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusAccommodation(Guid AccommodationID, bool Status)
+        {
+            var checkStatus = await _context.Accommodations.FindAsync(AccommodationID);
+            if(checkStatus == null) {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiSuccessResult<bool>(false);

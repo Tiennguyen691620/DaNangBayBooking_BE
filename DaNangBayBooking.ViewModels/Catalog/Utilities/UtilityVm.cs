@@ -8,7 +8,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Utilities
     {
         public Guid UtilityID { get; set; }
 
-        public Guid AccommodationID { get; set; }
+        //public Guid AccommodationID { get; set; }
 
         public string UtilityType { get; set; }
 

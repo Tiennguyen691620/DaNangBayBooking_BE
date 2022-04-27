@@ -28,3 +28,5 @@ C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Application\obj\Debug\n
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.csproj.CopyComplete
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.dll
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Application\obj\Debug\netcoreapp3.1\DaNangBayBooking.Application.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Application\bin\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb

@@ -11,17 +11,6 @@ namespace DaNangBayBooking.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            var LocationID = new Guid("f4f9a364-599c-11ec-ab77-0639800004fa");
-            modelBuilder.Entity<Location>().HasData(new Location
-            {
-                LocationID = LocationID,
-                IsDeleted = false,
-                Name = "Tỉnh Sóc Trăng",
-                Type = "Province",
-                ParentID = new Guid("0c0103f5-792f-11ec-8f95-0639800004fa"),
-                SortOrder = 51,
-                Code = "SM97",
-            });
 
             //any guid
             var roleID1 = new Guid("3FBC6C82-5EA2-47C8-BC7C-0D9ED0281045");
@@ -44,55 +33,6 @@ namespace DaNangBayBooking.Data.Extensions
                 Description = "Cliener role"
             }
             );
-
-
-            var hasher = new PasswordHasher<AppUser>();
-            modelBuilder.Entity<AppUser>().HasData(new AppUser
-            {
-                Id = roleAdmin,
-                AppRoleID = roleID1,
-                UserName = "admin",
-                NormalizedUserName = "admin",
-                Email = "tiennguyen691620@gmail.com",
-                NormalizedEmail = "tiennguyen691620@gmail.com",
-                EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "0889161328Tn@"),
-                SecurityStamp = string.Empty,
-                FullName = "Nguyễn Tân Tiến",
-                Dob = new DateTime(2000, 01, 06),
-                PhoneNumber = "0889161328",
-                IdentityCard= "241777698",
-                Gender = "Nam",
-                Address = "100, Âu Cơ",
-                No = "DNB-22-00001",
-                LocationID = LocationID,
-                ActiveDate = DateTime.Now,
-                Status = Enums.Status.Active,
-            },
-            new AppUser
-            {
-                Id = roleClientID,
-                AppRoleID = roleID2,
-                UserName = "tiennguyen",
-                NormalizedUserName = "tiennguyen",
-                Email = "tiennguyen3129@gmail.com",
-                NormalizedEmail = "tiennguyen3129@gmail.com",
-                EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "0889161328Tn@"),
-                SecurityStamp = string.Empty,
-                FullName = "Nguyễn Tân Tiến",
-                Dob = new DateTime(2000, 01, 06),
-                PhoneNumber = "0889161329",
-                IdentityCard = "241777698",
-                Gender = "Nam",
-                Address = "100, Âu Cơ",
-                No = "DNB-22-00002",
-                LocationID = LocationID,
-                ActiveDate = DateTime.Now,
-                Status = Enums.Status.Active,
-            }
-            );
-
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
             {
                 RoleId = roleID1,

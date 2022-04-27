@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DaNangBayBooking.Data.Enums
 {
-    public enum Status
+    public enum StatusEnum
     {   
-        NotActivate,
+        //NotActivate,
         InActive,
         Active
     }
