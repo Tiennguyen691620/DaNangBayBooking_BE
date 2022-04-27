@@ -18,3 +18,6 @@ C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\net
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.csproj.CoreCompileInputs.cache
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.dll
 C:\Users\PC\Desktop\DaNangBayBooking_BE\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\bin\Debug\netcoreapp3.1\DaNangBayBooking.Data.pdb
+G:\DATA\Graduation-Thesis\DaNangBayBooking\DaNangBayBooking.Utilities\obj\Debug\netcoreapp3.1\DaNangBayBooking.Utilities.csproj.CopyComplete

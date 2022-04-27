@@ -9,6 +9,8 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
     {
         public Guid RoomTypeID { get; set; }
 
+        public string No { get; set; }
+
         public string Name { get; set; }
 
         public int AvailableQty { get; set; }
@@ -17,6 +19,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
 
         public Decimal Price { get; set; }
 
-        public List<ImageAccommodationCreateRequest> Image { get; set; }
+        public List<ImageAccommodationCreateRequest> Images { get; set; }
     }
 }

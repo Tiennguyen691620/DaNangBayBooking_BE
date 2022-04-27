@@ -9,6 +9,6 @@ namespace DaNangBayBooking.ViewModels.System.Users
     {
         public string SearchKey { get; set; }
 
-        public Guid? RoleID { get; set; }
+        //public Guid? RoleID { get; set; }
     }
 }

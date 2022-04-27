@@ -69,8 +69,8 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.HasKey("AccommodationID");
 
@@ -147,7 +147,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "e4f3ddb6-21de-4418-b58c-85d642b210d8",
+                            ConcurrencyStamp = "51d7ea54-018a-475e-b78a-4c9318fc85cf",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +155,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "b2c7328d-3c0b-429b-90e1-b8df8a1d837c",
+                            ConcurrencyStamp = "94961346-c9e2-4178-8507-1fdb80ed2cac",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -200,9 +200,8 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit")
                         .HasMaxLength(10);
 
                     b.Property<string>("IdentityCard")
@@ -242,8 +241,8 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -258,62 +257,6 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasIndex("LocationID");
 
                     b.ToTable("AppUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("06fdb157-c52f-4e71-adf5-0f08bb0af468"),
-                            AccessFailedCount = 0,
-                            ActiveDate = new DateTime(2022, 4, 14, 8, 49, 5, 969, DateTimeKind.Local).AddTicks(7753),
-                            Address = "100, Âu Cơ",
-                            AppRoleID = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "f995975a-11fb-48ba-9ebd-e28d815737fe",
-                            Dob = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tiennguyen691620@gmail.com",
-                            EmailConfirmed = true,
-                            FullName = "Nguyễn Tân Tiến",
-                            Gender = "Nam",
-                            IdentityCard = "241777698",
-                            LocationID = new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"),
-                            LockoutEnabled = false,
-                            No = "DNB-22-00001",
-                            NormalizedEmail = "tiennguyen691620@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDSb4BW2uRn+A8Sul3bUbKIkl+D83unBzP+o4IWeC9WDbAVvLfriDlDFy85uq4HqQw==",
-                            PhoneNumber = "0889161328",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 2,
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d4f5b12-bc9a-46b1-ba0b-07cea34e35f8"),
-                            AccessFailedCount = 0,
-                            ActiveDate = new DateTime(2022, 4, 14, 8, 49, 5, 976, DateTimeKind.Local).AddTicks(9398),
-                            Address = "100, Âu Cơ",
-                            AppRoleID = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "c82b0919-b51a-4dc7-b6c0-f2f369fc5940",
-                            Dob = new DateTime(2000, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tiennguyen3129@gmail.com",
-                            EmailConfirmed = true,
-                            FullName = "Nguyễn Tân Tiến",
-                            Gender = "Nam",
-                            IdentityCard = "241777698",
-                            LocationID = new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"),
-                            LockoutEnabled = false,
-                            No = "DNB-22-00002",
-                            NormalizedEmail = "tiennguyen3129@gmail.com",
-                            NormalizedUserName = "tiennguyen",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOeVXBXtu+YutFXDmWJ5oW3fuoeDM/zs6FkJvJgSi7H8tAJujzYh2wpgq6ZRO5gyJA==",
-                            PhoneNumber = "0889161329",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Status = 2,
-                            TwoFactorEnabled = false,
-                            UserName = "tiennguyen"
-                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.BookRoom", b =>
@@ -509,18 +452,6 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasKey("LocationID");
 
                     b.ToTable("Locations");
-
-                    b.HasData(
-                        new
-                        {
-                            LocationID = new Guid("f4f9a364-599c-11ec-ab77-0639800004fa"),
-                            Code = "SM97",
-                            IsDeleted = false,
-                            Name = "Tỉnh Sóc Trăng",
-                            ParentID = new Guid("0c0103f5-792f-11ec-8f95-0639800004fa"),
-                            SortOrder = 51,
-                            Type = "Province"
-                        });
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.RateComment", b =>
@@ -637,6 +568,34 @@ namespace DaNangBayBooking.Data.Migrations
                     b.HasKey("RoomTypeID");
 
                     b.ToTable("Roomtype");
+                });
+
+            modelBuilder.Entity("DaNangBayBooking.Data.Entities.Status", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DisplayText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<string>("Group")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
+
+                    b.HasKey("Key");
+
+                    b.ToTable("Status");
                 });
 
             modelBuilder.Entity("DaNangBayBooking.Data.Entities.Utility", b =>

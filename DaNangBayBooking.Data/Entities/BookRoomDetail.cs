@@ -21,7 +21,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public int PersonNumber { get; set; }
 
-        public Status Status { get; set; }
+        public Enums.StatusEnum Status { get; set; }
 
         public BookRoom BookRoom { get; set; }
 

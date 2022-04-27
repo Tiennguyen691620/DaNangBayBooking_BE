@@ -22,11 +22,11 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
         public async Task<ApiResult<bool>> Delete(RoomTypeDeleteRequest request)
         {
             var deleteRoomType = await _context.RoomTypes.FindAsync(request.RoomTypeID);
-            if (deleteRoomType.Status == true) {
+            /*if (deleteRoomType.Status == true) {
                 deleteRoomType.Status = false;
                 _context.SaveChanges();
                 return new ApiSuccessResult<bool>(true);
-            }
+            }*/
             if (_context.Rooms.FirstOrDefault(x => x.RoomTypeID == request.RoomTypeID) != null){
                 return new ApiSuccessResult<bool>(false);
             }

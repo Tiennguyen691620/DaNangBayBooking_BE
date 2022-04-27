@@ -22,6 +22,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateStatusAccommodation(System.Guid,System.Boolean)">
+            <summary>
+            Cập nhật trạng thái của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.DeleteAccommodation(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationDeleteRequest)">
             <summary>
             Xóa CSLT
@@ -49,6 +55,24 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.CreateRoom(System.Guid,DaNangBayBooking.ViewModels.Catalog.Rooms.CreateRoomRequest)">
             <summary>
             Tạo mới phòng của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetDetailUtility(System.Guid)">
+            <summary>
+            Xem chi tiết tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.CreateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.CreateUtilityRequest},System.Guid)">
+            <summary>
+            Tạo mới tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.UpdateUtilityRequest},System.Guid)">
+            <summary>
+            Cập nhật tiện ích của CSLT
             </summary>
             
         </member>
@@ -132,9 +156,26 @@
             Đăng kí tài khoản khách hàng
             </summary>
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetUsersAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
             <summary>
-            Lấy danh sách  tài khoản phân trang 
+            Lấy danh sách tài khoản khách hàng phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.CreateAdmin(DaNangBayBooking.ViewModels.System.Users.CreateAdminRequest)">
+            <summary>
+            Tạo tài khoản Admin
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.Customer(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
+            <summary>
+            Lấy danh sách  tài khoản admin phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.UpdateStatusAdmin(System.Guid,System.Boolean)">
+            <summary>
+            Trạng thái tài khoản của Admin
             </summary>
             
         </member>
