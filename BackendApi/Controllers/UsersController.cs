@@ -81,6 +81,8 @@ namespace DaNangBayBooking.BackendApi.Controllers
             }
             return Ok(result);
         }
+
+
         /// <summary>
         /// Lấy danh sách tài khoản khách hàng phân trang 
         /// </summary>
@@ -92,6 +94,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var user = await _userService.GetCustomerAllPaging(request);
             return Ok(user);
         }
+
+        /// <summary>
+        /// Trạng thái tài khoản của Client
+        /// </summary>
+        /// 
+        [HttpPut("update/{UserClientID}/status/client")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusClient(Guid UserClientID, bool Status)
+        {
+            var UserAdmin = await _userService.UpdateStatusClient(UserClientID, Status);
+            return Ok(UserAdmin);
+        }
+
 
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using DaNangBayBooking.Application.Catalog.Accommodations;
+using DaNangBayBooking.ViewModels.Catalog.Accommodation;
 using DaNangBayBooking.ViewModels.Catalog.Images;
 using DaNangBayBooking.ViewModels.Common;
 using Microsoft.AspNetCore.Cors;
@@ -24,7 +25,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Thêm ảnh
         /// </summary>
         /// 
-        [HttpPost("images/upload/")]
+        [HttpPost("images/upload")]
         public async Task<ActionResult<ApiResult<ImageVm>>> Create([FromForm] ImageCreateRequest request)
         {
             if (!ModelState.IsValid)
@@ -36,6 +37,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
                 return BadRequest();
 
             return Ok(result);
+        }
+
+
+        /// <summary>
+        /// Xóa ảnh
+        /// </summary>
+        /// 
+        [HttpDelete("images/delete")]
+        public async Task<ActionResult<ApiResult<bool>>> DeleteImage([FromBody] ImageAccommodationDeleteRequest request)
+        {
+            var Image = await _iAcommodationService.DeleteImage(request);
+            return Ok(Image);
         }
     }
 }

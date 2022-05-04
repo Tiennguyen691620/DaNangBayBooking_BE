@@ -50,6 +50,10 @@ namespace DaNangBayBooking.Application.System.Users
 
             var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
             if (roles.Name.ToUpper() == "CLIENT") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản quản trị viên.");
+            if (user.Status == false)
+            {
+                return new ApiErrorResult<LoginUser>("Tài khoản bị vô hiệu hóa");
+            }
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
@@ -94,6 +98,10 @@ namespace DaNangBayBooking.Application.System.Users
 
             var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
             if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản khách hàng.");
+            if(user.Status == false)
+            {
+                return new ApiErrorResult<LoginUser>("Tài khoản bị vô hiệu hóa");
+            } 
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
@@ -132,38 +140,46 @@ namespace DaNangBayBooking.Application.System.Users
 
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            string year = DateTime.Now.ToString("yy");
+            int count = await _context.Users.Where(x => x.No.Contains("CUSTOMER-" + year)).CountAsync();
+            string str = "";
+            if (count < 9) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-000" + (count + 1);
+            else if (count < 99) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-00" + (count + 1);
+            else if (count < 999) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-0" + (count + 1);
+            else if (count < 9999) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
+
             var role = await _roleManager.FindByNameAsync("Client");
-            if (user != null)
+            if (await _userManager.FindByNameAsync(request.PhoneNumber) != null)
             {
-                return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
+                return new ApiErrorResult<bool>("Số điện thoại đã tồn tại");
             }
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
                 return new ApiErrorResult<bool>("Emai đã tồn tại");
             }
 
-            user = new AppUser()
+            var user = new AppUser()
             {
-                Dob = request.Dob,
-                Email = request.Email,
+                Id = request.Id,
                 FullName = request.FullName,
-                Gender = request.Gender,
-                IdentityCard = request.IdentityCard,
-                UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
-                LocationID = request.LocationID,
+                Email = request.Email,
+                Dob = request.Dob.FromUnixTimeStamp(),
+                IdentityCard = request.IdentityCard,
+                Gender = request.Gender,
+                UserName = str,
+                No = str,
                 ActiveDate = DateTime.Now,
+                Status = true,
                 AppRoleID = role.Id,
-                //Status = request.Status.ToDictionaryItemDto<Status>(),
-                //Status = Data.Enums.Status.Active,
+                LocationID = request.SubDistrict.LocationID
             };
             var result = await _userManager.CreateAsync(user, request.Password);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return new ApiSuccessResult<bool>(result.Succeeded);
+                return new ApiSuccessResult<bool>(false);
             }
-            return new ApiErrorResult<bool>("Đăng ký không thành công");
+            return new ApiSuccessResult<bool>(true);
         }
 
         public async Task<ApiResult<bool>> Delete(Guid id)
@@ -287,8 +303,8 @@ namespace DaNangBayBooking.Application.System.Users
                     Gender = x.u.Gender,
                     Id = x.u.Id,
                     FullName = x.u.FullName,
-                   // Status = x.u.Status.ToDictionaryItemDto<Data.Enums.Status>(),
                     Avatar = x.u.Avatar,
+                    Status = x.u.Status,
                     Dob = x.u.Dob.ToSecondsTimestamp(),
                     ActiveDate = x.u.ActiveDate.ToSecondsTimestamp(),
                     IdentityCard = x.u.IdentityCard,
@@ -458,11 +474,11 @@ namespace DaNangBayBooking.Application.System.Users
                 IdentityCard = request.IdentityCard,
                 Gender = request.Gender,
                 Avatar = request.Avatar,
+                LocationID = request.SubDistrict.LocationID,
                 UserName = str,
                 No = str,
                 ActiveDate = DateTime.Now,
                 Status = true,
-                LocationID = request.SubDistrict.LocationID,
                 AppRoleID = role.Id,
             };
             var result = await _userManager.CreateAsync(user, "123456789Abc@");
@@ -476,6 +492,30 @@ namespace DaNangBayBooking.Application.System.Users
         public async Task<ApiResult<bool>> UpdateStatusAdmin(Guid UserAdminID, bool Status)
         {
             var checkStatus = await _context.AppUsers.FindAsync(UserAdminID);
+            if (checkStatus == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            if (checkStatus.Status == true)
+            {
+                checkStatus.Status = false;
+            }
+            else
+            {
+                checkStatus.Status = true;
+            }
+            //checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusClient(Guid UserClientID, bool Status)
+        {
+            var checkStatus = await _context.AppUsers.FindAsync(UserClientID);
             if (checkStatus == null)
             {
                 return new ApiSuccessResult<bool>(false);

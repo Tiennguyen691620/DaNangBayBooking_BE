@@ -67,6 +67,23 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             };
         }
 
+        public async Task<ApiResult<bool>> DeleteImage(ImageAccommodationDeleteRequest request)
+        {
+            var image = await _context.ImageAccommodations.FindAsync(request);
+            if(image == null) {
+                return new ApiSuccessResult<bool>(false);
+            }
+            _context.ImageAccommodations.Remove(image);
+            var result = await _context.SaveChangesAsync();
+            if(result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+
+
+
         public async Task<ApiResult<PagedResult<AccommodationVm>>> GetAccommodationsAllPaging(GetAccommodationPagingRequest request)
         {
             var query = from a in _context.Accommodations
@@ -242,21 +259,47 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         public async Task<ApiResult<bool>> UpdateAccommodation(AccommodationUpdateRequest request)
         {
             var updateAccommodation = await _context.Accommodations.FindAsync(request.AccommodationID);
+            if (updateAccommodation == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
             updateAccommodation.Name = request.Name;
             updateAccommodation.AbbreviationName = request.AbbreviationName;
             updateAccommodation.Address = request.Address;
             updateAccommodation.Description = request.Description;
             updateAccommodation.Phone = request.Phone;
             updateAccommodation.MapURL = request.MapURL;
-            updateAccommodation.Status = request.Status;
+            //updateAccommodation.Status = request.Status;
             updateAccommodation.LocationID = request.Location.LocationID;
             updateAccommodation.AccommodationTypeID = request.AccommodationType.AccommodationTypeID;
+            var ListImage = _context.ImageAccommodations.Where(x => x.AccommodationID == request.AccommodationID);
             if (request.Images.Count() > 0)
             {
+                var j = 1;
+                updateAccommodation.imageAccommodations = new List<ImageAccommodation>();
                 foreach (var i in request.Images)
                 {
-                    var image = _context.ImageAccommodations.FindAsync();
+                    var checkImage = await _context.ImageAccommodations.FindAsync(i.Id);
+                    if (checkImage == null) { 
+                        if(i.Id == new Guid()) {
+                            var image = new ImageAccommodation() {
+                                Image = i.Image,
+                                SortOrder = ListImage.Count() + j,
+                            };
+                            j++;
+                            updateAccommodation.imageAccommodations.Add(image);                        
+                        } else
+                        {
+
+                        }
+                    }
                 }
+
+            }
+            var result = await _context.SaveChangesAsync();
+            if (result == 0)
+            {
+                return new ApiSuccessResult<bool>(false);
             }
             return new ApiSuccessResult<bool>(true);
 
@@ -290,5 +333,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             }
             return new ApiSuccessResult<bool>(false);
         }
+
+        
     }
 }

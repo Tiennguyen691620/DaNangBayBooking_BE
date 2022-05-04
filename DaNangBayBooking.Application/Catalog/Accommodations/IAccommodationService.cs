@@ -18,5 +18,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         Task<ApiResult<bool>> DeleteAccommodation(AccommodationDeleteRequest request);
         Task<ApiResult<bool>> UpdateStatusAccommodation(Guid AccommodationID, bool Status);
         Task<ApiResult<ImageVm>> AddImage(ImageCreateRequest request);
+        Task<ApiResult<bool>> DeleteImage(ImageAccommodationDeleteRequest request);
     }
 }
