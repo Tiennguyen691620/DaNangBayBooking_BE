@@ -19,5 +19,6 @@ namespace DaNangBayBooking.Application.System.Users
         Task<ApiResult<UserVm>> GetById(Guid id);
         Task<ApiResult<bool>> CreateAdmin(CreateAdminRequest request);
         Task<ApiResult<bool>> UpdateStatusAdmin(Guid UserAdminID, bool Status);
+        Task<ApiResult<bool>> UpdateStatusClient(Guid UserClientID, bool Status);
     }
 }

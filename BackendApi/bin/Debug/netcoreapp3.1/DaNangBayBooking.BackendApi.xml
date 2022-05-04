@@ -22,15 +22,21 @@
             </summary>
             
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateStatusAccommodation(System.Guid,System.Boolean)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateAccommodation(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationUpdateRequest)">
             <summary>
-            Cập nhật trạng thái của CSLT
+            Cập nhật CSLT
             </summary>
             
         </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.DeleteAccommodation(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationDeleteRequest)">
             <summary>
             Xóa CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateStatusAccommodation(System.Guid,System.Boolean)">
+            <summary>
+            Cập nhật trạng thái của CSLT
             </summary>
             
         </member>
@@ -141,6 +147,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.StorageController.DeleteImage(DaNangBayBooking.ViewModels.Catalog.Accommodation.ImageAccommodationDeleteRequest)">
+            <summary>
+            Xóa ảnh
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.LoginClient(DaNangBayBooking.ViewModels.System.Users.LoginRequest)">
             <summary>
             Đăng nhập dành cho khách hàng
@@ -159,6 +171,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetUsersAllPaging(DaNangBayBooking.ViewModels.System.Users.GetUserPagingRequest)">
             <summary>
             Lấy danh sách tài khoản khách hàng phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.UpdateStatusClient(System.Guid,System.Boolean)">
+            <summary>
+            Trạng thái tài khoản của Client
             </summary>
             
         </member>

@@ -78,14 +78,14 @@ namespace DaNangBayBooking.BackendApi.Controllers
 
 
         /// <summary>
-        /// Cập nhật trạng thái của CSLT
+        /// Cập nhật CSLT
         /// </summary>
         /// 
-        [HttpPut("update/{AccommodationID}/status")]
+        [HttpPut("update")]
         [AllowAnonymous]
-        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusAccommodation( Guid AccommodationID,  bool Status)
+        public async Task<ActionResult<ApiResult<bool>>> UpdateAccommodation(AccommodationUpdateRequest request)
         {
-            var Accommodation = await _accommodationService.UpdateStatusAccommodation(AccommodationID, Status);
+            var Accommodation = await _accommodationService.UpdateAccommodation(request);
             return Ok(Accommodation);
         }
 
@@ -98,6 +98,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
         public async Task<ActionResult<ApiResult<bool>>> DeleteAccommodation([FromBody] AccommodationDeleteRequest request)
         {
             var Accommodation = await _accommodationService.DeleteAccommodation(request);
+            return Ok(Accommodation);
+        }
+
+
+        /// <summary>
+        /// Cập nhật trạng thái của CSLT
+        /// </summary>
+        /// 
+        [HttpPut("update/{AccommodationID}/status")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusAccommodation(Guid AccommodationID, bool Status)
+        {
+            var Accommodation = await _accommodationService.UpdateStatusAccommodation(AccommodationID, Status);
             return Ok(Accommodation);
         }
 
