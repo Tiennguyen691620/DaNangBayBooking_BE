@@ -222,7 +222,6 @@ namespace DaNangBayBooking.Application.System.Users
                 UserName = user.UserName,
                 IdentityCard = user.IdentityCard,
                 Gender = user.Gender,
-                //Status = user.Status.ToDictionaryItemDto<Data.Enums.Status>(),
                 ActiveDate = user.ActiveDate.ToSecondsTimestamp(),
                 Address = user.Address,
                 Avatar = user.Avatar,
@@ -257,7 +256,6 @@ namespace DaNangBayBooking.Application.System.Users
                     Type = sd.Type,
                     SortOrder = sd.SortOrder
                 },
-                //LocationID = user.LocationID,
                 Role = new RoleVm()
                 {
                     RoleID = roles.Id,
@@ -308,7 +306,7 @@ namespace DaNangBayBooking.Application.System.Users
                     Dob = x.u.Dob.ToSecondsTimestamp(),
                     ActiveDate = x.u.ActiveDate.ToSecondsTimestamp(),
                     IdentityCard = x.u.IdentityCard,
-                    Address = x.u.Address,
+                    Address = x.u.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
                     No = x.u.No,
                     Province = new LocationProvince()
                     {
@@ -400,7 +398,7 @@ namespace DaNangBayBooking.Application.System.Users
                     Dob = x.u.Dob.ToSecondsTimestamp(),
                     ActiveDate = x.u.ActiveDate.ToSecondsTimestamp(),
                     IdentityCard = x.u.IdentityCard,
-                    Address = x.u.Address,
+                    Address = x.u.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
                     No = x.u.No,
                     Province = new LocationProvince()
                     {
@@ -535,6 +533,31 @@ namespace DaNangBayBooking.Application.System.Users
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiSuccessResult<bool>(false);
+        }
+
+        public async Task<ApiResult<bool>> UpdateUser(UpdateRequest request)
+        {
+            var updateUser = await _context.AppUsers.FindAsync(request.Id);
+            if (updateUser == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            updateUser.Id = request.Id;
+            updateUser.FullName = request.FullName;
+            updateUser.Dob = request.Dob.FromUnixTimeStamp();
+            updateUser.Email = request.Email;
+            updateUser.PhoneNumber = request.PhoneNumber;
+            updateUser.Gender = request.Gender;
+            updateUser.IdentityCard = request.IdentityCard;
+            updateUser.Address = request.Address;
+            updateUser.LocationID = request.SubDistrict.LocationID;
+            updateUser.Avatar = request.Avatar;
+            var result = await _context.SaveChangesAsync();
+            if (result == 0)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            return new ApiSuccessResult<bool>(true);
         }
     }
 }

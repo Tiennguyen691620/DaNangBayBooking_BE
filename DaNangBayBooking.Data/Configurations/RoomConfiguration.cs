@@ -15,13 +15,12 @@ namespace DaNangBayBooking.Data.Configurations
 
             builder.HasKey(x => x.RoomID);
 
-            builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.AvailableQty).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.BookedQty).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.PurchasedQty).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.MaximumPeople).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Price).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.No).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Name).HasMaxLength(200);
+            builder.Property(x => x.AvailableQty).HasMaxLength(200);
+            builder.Property(x => x.BookedQty).HasMaxLength(int.MaxValue);
+            builder.Property(x => x.PurchasedQty).HasMaxLength(200);
+            builder.Property(x => x.MaximumPeople).HasMaxLength(200);
+            builder.Property(x => x.Price).HasMaxLength(int.MaxValue);
 
             builder.HasOne(x => x.Accommodation).WithMany(x => x.Rooms).HasForeignKey(x => x.AccommodationID);
             builder.HasOne(x => x.RoomType).WithMany(x => x.Rooms).HasForeignKey(x => x.RoomTypeID);

@@ -29,6 +29,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
 
         public string No { get; set; }
 
-        public List<ImageAccommodationVm> Images { get; set; }
+        public string Image { get; set; }
     }
 }

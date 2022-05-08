@@ -64,6 +64,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateRoom(System.Guid,System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Rooms.UpdateRoomRequest})">
+            <summary>
+            Cập nhật phòng của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetDetailUtility(System.Guid)">
             <summary>
             Xem chi tiết tiện ích của CSLT
@@ -200,6 +206,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.GetById(System.Guid)">
             <summary>
             Lấy thông tin chi tiết tài khoản
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.UpdateUser(DaNangBayBooking.ViewModels.System.Users.UpdateRequest)">
+            <summary>
+            Cập nhật tài khoản 
             </summary>
             
         </member>

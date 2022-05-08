@@ -147,7 +147,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "51d7ea54-018a-475e-b78a-4c9318fc85cf",
+                            ConcurrencyStamp = "9bb6b0bd-9174-48bd-a52f-638164a2c4df",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +155,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "94961346-c9e2-4178-8507-1fdb80ed2cac",
+                            ConcurrencyStamp = "a5761fb1-1df4-4c9d-8173-6622a5a96a46",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -241,8 +241,8 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -505,25 +505,25 @@ namespace DaNangBayBooking.Data.Migrations
 
                     b.Property<int>("BookedQty")
                         .HasColumnType("int")
-                        .HasMaxLength(200);
+                        .HasMaxLength(2147483647);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaximumPeople")
                         .HasColumnType("int")
                         .HasMaxLength(200);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<string>("No")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)")
-                        .HasMaxLength(200);
+                        .HasMaxLength(2147483647);
 
                     b.Property<int>("PurchasedQty")
                         .HasColumnType("int")

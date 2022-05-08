@@ -163,5 +163,17 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var user = await _userService.GetById(id);
             return Ok(user);
         }
+
+        /// <summary>
+        /// Cập nhật tài khoản 
+        /// </summary>
+        /// 
+        [HttpPut("update")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateUser([FromBody] UpdateRequest request)
+        {
+            var User = await _userService.UpdateUser(request);
+            return Ok(User);
+        }
     }
 }

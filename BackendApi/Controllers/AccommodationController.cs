@@ -162,8 +162,17 @@ namespace DaNangBayBooking.BackendApi.Controllers
             return Ok(Room);
         }
 
-
-
+        /// <summary>
+        /// Cập nhật phòng của CSLT
+        /// </summary>
+        /// 
+        [HttpPut("update/room/{accommodationID}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateRoom(Guid accommodationID, List<UpdateRoomRequest> request)
+        {
+            var Utilities = await _roomService.UpdateRoom(accommodationID, request);
+            return Ok(Utilities);
+        }
 
 
         /// <summary>
