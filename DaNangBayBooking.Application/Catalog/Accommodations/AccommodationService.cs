@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
-using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Catalog.Utilities;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
@@ -89,8 +88,11 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         {
             var query = from a in _context.Accommodations
                         join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
-                        join l in _context.Locations on a.LocationID equals l.LocationID
-                        select new { a, t, l };
+                        //join l in _context.Locations on a.LocationID equals l.LocationID
+                        join sd in _context.Locations on a.LocationID equals sd.LocationID
+                        join d in _context.Locations on sd.ParentID equals d.LocationID
+                        join p in _context.Locations on d.ParentID equals p.LocationID
+                        select new { a, t, sd, d, p };
 
             var broom = from br in _context.BookRooms select br;
             var utilities = from ul in _context.Utilities select ul;
@@ -110,9 +112,14 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 query = query.Where(x => x.a.AccommodationTypeID == request.AccommodationTypeID);
             }
 
-            if (!string.IsNullOrEmpty(request.LocationID.ToString()))
+            if (!string.IsNullOrEmpty(request.ProvinceID.ToString()))
             {
-                query = query.Where(x => x.a.LocationID == request.LocationID);
+                query = query.Where(x => x.p.LocationID == request.ProvinceID);
+            }
+            
+            if (!string.IsNullOrEmpty(request.DistrictID.ToString()))
+            {
+                query = query.Where(x => x.d.LocationID == request.DistrictID);
             }
 
             //3. Paging
@@ -130,7 +137,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     Phone = x.a.Phone,
                     MapURL = x.a.MapURL,
                     No = x.a.No,
-                    Address = x.a.Address,
+                    Address = x.a.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
                     Status = x.a.Status,
                     AccommodationType = new AccommodationTypeVm()
                     {
@@ -139,15 +146,35 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                         Description = x.t.Description,
                         No = x.t.No,
                     },
-                    Location = new LocationVm()
+                    Province = new LocationProvince()
                     {
-                        LocationID = x.l.LocationID,
-                        Name = x.l.Name,
-                        SortOrder = x.l.SortOrder,
-                        Code = x.l.Code,
-                        IsDeleted = x.l.IsDeleted,
-                        ParentID = x.l.ParentID,
-                        Type = x.l.Type
+                        LocationID = x.p.LocationID,
+                        Name = x.p.Name,
+                        SortOrder = x.p.SortOrder,
+                        Code = x.p.Code,
+                        IsDeleted = x.p.IsDeleted,
+                        ParentID = x.p.ParentID,
+                        Type = x.p.Type
+                    },
+                    District = new LocationDistrict()
+                    {
+                        LocationID = x.d.LocationID,
+                        Name = x.d.Name,
+                        IsDeleted = x.d.IsDeleted,
+                        ParentID = x.d.ParentID,
+                        Code = x.d.Code,
+                        Type = x.d.Type,
+                        SortOrder = x.d.SortOrder
+                    },
+                    SubDistrict = new LocationSubDistrict()
+                    {
+                        LocationID = x.sd.LocationID,
+                        Name = x.sd.Name,
+                        IsDeleted = x.sd.IsDeleted,
+                        ParentID = x.sd.ParentID,
+                        Code = x.sd.Code,
+                        Type = x.sd.Type,
+                        SortOrder = x.sd.SortOrder
                     },
                     Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
                     {
@@ -171,11 +198,16 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         {
             var accommodation = await _context.Accommodations.FindAsync(id);
             var accommodationtype = await _context.AccommodationTypes.FindAsync(accommodation.AccommodationTypeID);
-            var location = await _context.Locations.FindAsync(accommodation.LocationID);
+            //var location = await _context.Locations.FindAsync(accommodation.LocationID);
             if (accommodation == null)
             {
                 return new ApiErrorResult<AccommodationVm>("Accommodation không tồn tại");
             }
+
+            var sd = await _context.Locations.FindAsync(accommodation.LocationID);
+            var d = await _context.Locations.FindAsync(sd.ParentID);
+            var p = await _context.Locations.FindAsync(d.ParentID);
+
             var broom = from br in _context.BookRooms select br;
             var utilities = from ul in _context.Utilities select ul;
             var rooms = from rm in _context.Rooms select rm;
@@ -193,22 +225,42 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 No = accommodation.No,
                 Address = accommodation.Address,
                 Status = accommodation.Status,
+                Province = new LocationProvince()
+                {
+                    LocationID = p.LocationID,
+                    Name = p.Name,
+                    IsDeleted = p.IsDeleted,
+                    ParentID = p.ParentID,
+                    Code = p.Code,
+                    Type = p.Type,
+                    SortOrder = p.SortOrder
+                },
+                District = new LocationDistrict()
+                {
+                    LocationID = d.LocationID,
+                    Name = d.Name,
+                    IsDeleted = d.IsDeleted,
+                    ParentID = d.ParentID,
+                    Code = d.Code,
+                    Type = d.Type,
+                    SortOrder = d.SortOrder
+                },
+                SubDistrict = new LocationSubDistrict()
+                {
+                    LocationID = sd.LocationID,
+                    Name = sd.Name,
+                    IsDeleted = sd.IsDeleted,
+                    ParentID = sd.ParentID,
+                    Code = sd.Code,
+                    Type = sd.Type,
+                    SortOrder = sd.SortOrder
+                },
                 AccommodationType = new AccommodationTypeVm()
                 {
                     AccommodationTypeID = accommodationtype.AccommodationTypeID,
                     Name = accommodationtype.Name,
                     Description = accommodationtype.Description,
                     No = accommodationtype.No,
-                },
-                Location = new LocationVm()
-                {
-                    LocationID = location.LocationID,
-                    Name = location.Name,
-                    SortOrder = location.SortOrder,
-                    Code = location.Code,
-                    IsDeleted = location.IsDeleted,
-                    ParentID = location.ParentID,
-                    Type = location.Type
                 },
                 Images = imageAccommodations.Where(i => i.AccommodationID == accommodation.AccommodationID).Select(i => new ImageAccommodationVm()
                 {
@@ -240,7 +292,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 MapURL = request.MapURL,
                 No = str,
                 Status = request.Status,
-                LocationID = request.Location.LocationID,
+                LocationID = request.SubDistrict.LocationID,
                 AccommodationTypeID = request.AccommodationType.AccommodationTypeID,
                 imageAccommodations = request.Images.Select(i => new ImageAccommodation()
                 {
@@ -272,7 +324,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             updateAccommodation.Phone = request.Phone;
             updateAccommodation.MapURL = request.MapURL;
             //updateAccommodation.Status = request.Status;
-            updateAccommodation.LocationID = request.Location.LocationID;
+            updateAccommodation.LocationID = request.SubDistrict.LocationID;
             updateAccommodation.AccommodationTypeID = request.AccommodationType.AccommodationTypeID;
 
             var ListImage = _context.ImageAccommodations.Where(x => x.AccommodationID == request.AccommodationID);

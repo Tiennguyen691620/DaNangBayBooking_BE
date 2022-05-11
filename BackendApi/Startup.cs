@@ -31,6 +31,9 @@ using DaNangBayBooking.Application.Catalog.Accommodations;
 using DaNangBayBooking.Application.Common.Storage;
 using DaNangBayBooking.Application.Catalog.Rooms;
 using DaNangBayBooking.Application.Catalog.Utilities;
+using Webgentle.BookStore.Service;
+using DaNangBayBooking.Application.Catalog.BookRooms;
+using DaNangBayBooking.Application.Catalog.Bookings;
 
 namespace BackendApi
 {
@@ -65,6 +68,8 @@ namespace BackendApi
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IUtilityService, UtilityService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IBookRoomService, BookRoomService>();
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
@@ -107,6 +112,8 @@ namespace BackendApi
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
+
+            services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
 
             string issuer = Configuration.GetValue<string>("Tokens:Issuer");
             string signingKey = Configuration.GetValue<string>("Tokens:Key");

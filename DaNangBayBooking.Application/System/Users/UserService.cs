@@ -15,10 +15,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using DaNangBayBooking.ViewModels.System.Roles;
-using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.Utilities.Extensions;
-using DaNangBayBooking.Data.Enums;
+using Microsoft.Extensions.Options;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+using Webgentle.BookStore.Service;
 
 namespace DaNangBayBooking.Application.System.Users
 {
@@ -27,11 +30,13 @@ namespace DaNangBayBooking.Application.System.Users
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly IEmailService _emailService;
         private readonly IConfiguration _config;
         private readonly DaNangDbContext _context;
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager,
+            IEmailService emailService,
             IConfiguration config,
             DaNangDbContext context)
         {
@@ -40,6 +45,7 @@ namespace DaNangBayBooking.Application.System.Users
             _roleManager = roleManager;
             _config = config;
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<ApiResult<LoginUser>> LoginAdmin(LoginRequest request)
@@ -97,8 +103,8 @@ namespace DaNangBayBooking.Application.System.Users
             if (user == null) return new ApiErrorResult<LoginUser>("Tài khoản không tồn tại");
 
             var roles = await _roleManager.FindByIdAsync(user.AppRoleID.ToString());
-            if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản khách hàng.");
-            if(user.Status == false)
+            //if (roles.Name.ToUpper() == "ADMIN") return new ApiErrorResult<LoginUser>("Chỉ nhận tài khoản khách hàng.");
+            if (user.Status == false)
             {
                 return new ApiErrorResult<LoginUser>("Tài khoản bị vô hiệu hóa");
             } 
@@ -132,6 +138,7 @@ namespace DaNangBayBooking.Application.System.Users
                 Dob = user.Dob,
                 Id = user.Id,
                 UserName = user.UserName,
+                Avatar = user.Avatar,
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RoleName = roles.Name
             };
@@ -459,7 +466,15 @@ namespace DaNangBayBooking.Application.System.Users
             else if (count < 999) str = "USER-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
 
             var role = await _roleManager.FindByNameAsync("Admin");
-            
+            if (await _userManager.FindByNameAsync(request.PhoneNumber) != null)
+            {
+                return new ApiErrorResult<bool>("Số điện thoại đã tồn tại");
+            }
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
+            {
+                return new ApiErrorResult<bool>("Emai đã tồn tại");
+            }
+
 
             var user = new AppUser()
             {
@@ -546,6 +561,7 @@ namespace DaNangBayBooking.Application.System.Users
             updateUser.FullName = request.FullName;
             updateUser.Dob = request.Dob.FromUnixTimeStamp();
             updateUser.Email = request.Email;
+            updateUser.NormalizedEmail = request.Email.ToUpper();
             updateUser.PhoneNumber = request.PhoneNumber;
             updateUser.Gender = request.Gender;
             updateUser.IdentityCard = request.IdentityCard;
@@ -558,6 +574,89 @@ namespace DaNangBayBooking.Application.System.Users
                 return new ApiSuccessResult<bool>(false);
             }
             return new ApiSuccessResult<bool>(true);
+        }
+
+        public async Task<ApiResult<UserForgotPass>> ForgotPassword(string Email)
+        {
+            var User = await _userManager.FindByEmailAsync(Email);
+            if(User == null)
+            {
+                return new ApiSuccessResult<UserForgotPass>(null);
+            }
+            /*var roles = await _roleManager.FindByIdAsync(User.AppRoleID.ToString());
+            if (roles.Name.ToUpper() != "CLIENT")
+            {
+                return new ApiSuccessResult<UserForgotPass>(null);
+            }*/
+            var token = await _userManager.GeneratePasswordResetTokenAsync(User);
+            var password = "DOCtor" + new Random().Next(100000,999999) +"$";
+            var reset = await _userManager.ResetPasswordAsync(User, token, password);
+            if (reset.Succeeded)
+            {
+                var forgotPass = new UserForgotPass()
+                {
+                    Id = User.Id,
+                    Password = password,
+                };
+                User.PasswordHash = password;
+                await GenerateEmailConfirmationTokenAsync(User);
+                return new ApiSuccessResult<UserForgotPass>(forgotPass);
+            }
+            return new ApiSuccessResult<UserForgotPass>(null);
+        }
+
+        public async Task<ApiResult<string>> ResetPassword(UserResetPassRequest request)
+        {
+            var User = await _userManager.FindByIdAsync(request.Id.ToString());
+            var token = await _userManager.GeneratePasswordResetTokenAsync(User);
+            var password = "DOCtor" + new Random().Next(100000, 999999) + "$";
+            var reset = await _userManager.ResetPasswordAsync(User, token, password);
+            if (reset.Succeeded)
+            {
+                User.PasswordHash = password;
+                await GenerateEmailConfirmationTokenAsync(User);
+                return new ApiSuccessResult<string>(password);
+            }
+            return new ApiSuccessResult<string>(null);
+        }
+
+        public async Task GenerateEmailConfirmationTokenAsync(AppUser user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            if (!string.IsNullOrEmpty(token))
+            {
+                await SendEmailConfirmationEmail(user, token);
+            }
+        }
+        private async Task SendEmailConfirmationEmail(AppUser user, string token)
+        {
+            string appDomain = _config.GetSection("Application:AppDomain").Value;
+            string confirmationLink = _config.GetSection("Application:EmailConfirmation").Value;
+
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{FullName}}", user.FullName),
+                    new KeyValuePair<string, string>("{{PasswordHash}}", user.PasswordHash),
+                    new KeyValuePair<string, string>("{{Link}}",
+                        string.Format(appDomain + confirmationLink, user.Id, token))
+                }
+            };
+
+            await _emailService.SendEmailForEmailConfirmation(options);
+        }
+
+        public async Task<ApiResult<bool>> ChangePassword(UserChangePassRequest request)
+        {
+            var User = await _userManager.FindByIdAsync(request.Id.ToString());
+            var result = await _userManager.ChangePasswordAsync(User, request.OldPassword, request.NewPassword);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
     }
 }

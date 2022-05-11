@@ -1,6 +1,5 @@
 ﻿using DaNangBayBooking.Data.Enums;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
-using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Images;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
@@ -15,8 +14,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
     public class AccommodationCreateRequest
     {
         public Guid AccommodationID { get; set; }
-
-        public LocationRequest Location { get; set; }
 
         public AccommodationTypeRequest AccommodationType { get; set; }
 
@@ -37,6 +34,12 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
         public string No { get; set; }
 
         public bool Status { get; set; }
+
+        public LocationProvince Province { get; set; }
+
+        public LocationDistrict District { get; set; }
+
+        public LocationSubDistrict SubDistrict { get; set; }
 
         public List<ImageAccommodationCreateRequest> Images { get; set; }
 

@@ -21,5 +21,8 @@ namespace DaNangBayBooking.Application.System.Users
         Task<ApiResult<bool>> UpdateStatusClient(Guid UserClientID, bool Status);
         Task<ApiResult<bool>> UpdateUser(UpdateRequest request);
         Task<ApiResult<UserVm>> GetById(Guid id);
+        Task<ApiResult<string>> ResetPassword(UserResetPassRequest request);
+        Task<ApiResult<UserForgotPass>> ForgotPassword(string Email);
+        Task<ApiResult<bool>> ChangePassword(UserChangePassRequest request);
     }
 }

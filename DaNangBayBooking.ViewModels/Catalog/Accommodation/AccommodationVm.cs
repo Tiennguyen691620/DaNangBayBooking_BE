@@ -1,6 +1,5 @@
 ﻿using DaNangBayBooking.Data.Enums;
 using DaNangBayBooking.ViewModels.Catalog.AccommodationType;
-using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Catalog.Rooms;
 using DaNangBayBooking.ViewModels.Catalog.Utilities;
@@ -32,7 +31,11 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public bool Status { get; set; }
 
-        public LocationVm Location { get; set; }
+        public LocationProvince Province { get; set; }
+
+        public LocationDistrict District { get; set; }
+
+        public LocationSubDistrict SubDistrict { get; set; }
 
         public AccommodationTypeVm AccommodationType { get; set; }
 

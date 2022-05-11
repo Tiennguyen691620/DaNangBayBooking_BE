@@ -88,15 +88,16 @@ namespace DaNangBayBooking.Application.Catalog.Rooms
             string year = DateTime.Now.ToString("yy");
             string str = "";
 
-            var listRoom = _context.Rooms.Where(x => x.AccommodationID == AccommodationID);
-            if (listRoom != null)
+            var listRoom = _context.Rooms.Where(x => x.AccommodationID == AccommodationID).ToList();
+            if (listRoom.Count() > 0)
             {
                 foreach (var x in listRoom)
                 {
                     var removeRooms = await _context.Rooms.FindAsync(x.RoomID);
-                    if (removeRooms != null )
+                    var removeImages = _context.ImageRooms.Where(x => x.RoomID == removeRooms.RoomID).ToList();
+                    if (removeImages.Count() > 0 )
                     {
-                        foreach (var img in listRoom.First(x => x.RoomID == removeRooms.RoomID).ImageRooms)
+                        foreach (var img in removeImages)
                         {
                             var removeImg = await _context.ImageRooms.FindAsync(img.ImageRoomID);
                             _context.ImageRooms.Remove(removeImg);

@@ -88,6 +88,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CreateBookingRoom(DaNangBayBooking.ViewModels.Catalog.BookRoom.BookRoomCreateRequest)">
+            <summary>
+            Đặt phòng
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetById(System.Guid)">
             <summary>
             Lấy phường/xã theo id
@@ -214,6 +220,21 @@
             Cập nhật tài khoản 
             </summary>
             
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ResetPassword(DaNangBayBooking.ViewModels.System.Users.UserResetPassRequest)">
+            <summary>
+            reset mật khẩu
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ForgotPassword(System.String)">
+            <summary>
+            quên mật khẩu
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ChangePassword(DaNangBayBooking.ViewModels.System.Users.UserChangePassRequest)">
+            <summary>
+            đổi mật khẩu
+            </summary>
         </member>
     </members>
 </doc>

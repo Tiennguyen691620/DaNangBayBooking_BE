@@ -15,13 +15,13 @@ namespace DaNangBayBooking.Data.Entities
 
         public int ChildNumber { get; set; }
 
-        public DateTime CancelDate { get; set; }
+        public DateTime? CancelDate { get; set; }
 
-        public string CancelReason { get; set; }
+        public string? CancelReason { get; set; }
 
         public int PersonNumber { get; set; }
 
-        public Enums.StatusEnum Status { get; set; }
+        public BookingStatus Status { get; set; }
 
         public BookRoom BookRoom { get; set; }
 

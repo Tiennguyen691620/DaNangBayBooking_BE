@@ -11,8 +11,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
     {
         public Guid RoomID { get; set; }
 
-        //public Guid AccommodationID { get; set; }
-
         public RoomTypeVm RoomType { get; set; }
 
         public string Name { get; set; }
@@ -26,6 +24,8 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
         public Decimal Price { get; set; }
 
         public int BookedQty { get; set; }
+
+        public string Description { get; set; }
 
         public string No { get; set; }
 
