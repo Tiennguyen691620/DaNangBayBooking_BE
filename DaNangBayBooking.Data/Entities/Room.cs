@@ -26,6 +26,8 @@ namespace DaNangBayBooking.Data.Entities
 
         public string No { get; set; }
 
+        public string Description { get; set; }
+
         public Accommodation Accommodation { get; set; }
 
         public RoomType RoomType { get; set; }

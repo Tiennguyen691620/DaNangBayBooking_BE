@@ -11,6 +11,12 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public Guid? AccommodationTypeID { get; set; }
 
-        public Guid? LocationID { get; set; }
+        public Guid? ProvinceID { get; set; }
+
+        public Guid? DistrictID { get; set; }
+
+        public Guid? SubDistrictID { get; set; }
+
+
     }
 }

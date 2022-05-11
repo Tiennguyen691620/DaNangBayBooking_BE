@@ -14,6 +14,7 @@ namespace DaNangBayBooking.Application.Common.Storage
     {
         private readonly string _userContentFolder;
         private readonly string _filePath;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
 
 
@@ -26,6 +27,7 @@ namespace DaNangBayBooking.Application.Common.Storage
         {
             _configuration = configuration;
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine(IMG_CONTENT_FOLDER_NAME, ACCOMMODATION_CONTENT_FOLDER_NAME));
+            _webHostEnvironment = webHostEnvironment;
             //_filePath = Path.Combine(, Path.Combine(IMG_CONTENT_FOLDER_NAME, ACCOMMODATION_CONTENT_FOLDER_NAME));
 
         }
@@ -50,7 +52,8 @@ namespace DaNangBayBooking.Application.Common.Storage
 
         public async Task DeleteFileAsync(string fileName)
         {
-            var filePath = Path.Combine(_userContentFolder, fileName);
+            fileName = fileName.Replace(_configuration["BaseAddress"], _webHostEnvironment.WebRootPath);
+            var filePath = fileName;
             if (File.Exists(filePath))
             {
                 await Task.Run(() => File.Delete(filePath));

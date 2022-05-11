@@ -69,18 +69,6 @@ namespace DaNangBayBooking.Application.Catalog.Utilities
                 IsPrivate = x.IsPrivate,
             }).ToList();
             var result = await _context.SaveChangesAsync();
-            /*var a = 0;
-            foreach(var x in request) {
-                var utility = await _context.Utilities.FindAsync(x.UtilityID);
-                //if()
-                utility.UtilityID = x.UtilityID;
-                utility.UtilityType = x.UtilityType;
-                utility.IsPrivate = x.IsPrivate;
-            var result = await _context.SaveChangesAsync();
-                if(result !=0 ) {
-                    a = a + 1;
-                }
-            }*/
             if (result == 0)
             {
                 return new ApiSuccessResult<bool>(false);

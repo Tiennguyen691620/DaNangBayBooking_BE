@@ -163,5 +163,73 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var user = await _userService.GetById(id);
             return Ok(user);
         }
+
+        /// <summary>
+        /// Cập nhật tài khoản 
+        /// </summary>
+        /// 
+        [HttpPut("update")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateUser([FromBody] UpdateRequest request)
+        {
+            var User = await _userService.UpdateUser(request);
+            return Ok(User);
+        }
+
+        /// <summary>
+        /// reset mật khẩu
+        /// </summary>
+        [HttpPost("reset-password")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<string>>> ResetPassword([FromBody] UserResetPassRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.ResetPassword(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// quên mật khẩu
+        /// </summary>
+        [HttpPut("forgot-password")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<UserForgotPass>>> ForgotPassword([FromQuery] string Email)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.ForgotPassword(Email);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+        /// <summary>
+        /// đổi mật khẩu
+        /// </summary>
+        [HttpPut("change-password")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> ChangePassword([FromBody] UserChangePassRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.ChangePassword(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
     }
 }
