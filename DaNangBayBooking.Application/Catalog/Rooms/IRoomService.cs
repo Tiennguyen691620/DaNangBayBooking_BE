@@ -11,6 +11,6 @@ namespace DaNangBayBooking.Application.Catalog.Rooms
     {
         Task<ApiResult<List<RoomVm>>> GetRoomDetail(Guid AccommodationID);
         Task<ApiResult<bool>> CreateRoom(Guid AccommodationID, CreateRoomRequest request);
-        Task<ApiResult<bool>> UpdateRoom(Guid AccommodationID, UpdateRoomRequest request);
+        Task<ApiResult<bool>> UpdateRoom(Guid AccommodationID, List<UpdateRoomRequest> request);
     }
 }

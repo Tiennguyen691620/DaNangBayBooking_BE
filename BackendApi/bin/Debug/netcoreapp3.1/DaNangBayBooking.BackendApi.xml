@@ -64,6 +64,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateRoom(System.Guid,System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Rooms.UpdateRoomRequest})">
+            <summary>
+            Cập nhật phòng của CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetDetailUtility(System.Guid)">
             <summary>
             Xem chi tiết tiện ích của CSLT
@@ -79,6 +85,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.UpdateUtilityRequest},System.Guid)">
             <summary>
             Cập nhật tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CreateBookingRoom(DaNangBayBooking.ViewModels.Catalog.BookRoom.BookRoomCreateRequest)">
+            <summary>
+            Đặt phòng
             </summary>
             
         </member>
@@ -202,6 +214,27 @@
             Lấy thông tin chi tiết tài khoản
             </summary>
             
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.UpdateUser(DaNangBayBooking.ViewModels.System.Users.UpdateRequest)">
+            <summary>
+            Cập nhật tài khoản 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ResetPassword(DaNangBayBooking.ViewModels.System.Users.UserResetPassRequest)">
+            <summary>
+            reset mật khẩu
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ForgotPassword(System.String)">
+            <summary>
+            quên mật khẩu
+            </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.UsersController.ChangePassword(DaNangBayBooking.ViewModels.System.Users.UserChangePassRequest)">
+            <summary>
+            đổi mật khẩu
+            </summary>
         </member>
     </members>
 </doc>

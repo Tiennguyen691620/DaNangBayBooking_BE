@@ -28,7 +28,11 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public bool Status { get; set; }
 
-        public LocationRequest Location { get; set; }
+        public LocationProvince Province { get; set; }
+
+        public LocationDistrict District { get; set; }
+
+        public LocationSubDistrict SubDistrict { get; set; }
 
         public AccommodationTypeRequest AccommodationType { get; set; }
 

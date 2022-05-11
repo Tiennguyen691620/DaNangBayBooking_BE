@@ -58,38 +58,93 @@ namespace DaNangBayBooking.Application.Catalog.Rooms
 
         public async Task<ApiResult<List<RoomVm>>> GetRoomDetail(Guid AccommodationID)
         {
-            var roomTypes = from a in _context.RoomTypes select a;
-            var imageRooms = from img in _context.ImageRooms select img;
-            var rooms = await _context.Rooms.Where(x => x.AccommodationID == AccommodationID).Select(x => new RoomVm() { 
-            RoomID = x.RoomID,
-            //AccommodationID = x.AccommodationID,
-            /*RoomType = roomTypes.Where(i => i.RoomTypeID == x.RoomTypeID).Select(i => new RoomTypeVm()
+            //var roomTypes = from a in _context.RoomTypes select a;
+            //var imageRooms = from img in _context.ImageRooms select img;
+            var rooms = await _context.Rooms.Where(x => x.AccommodationID == AccommodationID).Select(x => new RoomVm()
             {
-                RoomTypeID = i.RoomTypeID,
-                Description = i.Description,
-                Name = i.Name,
-                No = i.No,
-                Status = i.Status,
-            }),*/
-            Name = x.Name,
-            AvailableQty = x.AvailableQty,
-            PurchasedQty = x.PurchasedQty,
-            MaximumPeople = x.MaximumPeople,
-            BookedQty = x.BookedQty,
-            Price = x.Price,
-            No = x.No,
-            Images = imageRooms.Where(i => i.RoomID == x.RoomID).Select(i => new ImageAccommodationVm()
-               {
-                  Id = i.ImageRoomID,
-                  Image = i.Image,
-               }).ToList(),
-        }).ToListAsync();
+                RoomID = x.RoomID,
+                RoomType = new RoomTypeVm()
+                {
+                    RoomTypeID = x.RoomType.RoomTypeID,
+                    Description = x.RoomType.Description,
+                    Name = x.RoomType.Name,
+                    No = x.RoomType.No,
+                    Status = x.RoomType.Status,
+                },
+                Name = x.Name,
+                AvailableQty = x.AvailableQty,
+                PurchasedQty = x.PurchasedQty,
+                MaximumPeople = x.MaximumPeople,
+                BookedQty = x.BookedQty,
+                Price = x.Price,
+                No = x.No,
+                Image = x.ImageRooms.FirstOrDefault().Image,
+            }).ToListAsync();
             return new ApiSuccessResult<List<RoomVm>>(rooms);
         }
 
-        public Task<ApiResult<bool>> UpdateRoom(Guid AccommodationID, UpdateRoomRequest request)
+        public async Task<ApiResult<bool>> UpdateRoom(Guid AccommodationID, List<UpdateRoomRequest> request)
         {
-            throw new NotImplementedException();
+            string year = DateTime.Now.ToString("yy");
+            string str = "";
+
+            var listRoom = _context.Rooms.Where(x => x.AccommodationID == AccommodationID).ToList();
+            if (listRoom.Count() > 0)
+            {
+                foreach (var x in listRoom)
+                {
+                    var removeRooms = await _context.Rooms.FindAsync(x.RoomID);
+                    var removeImages = _context.ImageRooms.Where(x => x.RoomID == removeRooms.RoomID).ToList();
+                    if (removeImages.Count() > 0 )
+                    {
+                        foreach (var img in removeImages)
+                        {
+                            var removeImg = await _context.ImageRooms.FindAsync(img.ImageRoomID);
+                            _context.ImageRooms.Remove(removeImg);
+                        }
+                    }
+                    _context.Rooms.Remove(removeRooms);
+                }
+            }
+            var accommodation = await _context.Accommodations.FindAsync(AccommodationID);
+            var Rooms = new List<Room>();
+            var i = 0;
+            foreach (var Room in request)
+            {
+                if (i < 9) str = "R-" + DateTime.Now.ToString("yy") + "-00" + (i + 1);
+                else if (i < 99) str = "R-" + DateTime.Now.ToString("yy") + "-0" + (i + 1);
+                else if (i < 999) str = "R-" + DateTime.Now.ToString("yy") + "-" + (i + 1);
+                var addRoom = new Room()
+                {
+                    RoomID = Room.RoomID,
+                    AccommodationID = AccommodationID,
+                    Name = Room.Name,
+                    No = str,
+                    Price = Room.Price,
+                    MaximumPeople = Room.MaximumPeople,
+                    AvailableQty = Room.AvailableQty,
+                    PurchasedQty = Room.PurchasedQty,
+                    BookedQty = Room.BookedQty,
+                    Description = Room.Description,
+                    RoomTypeID = Room.RoomType.RoomTypeID,
+                };
+                i++;
+                addRoom.ImageRooms = new List<ImageRoom>();
+                var addImage = new ImageRoom()
+                {
+                    Image = Room.Image,
+                    SortOrder = 1,
+                };
+                addRoom.ImageRooms.Add(addImage);
+                Rooms.Add(addRoom);
+            }
+            await _context.Rooms.AddRangeAsync(Rooms);
+            var result = await _context.SaveChangesAsync();
+            if (result == 0)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            return new ApiSuccessResult<bool>(true);
         }
     }
 }

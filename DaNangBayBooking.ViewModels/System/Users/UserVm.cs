@@ -1,5 +1,4 @@
 ﻿using DaNangBayBooking.Data.Enums;
-using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Catalog.Locations;
 using DaNangBayBooking.ViewModels.Common;
 using DaNangBayBooking.ViewModels.System.Roles;
