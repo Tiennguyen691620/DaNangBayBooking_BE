@@ -18,6 +18,7 @@ using System.IO;
 using DaNangBayBooking.Application.Common.Storage;
 using DaNangBayBooking.Data.Entities;
 using DaNangBayBooking.Data.Enums;
+using DaNangBayBooking.Utilities.Extensions;
 
 namespace DaNangBayBooking.Application.Catalog.Accommodations
 {
@@ -116,7 +117,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             {
                 query = query.Where(x => x.p.LocationID == request.ProvinceID);
             }
-            
+
             if (!string.IsNullOrEmpty(request.DistrictID.ToString()))
             {
                 query = query.Where(x => x.d.LocationID == request.DistrictID);
@@ -224,6 +225,83 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 MapURL = accommodation.MapURL,
                 No = accommodation.No,
                 Address = accommodation.Address,
+                Status = accommodation.Status,
+                Province = new LocationProvince()
+                {
+                    LocationID = p.LocationID,
+                    Name = p.Name,
+                    IsDeleted = p.IsDeleted,
+                    ParentID = p.ParentID,
+                    Code = p.Code,
+                    Type = p.Type,
+                    SortOrder = p.SortOrder
+                },
+                District = new LocationDistrict()
+                {
+                    LocationID = d.LocationID,
+                    Name = d.Name,
+                    IsDeleted = d.IsDeleted,
+                    ParentID = d.ParentID,
+                    Code = d.Code,
+                    Type = d.Type,
+                    SortOrder = d.SortOrder
+                },
+                SubDistrict = new LocationSubDistrict()
+                {
+                    LocationID = sd.LocationID,
+                    Name = sd.Name,
+                    IsDeleted = sd.IsDeleted,
+                    ParentID = sd.ParentID,
+                    Code = sd.Code,
+                    Type = sd.Type,
+                    SortOrder = sd.SortOrder
+                },
+                AccommodationType = new AccommodationTypeVm()
+                {
+                    AccommodationTypeID = accommodationtype.AccommodationTypeID,
+                    Name = accommodationtype.Name,
+                    Description = accommodationtype.Description,
+                    No = accommodationtype.No,
+                },
+                Images = imageAccommodations.Where(i => i.AccommodationID == accommodation.AccommodationID).Select(i => new ImageAccommodationVm()
+                {
+                    Id = i.ImageAccommodationID,
+                    Image = i.Image,
+                }).ToList(),
+            };
+            return new ApiSuccessResult<AccommodationVm>(accommodationVm);
+        }
+
+        public async Task<ApiResult<AccommodationVm>> GetByIdClient(Guid id)
+        {
+            var accommodation = await _context.Accommodations.FindAsync(id);
+            var accommodationtype = await _context.AccommodationTypes.FindAsync(accommodation.AccommodationTypeID);
+            //var location = await _context.Locations.FindAsync(accommodation.LocationID);
+            if (accommodation == null)
+            {
+                return new ApiErrorResult<AccommodationVm>("Accommodation không tồn tại");
+            }
+
+            var sd = await _context.Locations.FindAsync(accommodation.LocationID);
+            var d = await _context.Locations.FindAsync(sd.ParentID);
+            var p = await _context.Locations.FindAsync(d.ParentID);
+
+            var broom = from br in _context.BookRooms select br;
+            var utilities = from ul in _context.Utilities select ul;
+            var rooms = from rm in _context.Rooms select rm;
+            var imageAccommodations = from img in _context.ImageAccommodations select img;
+
+            var accommodationVm = new AccommodationVm()
+            {
+                AccommodationID = accommodation.AccommodationID,
+                Name = accommodation.Name,
+                AbbreviationName = accommodation.AbbreviationName,
+                Description = accommodation.Description,
+                Email = accommodation.Email,
+                Phone = accommodation.Phone,
+                MapURL = accommodation.MapURL,
+                No = accommodation.No,
+                Address = accommodation.Address + ", " + sd.Name + ", " + d.Name + ", " + p.Name,
                 Status = accommodation.Status,
                 Province = new LocationProvince()
                 {
@@ -397,6 +475,56 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             return new ApiSuccessResult<bool>(false);
         }
 
+        public async Task<ApiResult<List<AccommodationAvailable>>> GetByIdAvailable(Guid AccommodationId, GetAccommodationAvailableRequest request)
+        {
+            var convertFromDate = request.FromDate.FromUnixTimeStamp();
+            var convertToDate = request.ToDate.FromUnixTimeStamp();
+            var bookRooms = from r in _context.Rooms
+                            join a in _context.Accommodations on r.AccommodationID equals a.AccommodationID
+                            join b in _context.BookRooms on a.AccommodationID equals b.AccommodationID
+                            where a.AccommodationID == AccommodationId && b.FromDate >= convertFromDate && b.ToDate <= convertToDate
+                            select new { r, a, b};
+            var room = await _context.Rooms.Where(x => x.AccommodationID == AccommodationId).ToListAsync();
+            var day = convertFromDate;
+            var countDate = (convertToDate - convertFromDate).Days + 1;
+            var availables = new List<AccommodationAvailable>();
+            var checkRemove = 0;
+            foreach (var item in room)
+            {
+                var roomType = await _context.RoomTypes.FindAsync(item.RoomTypeID);
+                for (var i = 1; i <= countDate; i++)
+                {
+                    var bookRoom = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.b.FromDate <= day && x.b.ToDate >= day);
+                    var available = new AccommodationAvailable()
+                    {
+                        Id = item.RoomID,
+                        RoomName = item.Name,
+                        RoomTypeName = roomType.Name,
+                        Qty = bookRoom != null ? item.AvailableQty - bookRoom.b.Qty : item.AvailableQty,
+                        DateAvailable = day,
+                        Date = day.ToSecondsTimestamp(),
+                    };
+                    var dayRemove = convertFromDate;
+                    checkRemove = 0;
+                    for (var j = i; j <= countDate; j++)
+                    {
+                        var remove = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.b.FromDate >= day && x.b.ToDate <= day);
+                        if(remove != null)
+                        {
+                            checkRemove = checkRemove + 1;
+                        }
+                        dayRemove.AddDays(1);
+                    };
+                    day.AddDays(1);
+                    if (checkRemove == 0)
+                    {
+                        bookRooms = bookRooms.Where(x => x.r.RoomID != item.RoomID);
+                    }
+                    availables.Add(available);
+                }
 
+            }
+            return new ApiSuccessResult<List<AccommodationAvailable>>(availables);
+        }
     }
 }

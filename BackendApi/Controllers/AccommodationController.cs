@@ -52,6 +52,8 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var Accommodation = await _accommodationService.GetAccommodationsAllPaging(request);
             return Ok(Accommodation);
         }
+
+
         /// <summary>
         /// Lấy thông tin chi tiết CSLT
         /// </summary>
@@ -61,6 +63,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         public async Task<ActionResult<AccommodationVm>> GetById(Guid id)
         {
             var Accommodation = await _accommodationService.GetById(id);
+            return Ok(Accommodation);
+        }
+        
+        /// <summary>
+        /// Lấy thông tin chi tiết CSLT
+        /// </summary>
+        /// 
+        [HttpGet("detail-show/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<AccommodationVm>> GetByIdClient(Guid id)
+        {
+            var Accommodation = await _accommodationService.GetByIdClient(id);
             return Ok(Accommodation);
         }
 
@@ -208,6 +222,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
         public async Task<ActionResult<ApiResult<bool>>> UpdateUtility(List<UpdateUtilityRequest> request, Guid accommodationID)
         {
             var Utilities = await _utilityService.UpdateUtility(request, accommodationID);
+            return Ok(Utilities);
+        }
+
+
+        /// <summary>
+        /// lấy danh sách phòng trống của CSLT
+        /// </summary>
+        /// 
+        [HttpGet("{accommodationId}/available")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<List<AccommodationAvailable>>>> GetByIdAvailable(Guid accommodationId, [FromQuery] GetAccommodationAvailableRequest request)
+        {
+            var Utilities = await _accommodationService.GetByIdAvailable(accommodationId, request);
             return Ok(Utilities);
         }
 
