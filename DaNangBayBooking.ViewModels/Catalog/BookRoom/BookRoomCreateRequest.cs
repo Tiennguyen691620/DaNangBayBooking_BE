@@ -17,11 +17,11 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRoom
 
         public DateTime BookingDate { get; set; }
 
-        public string BookingUser { get; set; }
+        public long FromDate { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public long ToDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public int TotalDay { get; set; }
 
         public string CheckInName { get; set; }
 
@@ -41,7 +41,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRoom
 
         public AccommodationVm Accommodation { get; set; }
 
-        public List<RoomVm> Room { get; set; }
+        public RoomVm Room { get; set; }
 
         public BookingStatus Status { get; set; }
     }

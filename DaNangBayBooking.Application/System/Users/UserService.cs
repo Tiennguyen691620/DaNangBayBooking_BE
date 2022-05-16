@@ -280,14 +280,8 @@ namespace DaNangBayBooking.Application.System.Users
                         join sd in _context.Locations on u.LocationID equals sd.LocationID
                         join d in _context.Locations on sd.ParentID equals d.LocationID
                         join p in _context.Locations on d.ParentID equals p.LocationID
-                        join b in _context.BookRooms on u.Id equals b.UserID into br
-                        from b in br.DefaultIfEmpty()
                         where r.Name.ToUpper() == "CLIENT"
-                        select new { u, r , sd, d, p, b };
-
-            var broom = from br in _context.BookRooms select br;
-
-            //var patient = _context.Patients;
+                        select new { u, r , sd, d, p };
 
             if (!string.IsNullOrEmpty(request.SearchKey))
             {
@@ -372,14 +366,12 @@ namespace DaNangBayBooking.Application.System.Users
                         join d in _context.Locations on sd.ParentID equals d.LocationID
                         join p in _context.Locations on d.ParentID equals p.LocationID
                         //join s in _context.Status on u.Status equals s.Key
-                        join b in _context.BookRooms on u.Id equals b.UserID into br
-                        from b in br.DefaultIfEmpty()
+                        //join b in _context.BookRooms on u.Id equals b.UserID into br
+                        //from b in br.DefaultIfEmpty()
                         where r.Name.ToUpper() == "ADMIN"
-                        select new { u, r, b, sd, d, p };
+                        select new { u, r, sd, d, p };
 
-            var broom = from br in _context.BookRooms select br;
-
-            //var patient = _context.Patients;
+            //var broom = from br in _context.BookRooms select br;
 
             if (!string.IsNullOrEmpty(request.SearchKey))
             {
@@ -589,7 +581,7 @@ namespace DaNangBayBooking.Application.System.Users
                 return new ApiSuccessResult<UserForgotPass>(null);
             }*/
             var token = await _userManager.GeneratePasswordResetTokenAsync(User);
-            var password = "DOCtor" + new Random().Next(100000,999999) +"$";
+            var password = "DNBooking" + new Random().Next(100000,999999) +"$";
             var reset = await _userManager.ResetPasswordAsync(User, token, password);
             if (reset.Succeeded)
             {
@@ -609,7 +601,7 @@ namespace DaNangBayBooking.Application.System.Users
         {
             var User = await _userManager.FindByIdAsync(request.Id.ToString());
             var token = await _userManager.GeneratePasswordResetTokenAsync(User);
-            var password = "DOCtor" + new Random().Next(100000, 999999) + "$";
+            var password = "DNBooking" + new Random().Next(100000, 999999) + "$";
             var reset = await _userManager.ResetPasswordAsync(User, token, password);
             if (reset.Succeeded)
             {
@@ -625,10 +617,10 @@ namespace DaNangBayBooking.Application.System.Users
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             if (!string.IsNullOrEmpty(token))
             {
-                await SendEmailConfirmationEmail(user, token);
+                await SendEmailForgotAndResetPass(user, token);
             }
         }
-        private async Task SendEmailConfirmationEmail(AppUser user, string token)
+        private async Task SendEmailForgotAndResetPass(AppUser user, string token)
         {
             string appDomain = _config.GetSection("Application:AppDomain").Value;
             string confirmationLink = _config.GetSection("Application:EmailConfirmation").Value;
@@ -640,12 +632,10 @@ namespace DaNangBayBooking.Application.System.Users
                 {
                     new KeyValuePair<string, string>("{{FullName}}", user.FullName),
                     new KeyValuePair<string, string>("{{PasswordHash}}", user.PasswordHash),
-                    new KeyValuePair<string, string>("{{Link}}",
-                        string.Format(appDomain + confirmationLink, user.Id, token))
                 }
             };
 
-            await _emailService.SendEmailForEmailConfirmation(options);
+            await _emailService.SendEmailForgotAndResetPass(options);
         }
 
         public async Task<ApiResult<bool>> ChangePassword(UserChangePassRequest request)

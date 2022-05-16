@@ -15,14 +15,10 @@ namespace DaNangBayBooking.Data.Configurations
 
             builder.HasKey(x => x.BookRoomDetailID);
 
-            builder.Property(x => x.CancelReason).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.CancelDate).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.ChildNumber).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.PersonNumber).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Status);
+            builder.Property(x => x.CancelReason).HasMaxLength(int.MaxValue);
 
             builder.HasOne(x => x.BookRoom).WithMany(x => x.BookRoomDetails).HasForeignKey(x => x.BookRoomID);
-            builder.HasOne(x => x.Room).WithOne(x => x.BookRoomDetails).HasForeignKey<BookRoomDetail>(x => x.RoomID).OnDelete(DeleteBehavior.ClientCascade);
+            builder.HasOne(x => x.Room).WithMany(x => x.BookRoomDetails).HasForeignKey(x => x.RoomID).OnDelete(DeleteBehavior.ClientCascade);
             
         }
     }

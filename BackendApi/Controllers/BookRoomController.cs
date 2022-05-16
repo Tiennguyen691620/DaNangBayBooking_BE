@@ -31,12 +31,20 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Đặt phòng
         /// </summary>
         /// 
-        [HttpPost("create/book-room")]
+        [HttpPost("create")]
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<bool>>> CreateBookingRoom(BookRoomCreateRequest request)
         {
-            var Accommodation = await _bookRoomService.CreateBookingRoom(request);
-            return Ok(Accommodation);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _bookRoomService.CreateBookingRoom(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }
