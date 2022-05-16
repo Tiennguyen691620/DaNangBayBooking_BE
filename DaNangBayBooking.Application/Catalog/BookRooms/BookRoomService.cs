@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Webgentle.BookStore.Service;
 using Microsoft.Extensions.Configuration;
 using DaNangBayBooking.ViewModels.System.Users;
+using DaNangBayBooking.Utilities.Extensions;
 
 namespace DaNangBayBooking.Application.Catalog.Bookings
 {
@@ -38,7 +39,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
 
         public async Task<ApiResult<bool>> CreateBookingRoom(BookRoomCreateRequest request)
         {
-            var sendMailCustomer = await _context.AppUsers.FindAsync(request.CheckInMail);
+            var sendMailCustomer = await _context.AppUsers.FirstAsync(x => x.Email == request.CheckInMail);
             string year = DateTime.Now.ToString("yy");
             int count = await _context.BookRooms.Where(x => x.No.Contains("BK-" + year)).CountAsync();
             string str = "";
@@ -53,8 +54,8 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 No = str,
                 Qty = request.Qty,
                 BookingDate = DateTime.Now,
-                FromDate = request.FromDate,
-                ToDate = request.ToDate,
+                FromDate = request.FromDate.FromUnixTimeStamp(),
+                ToDate = request.ToDate.FromUnixTimeStamp(),
                 TotalDay = request.TotalDay,
                 CheckInName = request.CheckInName,
                 CheckInMail = request.CheckInMail,
@@ -94,11 +95,13 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 ToEmails = new List<string>() { accommodation.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("{{FullName}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
                 }
             };
 
-            await _emailService.SendEmailForEmailConfirmation(options);
+            await _emailService.SendEmailToAccommodation(options);
         }
     }
 }

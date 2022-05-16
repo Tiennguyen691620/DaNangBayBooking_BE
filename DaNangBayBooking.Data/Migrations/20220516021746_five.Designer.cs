@@ -4,14 +4,16 @@ using DaNangBayBooking.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DaNangBayBooking.Data.Migrations
 {
     [DbContext(typeof(DaNangDbContext))]
-    partial class DaNangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220516021746_five")]
+    partial class five
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,7 +149,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "071232b2-acac-486c-9e78-e61e0fc0a640",
+                            ConcurrencyStamp = "b25631da-c185-4b37-ad81-cea75d233d5f",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +157,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "14d957c0-2b41-4800-9b40-704e61297e04",
+                            ConcurrencyStamp = "d8356d6a-800e-4f2b-8c16-0ae8859ff25b",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -358,7 +360,8 @@ namespace DaNangBayBooking.Data.Migrations
 
                     b.HasIndex("BookRoomID");
 
-                    b.HasIndex("RoomID");
+                    b.HasIndex("RoomID")
+                        .IsUnique();
 
                     b.ToTable("BookRoomDetails");
                 });
@@ -771,8 +774,8 @@ namespace DaNangBayBooking.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("DaNangBayBooking.Data.Entities.Room", "Room")
-                        .WithMany("BookRoomDetails")
-                        .HasForeignKey("RoomID")
+                        .WithOne("BookRoomDetails")
+                        .HasForeignKey("DaNangBayBooking.Data.Entities.BookRoomDetail", "RoomID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

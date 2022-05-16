@@ -4,14 +4,16 @@ using DaNangBayBooking.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DaNangBayBooking.Data.Migrations
 {
     [DbContext(typeof(DaNangDbContext))]
-    partial class DaNangDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220516020956_fourth")]
+    partial class fourth
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,7 +149,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "071232b2-acac-486c-9e78-e61e0fc0a640",
+                            ConcurrencyStamp = "9ae49dc0-b205-49e3-866a-d6ee27cb9beb",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +157,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "14d957c0-2b41-4800-9b40-704e61297e04",
+                            ConcurrencyStamp = "03bd2372-d84e-4516-9e34-370f6565ba46",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -269,50 +271,59 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasMaxLength(200);
 
                     b.Property<string>("CheckInIdentityCard")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("CheckInMail")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("CheckInName")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("CheckInNote")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("CheckInPhoneNumber")
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
-
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("No")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<string>("CheckInMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("CheckInName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("CheckInNote")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("CheckInPhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("No")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.Property<int>("Qty")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(200);
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasMaxLength(200);
 
                     b.Property<int>("TotalDay")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasMaxLength(200);
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
@@ -358,7 +369,8 @@ namespace DaNangBayBooking.Data.Migrations
 
                     b.HasIndex("BookRoomID");
 
-                    b.HasIndex("RoomID");
+                    b.HasIndex("RoomID")
+                        .IsUnique();
 
                     b.ToTable("BookRoomDetails");
                 });
@@ -771,8 +783,8 @@ namespace DaNangBayBooking.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("DaNangBayBooking.Data.Entities.Room", "Room")
-                        .WithMany("BookRoomDetails")
-                        .HasForeignKey("RoomID")
+                        .WithOne("BookRoomDetails")
+                        .HasForeignKey("DaNangBayBooking.Data.Entities.BookRoomDetail", "RoomID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

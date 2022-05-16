@@ -7,7 +7,7 @@ namespace Webgentle.BookStore.Service
     {
         Task SendTestEmail(UserEmailOptions userEmailOptions);
 
-        Task SendEmailForEmailConfirmation(UserEmailOptions userEmailOptions);
+        Task SendEmailForgotAndResetPass(UserEmailOptions userEmailOptions);
 
         Task SendEmailToAccommodation(UserEmailOptions userEmailOptions);
 

@@ -17,9 +17,9 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRoom
 
         public DateTime BookingDate { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public long FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public long ToDate { get; set; }
 
         public int TotalDay { get; set; }
 

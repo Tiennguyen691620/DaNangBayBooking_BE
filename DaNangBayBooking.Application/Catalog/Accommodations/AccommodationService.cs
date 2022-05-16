@@ -401,6 +401,7 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
             updateAccommodation.Description = request.Description;
             updateAccommodation.Phone = request.Phone;
             updateAccommodation.MapURL = request.MapURL;
+            updateAccommodation.Email = request.Email;
             //updateAccommodation.Status = request.Status;
             updateAccommodation.LocationID = request.SubDistrict.LocationID;
             updateAccommodation.AccommodationTypeID = request.AccommodationType.AccommodationTypeID;
@@ -477,14 +478,20 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
 
         public async Task<ApiResult<List<AccommodationAvailable>>> GetByIdAvailable(Guid AccommodationId, GetAccommodationAvailableRequest request)
         {
-            var convertFromDate = request.FromDate.FromUnixTimeStamp();
-            var convertToDate = request.ToDate.FromUnixTimeStamp();
-            var bookRooms = from r in _context.Rooms
-                            join a in _context.Accommodations on r.AccommodationID equals a.AccommodationID
-                            join b in _context.BookRooms on a.AccommodationID equals b.AccommodationID
-                            where a.AccommodationID == AccommodationId && b.FromDate >= convertFromDate && b.ToDate <= convertToDate
-                            select new { r, a, b};
+            var convertFromDate = DateTime.Parse( request.FromDate.FromUnixTimeStamp().ToShortDateString() + " 00:00:00.0000000");
+            var convertToDate = DateTime.Parse(request.ToDate.FromUnixTimeStamp().ToShortDateString() + " 00:00:00.0000000");
+            var bookRooms = from br in _context.BookRooms
+                            join brd in _context.BookRoomDetails on br.BookRoomID equals brd.BookRoomID
+                            join r in _context.Rooms on brd.RoomID equals r.RoomID 
+                            join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
+                            where a.AccommodationID == AccommodationId && br.FromDate >= convertFromDate && br.ToDate <= convertToDate
+                            select new { br, brd, r, a };
             var room = await _context.Rooms.Where(x => x.AccommodationID == AccommodationId).ToListAsync();
+            if(request.RoomId != null)
+            {
+                bookRooms = bookRooms.Where(x => x.r.RoomID == request.RoomId);
+                room = room.Where(x => x.RoomID == request.RoomId).ToList();
+            }
             var day = convertFromDate;
             var countDate = (convertToDate - convertFromDate).Days + 1;
             var availables = new List<AccommodationAvailable>();
@@ -494,13 +501,13 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                 var roomType = await _context.RoomTypes.FindAsync(item.RoomTypeID);
                 for (var i = 1; i <= countDate; i++)
                 {
-                    var bookRoom = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.b.FromDate <= day && x.b.ToDate >= day);
+                    var bookRoom = bookRooms.Where(x => x.r.RoomID == item.RoomID && x.br.FromDate <= day && x.br.ToDate >= day);
                     var available = new AccommodationAvailable()
                     {
                         Id = item.RoomID,
                         RoomName = item.Name,
                         RoomTypeName = roomType.Name,
-                        Qty = bookRoom != null ? item.AvailableQty - bookRoom.b.Qty : item.AvailableQty,
+                        Qty = bookRoom != null ? item.AvailableQty - bookRoom.Sum(x => x.br.Qty) : item.AvailableQty,
                         DateAvailable = day,
                         Date = day.ToSecondsTimestamp(),
                     };
@@ -508,17 +515,18 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                     checkRemove = 0;
                     for (var j = i; j <= countDate; j++)
                     {
-                        var remove = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.b.FromDate >= day && x.b.ToDate <= day);
+                        var remove = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.br.FromDate <= day && x.br.ToDate >= day);
                         if(remove != null)
                         {
                             checkRemove = checkRemove + 1;
                         }
                         dayRemove.AddDays(1);
                     };
-                    day.AddDays(1);
+                    day = day.AddDays(1);
                     if (checkRemove == 0)
                     {
-                        bookRooms = bookRooms.Where(x => x.r.RoomID != item.RoomID);
+                        var removeBookRoom = bookRooms.FirstOrDefault();
+                        bookRooms = bookRooms.Where(x => x.br.BookRoomID != removeBookRoom.br.BookRoomID);
                     }
                     availables.Add(available);
                 }
