@@ -16,6 +16,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetByIdClient(System.Guid)">
+            <summary>
+            Lấy thông tin chi tiết CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.Post(DaNangBayBooking.ViewModels.Catalog.Accommodation.AccommodationCreateRequest)">
             <summary>
             Tạo mới CSLT
@@ -85,6 +91,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.UpdateUtility(System.Collections.Generic.List{DaNangBayBooking.ViewModels.Catalog.Utilities.UpdateUtilityRequest},System.Guid)">
             <summary>
             Cập nhật tiện ích của CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetByIdAvailable(System.Guid,DaNangBayBooking.ViewModels.Catalog.Accommodation.GetAccommodationAvailableRequest)">
+            <summary>
+            lấy danh sách phòng trống của CSLT
             </summary>
             
         </member>

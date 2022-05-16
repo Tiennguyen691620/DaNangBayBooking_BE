@@ -19,11 +19,11 @@ namespace DaNangBayBooking.Data.Entities
 
         public DateTime BookingDate { get; set; }
 
-        public string BookingUser { get; set; }
-
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public int TotalDay { get; set; }
 
         public string CheckInName { get; set; }
 

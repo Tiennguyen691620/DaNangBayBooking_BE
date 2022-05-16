@@ -25,11 +25,20 @@ namespace Webgentle.BookStore.Service
             await SendEmail(userEmailOptions);
         }
 
-        public async Task SendEmailForEmailConfirmation(UserEmailOptions userEmailOptions)
+        public async Task SendEmailForgotAndResetPass(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin Chào {{FullName}} !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailForgotAndResetPassword"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+
+        public async Task SendEmailToAccommodation(UserEmailOptions userEmailOptions)
         {
             userEmailOptions.Subject = UpdatePlaceHolders("Hello {{FullName}}, Confirm your email id.", userEmailOptions.PlaceHolders);
 
-            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailConfirm"), userEmailOptions.PlaceHolders);
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailBookRoomToAccommodation"), userEmailOptions.PlaceHolders);
 
             await SendEmail(userEmailOptions);
         }

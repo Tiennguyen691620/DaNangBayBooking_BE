@@ -34,6 +34,6 @@ namespace DaNangBayBooking.Data.Entities
 
         public List<ImageRoom> ImageRooms { get; set; }
 
-        public BookRoomDetail BookRoomDetails { get; set; }
+        public List<BookRoomDetail> BookRoomDetails { get; set; }
     }
 }
