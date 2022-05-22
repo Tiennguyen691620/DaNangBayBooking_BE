@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DaNangBayBooking.ViewModels.Catalog.BookRoom
+namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 {
     public class BookRoomCreateRequest
     {

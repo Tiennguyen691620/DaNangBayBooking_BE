@@ -18,7 +18,13 @@
         </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetByIdClient(System.Guid)">
             <summary>
-            Lấy thông tin chi tiết CSLT
+            Lấy thông tin chi tiết CSLT Client
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAllAccommodation">
+            <summary>
+            Lấy tất cả CSLT
             </summary>
             
         </member>
@@ -100,9 +106,33 @@
             </summary>
             
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CreateBookingRoom(DaNangBayBooking.ViewModels.Catalog.BookRoom.BookRoomCreateRequest)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CreateBookingRoom(DaNangBayBooking.ViewModels.Catalog.BookRooms.BookRoomCreateRequest)">
             <summary>
             Đặt phòng
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.FilterBooking(DaNangBayBooking.ViewModels.Catalog.BookRooms.FilterBookRoomRequest)">
+            <summary>
+            Lấy danh sách đặt phòng phân trang 
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CancelBooking(DaNangBayBooking.ViewModels.Catalog.BookRooms.CancelBookingRequest)">
+            <summary>
+            Hủy đặt phòng
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.GetById(System.Guid)">
+            <summary>
+            Lấy thông tin chi tiết đặt phòng
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.ReportBooking(DaNangBayBooking.ViewModels.Catalog.BookRooms.FilterBookRoomReportRequest)">
+            <summary>
+            Lấy báo cáo danh sách hủy/đặt phòng
             </summary>
             
         </member>
@@ -127,6 +157,12 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetAllProvince">
             <summary>
             Lấy tất cả danh sách tỉnh/thành phố
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.ReportController.ReportRevenue(DaNangBayBooking.ViewModels.Catalog.Report.FilterRevenueRequest)">
+            <summary>
+            Báo cáo thống kê doanh thu của CSLT
             </summary>
             
         </member>

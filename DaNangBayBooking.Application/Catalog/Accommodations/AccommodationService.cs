@@ -89,7 +89,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         {
             var query = from a in _context.Accommodations
                         join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
-                        //join l in _context.Locations on a.LocationID equals l.LocationID
                         join sd in _context.Locations on a.LocationID equals sd.LocationID
                         join d in _context.Locations on sd.ParentID equals d.LocationID
                         join p in _context.Locations on d.ParentID equals p.LocationID
@@ -533,6 +532,74 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
 
             }
             return new ApiSuccessResult<List<AccommodationAvailable>>(availables);
+        }
+
+        public async Task<ApiResult<List<AccommodationVm>>> GetAllAccommodation()
+        {
+            var query = from a in _context.Accommodations
+                        join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
+                        join sd in _context.Locations on a.LocationID equals sd.LocationID
+                        join d in _context.Locations on sd.ParentID equals d.LocationID
+                        join p in _context.Locations on d.ParentID equals p.LocationID
+                        select new { a, t, sd, d, p };
+            var imageAccommodations = from img in _context.ImageAccommodations select img;
+
+            var result = await query.Select(x => new AccommodationVm()
+            {
+                AccommodationID = x.a.AccommodationID,
+                Name = x.a.Name,
+                AbbreviationName = x.a.AbbreviationName,
+                Description = x.a.Description,
+                Email = x.a.Email,
+                Phone = x.a.Phone,
+                MapURL = x.a.MapURL,
+                No = x.a.No,
+                Address = x.a.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
+                Status = x.a.Status,
+                Province = new LocationProvince()
+                {
+                    LocationID = x.p.LocationID,
+                    Name = x.p.Name,
+                    IsDeleted = x.p.IsDeleted,
+                    ParentID = x.p.ParentID,
+                    Code = x.p.Code,
+                    Type = x.p.Type,
+                    SortOrder = x.p.SortOrder
+                },
+                District = new LocationDistrict()
+                {
+                    LocationID = x.d.LocationID,
+                    Name = x.d.Name,
+                    IsDeleted = x.d.IsDeleted,
+                    ParentID = x.d.ParentID,
+                    Code = x.d.Code,
+                    Type = x.d.Type,
+                    SortOrder = x.d.SortOrder
+                },
+                SubDistrict = new LocationSubDistrict()
+                {
+                    LocationID = x.sd.LocationID,
+                    Name = x.sd.Name,
+                    IsDeleted = x.sd.IsDeleted,
+                    ParentID = x.sd.ParentID,
+                    Code = x.sd.Code,
+                    Type = x.sd.Type,
+                    SortOrder = x.sd.SortOrder
+                },
+                AccommodationType = new AccommodationTypeVm()
+                {
+                    AccommodationTypeID = x.t.AccommodationTypeID,
+                    Name = x.t.Name,
+                    Description = x.t.Description,
+                    No = x.t.No,
+                },
+                Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
+                {
+                    Id = i.ImageAccommodationID,
+                    Image = i.Image,
+                }).ToList(),
+            }).ToListAsync();
+            return new ApiSuccessResult<List<AccommodationVm>>(result);
         }
     }
 }

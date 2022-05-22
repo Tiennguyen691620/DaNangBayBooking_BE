@@ -37,7 +37,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public Decimal TotalPrice { get; set; }
 
-        public Enums.BookingStatus Status { get; set; }
+        public BookingStatus Status { get; set; }
 
         public Accommodation Accommodation { get; set; }
 

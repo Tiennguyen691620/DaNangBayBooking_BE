@@ -67,7 +67,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         }
         
         /// <summary>
-        /// Lấy thông tin chi tiết CSLT
+        /// Lấy thông tin chi tiết CSLT Client
         /// </summary>
         /// 
         [HttpGet("detail-show/{id}")]
@@ -75,6 +75,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         public async Task<ActionResult<AccommodationVm>> GetByIdClient(Guid id)
         {
             var Accommodation = await _accommodationService.GetByIdClient(id);
+            return Ok(Accommodation);
+        }
+
+        /// <summary>
+        /// Lấy tất cả CSLT
+        /// </summary>
+        /// 
+        [HttpGet("get-all")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<List<AccommodationVm>>>> GetAllAccommodation()
+        {
+            var Accommodation = await _accommodationService.GetAllAccommodation();
             return Ok(Accommodation);
         }
 
