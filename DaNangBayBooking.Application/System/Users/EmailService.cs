@@ -36,7 +36,7 @@ namespace Webgentle.BookStore.Service
 
         public async Task SendEmailToAccommodation(UserEmailOptions userEmailOptions)
         {
-            userEmailOptions.Subject = UpdatePlaceHolders("Hello {{FullName}}, Confirm your email id.", userEmailOptions.PlaceHolders);
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin xác nhận đặt phòng !", userEmailOptions.PlaceHolders);
 
             userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailBookRoomToAccommodation"), userEmailOptions.PlaceHolders);
 

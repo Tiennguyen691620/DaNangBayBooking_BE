@@ -71,7 +71,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInPhoneNumber = request.CheckInPhoneNumber,
                 TotalPrice = request.TotalPrice,
                 AccommodationID = request.Accommodation.AccommodationID,
-                Status = Data.Enums.BookingStatus.Success,
+                Status = Data.Enums.BookingStatus.Confirmed,
             };
 
             BookRoom.BookRoomDetails = new List<BookRoomDetail>();

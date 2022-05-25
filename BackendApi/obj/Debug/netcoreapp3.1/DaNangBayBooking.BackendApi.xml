@@ -10,6 +10,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetAllPagingClient(DaNangBayBooking.ViewModels.Catalog.Accommodation.GetAccommodationPagingRequest)">
+            <summary>
+            Lấy danh sách CSLT phân trang 
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.AccommodationController.GetById(System.Guid)">
             <summary>
             Lấy thông tin chi tiết CSLT

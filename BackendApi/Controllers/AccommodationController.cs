@@ -52,6 +52,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var Accommodation = await _accommodationService.GetAccommodationsAllPaging(request);
             return Ok(Accommodation);
         }
+        
+        
+        /// <summary>
+        /// Lấy danh sách CSLT phân trang 
+        /// </summary>
+        /// 
+        [HttpGet("filter/client")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<AccommodationVm>>> GetAllPagingClient([FromQuery] GetAccommodationPagingRequest request)
+        {
+            var Accommodation = await _accommodationService.GetAccommodationsAllPagingClient(request);
+            return Ok(Accommodation);
+        }
 
 
         /// <summary>
