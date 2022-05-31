@@ -69,6 +69,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInNote = request.CheckInNote,
                 CheckInIdentityCard = request.CheckInIdentityCard,
                 CheckInPhoneNumber = request.CheckInPhoneNumber,
+                bookingUser = request.bookingUser,
                 TotalPrice = request.TotalPrice,
                 AccommodationID = request.Accommodation.AccommodationID,
                 Status = Data.Enums.BookingStatus.Confirmed,
@@ -90,11 +91,11 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 return new ApiSuccessResult<bool>(false);
             }
             var sendMailAccommodation = await _context.Accommodations.FindAsync(request.Accommodation.AccommodationID);
-            await SendEmailConfirmationEmailToUser(sendMailAccommodation, BookRoom);
+            await SendEmailToAccommodation(sendMailAccommodation, BookRoom);
             return new ApiSuccessResult<bool>(true);
         }
 
-        private async Task SendEmailConfirmationEmailToUser(Accommodation accommodation, BookRoom bookRoom)
+        private async Task SendEmailToAccommodation(Accommodation accommodation, BookRoom bookRoom)
         {
             UserEmailOptions options = new UserEmailOptions
             {
@@ -116,6 +117,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                         join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
                         join brt in _context.BookRoomDetails on br.BookRoomID equals brt.BookRoomID
                         join r in _context.Rooms on brt.RoomID equals r.RoomID
+                        where br.UserID == request.UserId
                         select new { br, a, brt, r };
 
 
@@ -158,6 +160,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     CheckInNote = x.br.CheckInNote,
                     CheckInIdentityCard = x.br.CheckInIdentityCard,
                     CheckInPhoneNumber = x.br.CheckInPhoneNumber,
+                    bookingUser = x.br.bookingUser,
                     TotalPrice = x.br.TotalPrice,
                     Status = x.br.Status,
                     Accommodation = new AccommodationVm() { 
@@ -198,11 +201,29 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             cancelReson.CancelReason = request.CancelReason;
             cancelReson.CancelDate = DateTime.Now;
             var result = await _context.SaveChangesAsync();
+            var sendMailAccommodation = await _context.Accommodations.FindAsync(checkStatusBooking.AccommodationID);
             if (result != 0)
             {
                 return new ApiSuccessResult<bool>(true);
+                await SendEmailCancelToAccommodation(sendMailAccommodation, checkStatusBooking);
             }
             return new ApiSuccessResult<bool>(false);
+        }
+
+        private async Task SendEmailCancelToAccommodation(Accommodation accommodation, BookRoom bookRoom)
+        {
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { accommodation.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                }
+            };
+
+            await _emailService.SendEmailCancelToAccommodation(options);
         }
 
         public async Task<ApiResult<BookRoomVm>> GetById(Guid id)
@@ -239,6 +260,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInIdentityCard = bookRoom.CheckInIdentityCard,
                 CheckInPhoneNumber = bookRoom.CheckInPhoneNumber,
                 CheckInNote = bookRoom.CheckInNote,
+                bookingUser = bookRoom.bookingUser,
                 Status = bookRoom.Status,
                 
                 Accommodation = new AccommodationVm()
@@ -384,6 +406,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInIdentityCard = x.br.CheckInIdentityCard,
                 CheckInPhoneNumber = x.br.CheckInPhoneNumber,
                 CheckInNote = x.br.CheckInNote,
+                bookingUser = x.br.bookingUser,
                 Status = x.br.Status,
                 Accommodation = new AccommodationVm()
                 {
@@ -471,6 +494,91 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 }
             }).ToListAsync();
             return new ApiSuccessResult<List<BookRoomVm>>(data);
+        }
+
+        public async Task<ApiResult<bool>> CancelBookingByAccommodation(CancelBookingRequest request)
+        {
+            var checkStatusBooking = await _context.BookRooms.FindAsync(request.Id);
+            if (checkStatusBooking == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatusBooking.Status = BookingStatus.Canceled;
+            var checkCancelReson = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
+            var cancelReson = await _context.BookRoomDetails.FindAsync(checkCancelReson.BookRoomDetailID);
+            if (cancelReson == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            cancelReson.Status = BookingStatus.Canceled;
+            cancelReson.CancelReason = request.CancelReason;
+            cancelReson.CancelDate = DateTime.Now;
+            var result = await _context.SaveChangesAsync();
+            var sendMailUser = await _context.AppUsers.FindAsync(checkStatusBooking.UserID);
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+                await SendEmailCancelToUser(sendMailUser, checkStatusBooking);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+
+        private async Task SendEmailCancelToUser(AppUser user, BookRoom bookRoom)
+        {
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                }
+            };
+
+            await _emailService.SendEmailCancelToUser(options);
+        }
+
+        public async Task<ApiResult<bool>> SuccessBookingByAccommodation(BookRoomVm request)
+        {
+            var checkStatusBooking = await _context.BookRooms.FindAsync(request.BookRoomID);
+            if (checkStatusBooking == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatusBooking.Status = BookingStatus.Success;
+            var checkStatus = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
+            var statusBookRoomDetail = await _context.BookRoomDetails.FindAsync(checkStatus.BookRoomDetailID);
+            /*if (cancelReson == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }*/
+            statusBookRoomDetail.Status = BookingStatus.Success;
+            //cancelReson.CancelReason = request.CancelReason;
+            //cancelReson.CancelDate = DateTime.Now;
+            var result = await _context.SaveChangesAsync();
+            var sendMailUser = await _context.AppUsers.FindAsync(checkStatusBooking.UserID);
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+                await SendEmailSuccessBookingToUser(sendMailUser, checkStatusBooking);
+            }
+            return new ApiSuccessResult<bool>(false);
+        }
+        private async Task SendEmailSuccessBookingToUser(AppUser user, BookRoom bookRoom)
+        {
+            UserEmailOptions options = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { user.Email },
+                PlaceHolders = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                }
+            };
+
+            await _emailService.SendEmailSuccessBookingToUser(options);
         }
     }
 }

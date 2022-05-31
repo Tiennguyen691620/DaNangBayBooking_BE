@@ -42,6 +42,33 @@ namespace Webgentle.BookStore.Service
 
             await SendEmail(userEmailOptions);
         }
+        
+        public async Task SendEmailCancelToAccommodation(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin hủy đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailCancelToAccommodation"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+
+        public async Task SendEmailCancelToUser(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin hủy đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailCancelToUser"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+        
+        public async Task SendEmailSuccessBookingToUser(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin hủy đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailSuccessBookingToUser"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
 
         public async Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions)
         {

@@ -35,6 +35,7 @@ using Webgentle.BookStore.Service;
 using DaNangBayBooking.Application.Catalog.BookRooms;
 using DaNangBayBooking.Application.Catalog.Bookings;
 using DaNangBayBooking.Application.Catalog.Reports;
+using DaNangBayBooking.Application.Catalog.RateComments;
 
 namespace BackendApi
 {
@@ -72,6 +73,7 @@ namespace BackendApi
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IBookRoomService, BookRoomService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IRateCommentService, RateCommentService>();
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();

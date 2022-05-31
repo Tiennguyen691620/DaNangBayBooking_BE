@@ -11,6 +11,13 @@ namespace Webgentle.BookStore.Service
 
         Task SendEmailToAccommodation(UserEmailOptions userEmailOptions);
 
+        Task SendEmailCancelToAccommodation(UserEmailOptions userEmailOptions);
+
+        Task SendEmailCancelToUser(UserEmailOptions userEmailOptions);
+
+        Task SendEmailSuccessBookingToUser(UserEmailOptions userEmailOptions);
+
+
         Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions);
     }
 }

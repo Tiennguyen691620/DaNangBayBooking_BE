@@ -130,6 +130,18 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CancelBookingByAccommodation(DaNangBayBooking.ViewModels.Catalog.BookRooms.CancelBookingRequest)">
+            <summary>
+            Hủy đặt phòng bởi CSLT
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.SuccessBookingByAccommodation(DaNangBayBooking.ViewModels.Catalog.BookRooms.BookRoomVm)">
+            <summary>
+            Xác nhận đặt phòng bởi CSLT
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.GetById(System.Guid)">
             <summary>
             Lấy thông tin chi tiết đặt phòng
@@ -163,6 +175,24 @@
         <member name="M:DaNangBayBooking.BackendApi.Controllers.MasterDataController.GetAllProvince">
             <summary>
             Lấy tất cả danh sách tỉnh/thành phố
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RateCommentController.CreateRateComment(DaNangBayBooking.ViewModels.Catalog.RateComment.CreateRateCommentRequest)">
+            <summary>
+            Tạo mới đánh giá
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RateCommentController.GetAllRateComment(DaNangBayBooking.ViewModels.Catalog.RateComment.GetAllRateCommentRequest)">
+            <summary>
+            Lấy tất cả đánh giá
+            </summary>
+            
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RateCommentController.GetQtyAndPontRateComment(System.Guid)">
+            <summary>
+            Lấy tất điểm và số lượng đánh giá
             </summary>
             
         </member>

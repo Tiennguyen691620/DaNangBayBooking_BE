@@ -80,6 +80,46 @@ namespace DaNangBayBooking.BackendApi.Controllers
         }
 
         /// <summary>
+        /// Hủy đặt phòng bởi CSLT
+        /// </summary>
+        /// 
+        [HttpPost("cancel/accommodation")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> CancelBookingByAccommodation(CancelBookingRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _bookRoomService.CancelBookingByAccommodation(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Xác nhận đặt phòng bởi CSLT
+        /// </summary>
+        /// 
+        [HttpPost("success/accommodation")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> SuccessBookingByAccommodation(BookRoomVm request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _bookRoomService.SuccessBookingByAccommodation(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Lấy thông tin chi tiết đặt phòng
         /// </summary>
         /// 

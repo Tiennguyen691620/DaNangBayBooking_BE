@@ -64,7 +64,7 @@ namespace DaNangBayBooking.Application.System.Users
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
+                return new ApiErrorResult<LoginUser>("Tài khoản hoặc mật khẩu không đúng");
             }
             //var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -112,7 +112,7 @@ namespace DaNangBayBooking.Application.System.Users
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
+                return new ApiErrorResult<LoginUser>("Tài khoản hoặc mật khẩu không đúng");
             }
             //var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]

@@ -616,8 +616,8 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
                         join p in _context.Locations on d.ParentID equals p.LocationID
                         where a.Status == true
                         select new { a, t, sd, d, p };
-            
-            var broom = from br in _context.BookRooms select br;
+
+
             var utilities = from ul in _context.Utilities select ul;
             var rooms = from rm in _context.Rooms select rm;
             var imageAccommodations = from img in _context.ImageAccommodations select img;

@@ -33,6 +33,8 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 
         public string CheckInPhoneNumber { get; set; }
 
+        public string bookingUser { get; set; }
+
         public decimal TotalPrice { get; set; }
 
         public int ChildNumber { get; set; }

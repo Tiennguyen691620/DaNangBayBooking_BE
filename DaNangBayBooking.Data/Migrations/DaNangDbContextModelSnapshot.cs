@@ -147,7 +147,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "071232b2-acac-486c-9e78-e61e0fc0a640",
+                            ConcurrencyStamp = "1b865279-df8c-4aa3-bb1b-c360044e49a8",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +155,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "14d957c0-2b41-4800-9b40-704e61297e04",
+                            ConcurrencyStamp = "04acb26e-e28a-46cb-94a3-fcd5a767b74e",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -317,6 +317,9 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("bookingUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("BookRoomID");
 
                     b.HasIndex("AccommodationID");
@@ -452,23 +455,17 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
 
                     b.Property<DateTime>("RateCommentDate")
-                        .HasColumnType("datetime2")
-                        .HasMaxLength(200);
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Rating")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                    b.Property<long>("Rating")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RateCommentID");
 

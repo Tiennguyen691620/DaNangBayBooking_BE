@@ -40,6 +40,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
         public AccommodationTypeVm AccommodationType { get; set; }
 
         public List<ImageAccommodationVm> Images { get; set; }
-
+        public int Qty { get; set; }
+        public long Point { get; set; }
     }
 }

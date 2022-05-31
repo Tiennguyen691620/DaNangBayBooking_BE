@@ -19,5 +19,10 @@ namespace DaNangBayBooking.Application.Catalog.BookRooms
 
         Task<ApiResult<List<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request);
 
+        Task<ApiResult<bool>> CancelBookingByAccommodation(CancelBookingRequest request);
+
+        Task<ApiResult<bool>> SuccessBookingByAccommodation(BookRoomVm request);
+
+
     }
 }
