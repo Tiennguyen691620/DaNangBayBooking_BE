@@ -18,7 +18,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 
         public long? ToDate { get; set; }
 
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         public BookingStatus? Status { get; set; }
     }

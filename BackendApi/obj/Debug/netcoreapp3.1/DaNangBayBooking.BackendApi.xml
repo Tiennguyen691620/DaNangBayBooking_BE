@@ -118,6 +118,12 @@
             </summary>
             
         </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.FilterBookingClient(DaNangBayBooking.ViewModels.Catalog.BookRooms.FilterBookRoomRequest)">
+            <summary>
+            Lấy danh sách đặt phòng phân trang 
+            </summary>
+            
+        </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.FilterBooking(DaNangBayBooking.ViewModels.Catalog.BookRooms.FilterBookRoomRequest)">
             <summary>
             Lấy danh sách đặt phòng phân trang 

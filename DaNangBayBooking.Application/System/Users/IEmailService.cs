@@ -9,7 +9,7 @@ namespace Webgentle.BookStore.Service
 
         Task SendEmailForgotAndResetPass(UserEmailOptions userEmailOptions);
 
-        Task SendEmailToAccommodation(UserEmailOptions userEmailOptions);
+        Task SendEmailBookRoomToAccommodation(UserEmailOptions userEmailOptions);
 
         Task SendEmailCancelToAccommodation(UserEmailOptions userEmailOptions);
 

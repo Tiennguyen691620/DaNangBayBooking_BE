@@ -76,10 +76,11 @@ namespace DaNangBayBooking.Application.Catalog.RateComments
                            join rc in _context.RateComments on br.BookRoomID equals rc.BookRoomID
                            where br.AccommodationID == query.AccommodationID
                            select new { br, rc};
+            var count = bookRoom.Count() == 0 ? 1 : bookRoom.Count();
             var res = new GetQtyRateComment()
             {
                 Qty = await bookRoom.CountAsync(),
-                Point = (bookRoom.Sum(x => x.rc.Rating) / bookRoom.Count()),
+                Point = (bookRoom.Sum(x => x.rc.Rating) / count),
             };
             return new ApiSuccessResult<GetQtyRateComment>(res);
         }

@@ -46,5 +46,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
         public RoomVm Room { get; set; }
 
         public BookingStatus Status { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }

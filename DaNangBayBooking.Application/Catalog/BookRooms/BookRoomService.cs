@@ -46,14 +46,14 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
 
         public async Task<ApiResult<bool>> CreateBookingRoom(BookRoomCreateRequest request)
         {
-            var sendMailCustomer = await _context.AppUsers.FirstAsync(x => x.Email == request.CheckInMail);
-            string year = DateTime.Now.ToString("yy");
-            int count = await _context.BookRooms.Where(x => x.No.Contains("BK-" + year)).CountAsync();
+            var sendMailCustomer = await _context.AppUsers.FindAsync(request.UserId);
+            string year = DateTime.Now.ToString("ddMMyy");
+            int count = await _context.BookRooms.Where(x => x.UserID == sendMailCustomer.Id).CountAsync();
             string str = "";
-            if (count < 9) str = "BK-" + DateTime.Now.ToString("yy") + "-000" + (count + 1);
-            else if (count < 99) str = "BK-" + DateTime.Now.ToString("yy") + "-00" + (count + 1);
-            else if (count < 999) str = "BK-" + DateTime.Now.ToString("yy") + "-0" + (count + 1);
-            else if (count < 9999) str = "BK-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
+            if (count < 9) str = "BK-" + DateTime.Now.ToString("ddMMyy") + "-000" + (count + 1);
+            else if (count < 99) str = "BK-" + DateTime.Now.ToString("ddMMyy") + "-00" + (count + 1);
+            else if (count < 999) str = "BK-" + DateTime.Now.ToString("ddMMyy") + "-0" + (count + 1);
+            else if (count < 9999) str = "BK-" + DateTime.Now.ToString("ddMMyy") + "-" + (count + 1);
 
             var BookRoom = new BookRoom()
             {
@@ -69,7 +69,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInNote = request.CheckInNote,
                 CheckInIdentityCard = request.CheckInIdentityCard,
                 CheckInPhoneNumber = request.CheckInPhoneNumber,
-                bookingUser = request.bookingUser,
+                BookingUser = request.bookingUser,
                 TotalPrice = request.TotalPrice,
                 AccommodationID = request.Accommodation.AccommodationID,
                 Status = Data.Enums.BookingStatus.Confirmed,
@@ -81,8 +81,13 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 RoomID = request.Room.RoomID,
                 ChildNumber = request.ChildNumber,
                 PersonNumber = request.PersonNumber,
-                Status = Data.Enums.BookingStatus.Success,
+                Status = Data.Enums.BookingStatus.Confirmed,
             };
+            /*listRoom.Room = new Room();
+            var room = new Room()
+            {
+                
+            };*/
             BookRoom.BookRoomDetails.Add(listRoom);
             await _context.BookRooms.AddAsync(BookRoom);
             var result = await _context.SaveChangesAsync();
@@ -91,27 +96,113 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 return new ApiSuccessResult<bool>(false);
             }
             var sendMailAccommodation = await _context.Accommodations.FindAsync(request.Accommodation.AccommodationID);
-            await SendEmailToAccommodation(sendMailAccommodation, BookRoom);
+            await SendEmailToAccommodation(sendMailAccommodation, BookRoom, listRoom);
             return new ApiSuccessResult<bool>(true);
         }
 
-        private async Task SendEmailToAccommodation(Accommodation accommodation, BookRoom bookRoom)
+        private async Task SendEmailToAccommodation(Accommodation accommodation, BookRoom bookRoom, BookRoomDetail listRoom)
         {
             UserEmailOptions options = new UserEmailOptions
             {
                 ToEmails = new List<string>() { accommodation.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
                     new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{BookingUser}}", bookRoom.BookingUser),
                     new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{CheckInIdentityCard}}", bookRoom.CheckInIdentityCard),
+                    new KeyValuePair<string, string>("{{CheckInNote}}", bookRoom.CheckInNote),
+                    new KeyValuePair<string, string>("{{FromDate}}", bookRoom.FromDate.ToShortDateString()),
+                    new KeyValuePair<string, string>("{{ToDate}}", bookRoom.ToDate.ToShortDateString()),
+                    new KeyValuePair<string, string>("{{Qty}}", bookRoom.Qty.ToString()),
+                    new KeyValuePair<string, string>("{{TotalDay}}", bookRoom.TotalDay.ToString()),
+                    new KeyValuePair<string, string>("{{TotalPrice}}", bookRoom.TotalPrice.ToString("#,###,###")),
+                    new KeyValuePair<string, string>("{{No}}", bookRoom.No),
+                    new KeyValuePair<string, string>("{{PersonNumber}}", listRoom.PersonNumber.ToString()),
+                    new KeyValuePair<string, string>("{{ChildNumber}}", listRoom.ChildNumber.ToString()),
+                    //new KeyValuePair<string, string>("{{RoomName}}", listRoom.Room.Name),
+                    //new KeyValuePair<string, string>("{{RoomTypeName}}", listRoom.Room.RoomType.Name),
                 }
             };
 
-            await _emailService.SendEmailToAccommodation(options);
+            await _emailService.SendEmailBookRoomToAccommodation(options);
         }
 
         public async Task<ApiResult<PagedResult<BookRoomVm>>> FilterBooking(FilterBookRoomRequest request)
+        {
+            var query = from br in _context.BookRooms
+                        join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
+                        join brt in _context.BookRoomDetails on br.BookRoomID equals brt.BookRoomID
+                        join r in _context.Rooms on brt.RoomID equals r.RoomID
+                        //where br.UserID == request.UserId
+                        select new { br, a, brt, r };
+
+
+            if (!string.IsNullOrEmpty(request.SearchKey))
+            {
+                query = query.Where(x => x.br.CheckInPhoneNumber.Contains(request.SearchKey)
+                 || x.br.No.Contains(request.SearchKey) || x.br.Accommodation.Name.Contains(request.SearchKey));
+            }
+
+            if (request.FromDate != null && request.ToDate != null)
+            {
+                var fromDate = request.FromDate.FromUnixTimeStamp();
+                var toDate = request.ToDate.FromUnixTimeStamp();
+                query = query.Where(x => x.br.FromDate >= fromDate && x.br.ToDate <= toDate);
+            }
+
+            if (request.BookingFromDate != null && request.BookingToDate != null)
+            {
+                var fromDate = request.BookingFromDate.FromUnixTimeStamp();
+                var toDate = request.BookingToDate.FromUnixTimeStamp();
+                query = query.Where(x => x.br.BookingDate >= fromDate && x.br.BookingDate <= toDate);
+            }
+
+            //3. Paging
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new BookRoomVm()
+                {
+                    BookRoomID = x.br.BookRoomID,
+                    No = x.br.No,
+                    Qty = x.br.Qty,
+                    BookingDate = x.br.BookingDate.ToSecondsTimestamp(),
+                    FromDate = x.br.FromDate.ToSecondsTimestamp(),
+                    ToDate = x.br.ToDate.ToSecondsTimestamp(),
+                    TotalDay = x.br.TotalDay,
+                    CheckInName = x.br.CheckInName,
+                    CheckInMail = x.br.CheckInMail,
+                    CheckInNote = x.br.CheckInNote,
+                    CheckInIdentityCard = x.br.CheckInIdentityCard,
+                    CheckInPhoneNumber = x.br.CheckInPhoneNumber,
+                    bookingUser = x.br.BookingUser,
+                    TotalPrice = x.br.TotalPrice,
+                    Status = x.br.Status,
+                    Accommodation = new AccommodationVm()
+                    {
+                        Name = x.a.Name,
+                    },
+                    BookRoomDetail = new BookRoomDetailVm()
+                    {
+
+                    },
+                }).ToListAsync();
+
+            //4. Select and projection
+            var pagedResult = new PagedResult<BookRoomVm>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = data
+            };
+            return new ApiSuccessResult<PagedResult<BookRoomVm>>(pagedResult);
+        }
+
+        public async Task<ApiResult<PagedResult<BookRoomVm>>> FilterBookingClient(FilterBookRoomRequest request)
         {
             var query = from br in _context.BookRooms
                         join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
@@ -160,7 +251,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     CheckInNote = x.br.CheckInNote,
                     CheckInIdentityCard = x.br.CheckInIdentityCard,
                     CheckInPhoneNumber = x.br.CheckInPhoneNumber,
-                    bookingUser = x.br.bookingUser,
+                    bookingUser = x.br.BookingUser,
                     TotalPrice = x.br.TotalPrice,
                     Status = x.br.Status,
                     Accommodation = new AccommodationVm() { 
@@ -260,7 +351,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInIdentityCard = bookRoom.CheckInIdentityCard,
                 CheckInPhoneNumber = bookRoom.CheckInPhoneNumber,
                 CheckInNote = bookRoom.CheckInNote,
-                bookingUser = bookRoom.bookingUser,
+                bookingUser = bookRoom.BookingUser,
                 Status = bookRoom.Status,
                 
                 Accommodation = new AccommodationVm()
@@ -406,7 +497,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInIdentityCard = x.br.CheckInIdentityCard,
                 CheckInPhoneNumber = x.br.CheckInPhoneNumber,
                 CheckInNote = x.br.CheckInNote,
-                bookingUser = x.br.bookingUser,
+                bookingUser = x.br.BookingUser,
                 Status = x.br.Status,
                 Accommodation = new AccommodationVm()
                 {

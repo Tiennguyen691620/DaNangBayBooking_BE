@@ -11,6 +11,8 @@ namespace DaNangBayBooking.Application.Catalog.BookRooms
     {
         Task<ApiResult<bool>> CreateBookingRoom(BookRoomCreateRequest request);
 
+        Task<ApiResult<PagedResult<BookRoomVm>>> FilterBookingClient(FilterBookRoomRequest request);
+
         Task<ApiResult<PagedResult<BookRoomVm>>> FilterBooking(FilterBookRoomRequest request);
 
         Task<ApiResult<bool>> CancelBooking(CancelBookingRequest request);

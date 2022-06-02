@@ -51,6 +51,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy danh sách đặt phòng phân trang 
         /// </summary>
         /// 
+        [HttpGet("filter/client")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<BookRoomVm>>> FilterBookingClient([FromQuery] FilterBookRoomRequest request)
+        {
+            var bookRoom = await _bookRoomService.FilterBookingClient(request);
+            return Ok(bookRoom);
+        }
+
+        /// <summary>
+        /// Lấy danh sách đặt phòng phân trang 
+        /// </summary>
+        /// 
         [HttpGet("filter")]
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<BookRoomVm>>> FilterBooking([FromQuery] FilterBookRoomRequest request)
