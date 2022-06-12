@@ -30,6 +30,7 @@ namespace DaNangBayBooking.Application.Catalog.RateComments
                 RateCommentDate = DateTime.Now,
                 Title = request.Title,
                 Rating = request.Rating,
+                
             };
             _context.RateComments.Add(comment);
             var result = await _context.SaveChangesAsync();
@@ -79,6 +80,7 @@ namespace DaNangBayBooking.Application.Catalog.RateComments
             var count = bookRoom.Count() == 0 ? 1 : bookRoom.Count();
             var res = new GetQtyRateComment()
             {
+                Id = AccommodationId,
                 Qty = await bookRoom.CountAsync(),
                 Point = (bookRoom.Sum(x => x.rc.Rating) / count),
             };

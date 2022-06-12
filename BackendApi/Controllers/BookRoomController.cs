@@ -55,6 +55,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<PagedResult<BookRoomVm>>> FilterBookingClient([FromQuery] FilterBookRoomRequest request)
         {
+            await _bookRoomService.CloseBooking(request);
             var bookRoom = await _bookRoomService.FilterBookingClient(request);
             return Ok(bookRoom);
         }
@@ -95,40 +96,40 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Hủy đặt phòng bởi CSLT
         /// </summary>
         /// 
-        [HttpPost("cancel/accommodation")]
+        [HttpGet("cancel/accommodation/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ApiResult<bool>>> CancelBookingByAccommodation(CancelBookingRequest request)
+        public async Task<ActionResult<ApiResult<bool>>> CancelBookingByAccommodation(Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _bookRoomService.CancelBookingByAccommodation(request);
+            var result = await _bookRoomService.CancelBookingByAccommodation(id);
 
             if (result == null)
             {
-                return BadRequest(result);
+                return BadRequest(result.Data);
             }
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         /// <summary>
         /// Xác nhận đặt phòng bởi CSLT
         /// </summary>
         /// 
-        [HttpPost("success/accommodation")]
+        [HttpGet("success/{bookRoomId}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ApiResult<bool>>> SuccessBookingByAccommodation(BookRoomVm request)
+        public async Task<ActionResult<ApiResult<string>>> SuccessBookingByAccommodation(Guid bookRoomId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _bookRoomService.SuccessBookingByAccommodation(request);
+            var result = await _bookRoomService.SuccessBookingByAccommodation(bookRoomId);
 
             if (result == null)
             {
-                return BadRequest(result);
+                return BadRequest(result.Data);
             }
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         /// <summary>

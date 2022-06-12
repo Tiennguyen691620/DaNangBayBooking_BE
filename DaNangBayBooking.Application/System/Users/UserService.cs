@@ -89,6 +89,7 @@ namespace DaNangBayBooking.Application.System.Users
                 FullName = user.FullName,
                 Dob = user.Dob,
                 Id = user.Id,
+                Avatar = user.Avatar,
                 UserName = user.UserName,
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RoleName = roles.Name

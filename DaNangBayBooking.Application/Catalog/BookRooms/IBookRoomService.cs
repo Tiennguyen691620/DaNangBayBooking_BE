@@ -21,10 +21,10 @@ namespace DaNangBayBooking.Application.Catalog.BookRooms
 
         Task<ApiResult<List<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request);
 
-        Task<ApiResult<bool>> CancelBookingByAccommodation(CancelBookingRequest request);
+        Task<ApiResult<string>> CancelBookingByAccommodation(Guid Id);
 
-        Task<ApiResult<bool>> SuccessBookingByAccommodation(BookRoomVm request);
+        Task<ApiResult<string>> SuccessBookingByAccommodation(Guid bookRoomId);
 
-
+        Task<ApiResult<bool>> CloseBooking(FilterBookRoomRequest request);
     }
 }

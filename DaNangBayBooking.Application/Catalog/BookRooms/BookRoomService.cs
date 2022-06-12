@@ -83,11 +83,6 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 PersonNumber = request.PersonNumber,
                 Status = Data.Enums.BookingStatus.Confirmed,
             };
-            /*listRoom.Room = new Room();
-            var room = new Room()
-            {
-                
-            };*/
             BookRoom.BookRoomDetails.Add(listRoom);
             await _context.BookRooms.AddAsync(BookRoom);
             var result = await _context.SaveChangesAsync();
@@ -96,12 +91,18 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 return new ApiSuccessResult<bool>(false);
             }
             var sendMailAccommodation = await _context.Accommodations.FindAsync(request.Accommodation.AccommodationID);
-            await SendEmailToAccommodation(sendMailAccommodation, BookRoom, listRoom);
+            var room = await _context.Rooms.FindAsync(listRoom.RoomID);
+            var roomType = await _context.RoomTypes.FindAsync(room.RoomTypeID);
+            await SendEmailToAccommodation(sendMailAccommodation, BookRoom, listRoom, room, roomType);
             return new ApiSuccessResult<bool>(true);
         }
 
-        private async Task SendEmailToAccommodation(Accommodation accommodation, BookRoom bookRoom, BookRoomDetail listRoom)
+        private async Task SendEmailToAccommodation(Accommodation accommodation, BookRoom bookRoom, BookRoomDetail listRoom, Room room, RoomType roomType)
         {
+            string appDomain = _config.GetSection("Application:AppDomain").Value;
+            string AcceptBooking = _config.GetSection("Application:AcceptBooking").Value;
+            string CancelBooking = _config.GetSection("Application:CancelBooking").Value;
+            
             UserEmailOptions options = new UserEmailOptions
             {
                 ToEmails = new List<string>() { accommodation.Email },
@@ -121,8 +122,10 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     new KeyValuePair<string, string>("{{No}}", bookRoom.No),
                     new KeyValuePair<string, string>("{{PersonNumber}}", listRoom.PersonNumber.ToString()),
                     new KeyValuePair<string, string>("{{ChildNumber}}", listRoom.ChildNumber.ToString()),
-                    //new KeyValuePair<string, string>("{{RoomName}}", listRoom.Room.Name),
-                    //new KeyValuePair<string, string>("{{RoomTypeName}}", listRoom.Room.RoomType.Name),
+                    new KeyValuePair<string, string>("{{RoomName}}", room.Name),
+                    new KeyValuePair<string, string>("{{RoomTypeName}}", roomType.Name),
+                    new KeyValuePair<string, string>("{{LinkSuccess}}", string.Format(appDomain + AcceptBooking, bookRoom.BookRoomID)),
+                    new KeyValuePair<string, string>("{{LinkCancel}}", string.Format(appDomain + CancelBooking, bookRoom.BookRoomID)),
                 }
             };
 
@@ -208,8 +211,10 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                         join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
                         join brt in _context.BookRoomDetails on br.BookRoomID equals brt.BookRoomID
                         join r in _context.Rooms on brt.RoomID equals r.RoomID
+                        join rc in _context.RateComments on br.BookRoomID equals rc.BookRoomID into ratecomment
+                        from rc in ratecomment.DefaultIfEmpty()
                         where br.UserID == request.UserId
-                        select new { br, a, brt, r };
+                        select new { br, a, brt, r, rc };
 
 
             if (!string.IsNullOrEmpty(request.SearchKey))
@@ -254,6 +259,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     bookingUser = x.br.BookingUser,
                     TotalPrice = x.br.TotalPrice,
                     Status = x.br.Status,
+                    CheckComment = x.rc == null ? true : false,
                     Accommodation = new AccommodationVm() { 
                         Name = x.a.Name,
                     },
@@ -274,6 +280,24 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             return new ApiSuccessResult<PagedResult<BookRoomVm>>(pagedResult);
         }
 
+
+        public async Task<ApiResult<bool>> CloseBooking(FilterBookRoomRequest request)
+        {
+            var expired = from br in _context.BookRooms
+                          join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
+                          join brt in _context.BookRoomDetails on br.BookRoomID equals brt.BookRoomID
+                          join r in _context.Rooms on brt.RoomID equals r.RoomID
+                          where br.UserID == request.UserId && br.ToDate <= DateTime.Now && br.Status == BookingStatus.Success
+                          select new { br, a, brt, r };
+            foreach (var remove in expired)
+            {
+                var addexpired = await _context.BookRooms.FindAsync(remove.br.BookRoomID);
+                addexpired.Status = BookingStatus.Closed;
+            }
+            await _context.SaveChangesAsync();
+            return new ApiSuccessResult<bool>();
+        }
+
         public async Task<ApiResult<bool>> CancelBooking(CancelBookingRequest request)
         {
             var checkStatusBooking = await _context.BookRooms.FindAsync(request.Id);
@@ -283,34 +307,49 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             }
             checkStatusBooking.Status = BookingStatus.Canceled;
             var checkCancelReson = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
-            var cancelReson = await _context.BookRoomDetails.FindAsync(checkCancelReson.BookRoomDetailID);
-            if(cancelReson == null)
+            var bookDetail = await _context.BookRoomDetails.FindAsync(checkCancelReson.BookRoomDetailID);
+            var room = await _context.Rooms.FindAsync(bookDetail.RoomID);
+            var roomType = await _context.RoomTypes.FindAsync(room.RoomTypeID);
+            if(bookDetail == null)
             {
                 return new ApiSuccessResult<bool>(false);
             }
-            cancelReson.Status = BookingStatus.Canceled;
-            cancelReson.CancelReason = request.CancelReason;
-            cancelReson.CancelDate = DateTime.Now;
+            bookDetail.Status = BookingStatus.Canceled;
+            bookDetail.CancelReason = request.CancelReason;
+            bookDetail.CancelDate = DateTime.Now;
             var result = await _context.SaveChangesAsync();
             var sendMailAccommodation = await _context.Accommodations.FindAsync(checkStatusBooking.AccommodationID);
             if (result != 0)
             {
+                await SendEmailCancelToAccommodation(sendMailAccommodation, checkStatusBooking, bookDetail, room, roomType);
                 return new ApiSuccessResult<bool>(true);
-                await SendEmailCancelToAccommodation(sendMailAccommodation, checkStatusBooking);
             }
             return new ApiSuccessResult<bool>(false);
         }
 
-        private async Task SendEmailCancelToAccommodation(Accommodation accommodation, BookRoom bookRoom)
+        private async Task SendEmailCancelToAccommodation(Accommodation accommodation, BookRoom bookRoom, BookRoomDetail bookDetail, Room room, RoomType roomType)
         {
             UserEmailOptions options = new UserEmailOptions
             {
                 ToEmails = new List<string>() { accommodation.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
                     new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
+                    new KeyValuePair<string, string>("{{BookingUser}}", bookRoom.BookingUser),
                     new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
+                    new KeyValuePair<string, string>("{{CheckInIdentityCard}}", bookRoom.CheckInIdentityCard),
+                    new KeyValuePair<string, string>("{{CheckInNote}}", bookRoom.CheckInNote),
+                    new KeyValuePair<string, string>("{{FromDate}}", bookRoom.FromDate.ToShortDateString()),
+                    new KeyValuePair<string, string>("{{ToDate}}", bookRoom.ToDate.ToShortDateString()),
+                    new KeyValuePair<string, string>("{{Qty}}", bookRoom.Qty.ToString()),
+                    new KeyValuePair<string, string>("{{TotalDay}}", bookRoom.TotalDay.ToString()),
+                    new KeyValuePair<string, string>("{{TotalPrice}}", bookRoom.TotalPrice.ToString("#,###,###")),
+                    new KeyValuePair<string, string>("{{No}}", bookRoom.No),
+                    new KeyValuePair<string, string>("{{PersonNumber}}", bookDetail.PersonNumber.ToString()),
+                    new KeyValuePair<string, string>("{{ChildNumber}}", bookDetail.ChildNumber.ToString()),
+                    new KeyValuePair<string, string>("{{RoomName}}", room.Name),
+                    new KeyValuePair<string, string>("{{RoomTypeName}}", roomType.Name),
                 }
             };
 
@@ -587,55 +626,66 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             return new ApiSuccessResult<List<BookRoomVm>>(data);
         }
 
-        public async Task<ApiResult<bool>> CancelBookingByAccommodation(CancelBookingRequest request)
+        public async Task<ApiResult<string>> CancelBookingByAccommodation(Guid Id)
         {
-            var checkStatusBooking = await _context.BookRooms.FindAsync(request.Id);
+            var checkStatusBooking = await _context.BookRooms.FindAsync(Id);
             if (checkStatusBooking == null)
             {
-                return new ApiSuccessResult<bool>(false);
+                return new ApiSuccessResult<string>("Hủy không thành công");
+            }
+            if (checkStatusBooking.Status != BookingStatus.Confirmed)
+            {
+                return new ApiSuccessResult<string>("Hủy không thành công");
             }
             checkStatusBooking.Status = BookingStatus.Canceled;
             var checkCancelReson = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
             var cancelReson = await _context.BookRoomDetails.FindAsync(checkCancelReson.BookRoomDetailID);
             if (cancelReson == null)
             {
-                return new ApiSuccessResult<bool>(false);
+                return new ApiSuccessResult<string>("Hủy không thành công");
+            }
+            if(cancelReson.Status != BookingStatus.Confirmed)
+            {
+                return new ApiSuccessResult<string>("Hủy không thành công");
             }
             cancelReson.Status = BookingStatus.Canceled;
-            cancelReson.CancelReason = request.CancelReason;
+            cancelReson.CancelReason = "Không hợp lệ";
             cancelReson.CancelDate = DateTime.Now;
             var result = await _context.SaveChangesAsync();
             var sendMailUser = await _context.AppUsers.FindAsync(checkStatusBooking.UserID);
             if (result != 0)
             {
-                return new ApiSuccessResult<bool>(true);
                 await SendEmailCancelToUser(sendMailUser, checkStatusBooking);
+                return new ApiSuccessResult<string>("Hủy thành công");
             }
-            return new ApiSuccessResult<bool>(false);
+            return new ApiSuccessResult<string>("Hủy không thành công");
         }
 
-        private async Task SendEmailCancelToUser(AppUser user, BookRoom bookRoom)
+        private async Task SendEmailCancelToUser(AppUser sendMailUser, BookRoom checkStatusBooking)
         {
             UserEmailOptions options = new UserEmailOptions
             {
-                ToEmails = new List<string>() { user.Email },
+                ToEmails = new List<string>() { sendMailUser.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
-                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
-                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                    new KeyValuePair<string, string>("{{FullName}}", sendMailUser.FullName),
+                    new KeyValuePair<string, string>("{{BookRoomNo}}", checkStatusBooking.No),
                 }
             };
 
             await _emailService.SendEmailCancelToUser(options);
         }
 
-        public async Task<ApiResult<bool>> SuccessBookingByAccommodation(BookRoomVm request)
+        public async Task<ApiResult<string>> SuccessBookingByAccommodation(Guid bookRoomId)
         {
-            var checkStatusBooking = await _context.BookRooms.FindAsync(request.BookRoomID);
+            var checkStatusBooking = await _context.BookRooms.FindAsync(bookRoomId);
             if (checkStatusBooking == null)
             {
-                return new ApiSuccessResult<bool>(false);
+                return new ApiSuccessResult<string>("Xác nhận không thành công");
+            }
+            if (checkStatusBooking.Status != BookingStatus.Confirmed)
+            {
+                return new ApiSuccessResult<string>("Xác nhận không thành công");
             }
             checkStatusBooking.Status = BookingStatus.Success;
             var checkStatus = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
@@ -644,6 +694,10 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             {
                 return new ApiSuccessResult<bool>(false);
             }*/
+            if (statusBookRoomDetail.Status != BookingStatus.Confirmed)
+            {
+                return new ApiSuccessResult<string>("Xác nhận không thành công");
+            }
             statusBookRoomDetail.Status = BookingStatus.Success;
             //cancelReson.CancelReason = request.CancelReason;
             //cancelReson.CancelDate = DateTime.Now;
@@ -651,21 +705,21 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             var sendMailUser = await _context.AppUsers.FindAsync(checkStatusBooking.UserID);
             if (result != 0)
             {
-                return new ApiSuccessResult<bool>(true);
                 await SendEmailSuccessBookingToUser(sendMailUser, checkStatusBooking);
+                return new ApiSuccessResult<string>("Xác nhận thành công");
             }
-            return new ApiSuccessResult<bool>(false);
+            return new ApiSuccessResult<string>("Xác nhận không thành công");
         }
-        private async Task SendEmailSuccessBookingToUser(AppUser user, BookRoom bookRoom)
+        private async Task SendEmailSuccessBookingToUser(AppUser sendMailUser, BookRoom checkStatusBooking)
         {
             UserEmailOptions options = new UserEmailOptions
             {
-                ToEmails = new List<string>() { user.Email },
+                ToEmails = new List<string>() { sendMailUser.Email },
                 PlaceHolders = new List<KeyValuePair<string, string>>()
                 {
-                    new KeyValuePair<string, string>("{{CheckInPhoneNumber}}", bookRoom.CheckInPhoneNumber),
-                    new KeyValuePair<string, string>("{{Name}}", bookRoom.Accommodation.Name),
-                    new KeyValuePair<string, string>("{{CheckInName}}", bookRoom.CheckInName),
+                    new KeyValuePair<string, string>("{{FullName}}", sendMailUser.FullName),
+                    new KeyValuePair<string, string>("{{BookRoomNo}}", checkStatusBooking.No),
+                    //new KeyValuePair<string, string>("{{Name}}", checkStatusBooking.Accommodation.Name),
                 }
             };
 

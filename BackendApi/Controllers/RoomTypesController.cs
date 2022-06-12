@@ -2,6 +2,7 @@
 using DaNangBayBooking.Data.Entities;
 using DaNangBayBooking.ViewModels.Catalog.RoomTypes;
 using DaNangBayBooking.ViewModels.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -84,6 +85,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             var roomTypes = await _roomTypeService.Update(request);
             return Ok(roomTypes);
+        }
+
+        /// <summary>
+        /// Cập nhật trạng thái của loại phòng
+        /// </summary>
+        /// 
+        [HttpPut("update/{RoomTypeId}/status")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusRoomType(Guid RoomTypeId, bool Status)
+        {
+            var RoomType = await _roomTypeService.UpdateStatusRoomType(RoomTypeId, Status);
+            return Ok(RoomType);
         }
     }
 }

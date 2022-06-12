@@ -10,6 +10,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 {
     public class BookRoomVm
     {
+
         public Guid BookRoomID { get; set; }
 
         public string No { get; set; }
@@ -45,5 +46,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
         public BookRoomDetailVm BookRoomDetail { get; set; }
 
         public BookingStatus Status { get; set; }
+
+        public bool CheckComment { get; set; }
     }
 }

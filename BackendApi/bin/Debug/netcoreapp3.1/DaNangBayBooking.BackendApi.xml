@@ -136,13 +136,13 @@
             </summary>
             
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CancelBookingByAccommodation(DaNangBayBooking.ViewModels.Catalog.BookRooms.CancelBookingRequest)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.CancelBookingByAccommodation(System.Guid)">
             <summary>
             Hủy đặt phòng bởi CSLT
             </summary>
             
         </member>
-        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.SuccessBookingByAccommodation(DaNangBayBooking.ViewModels.Catalog.BookRooms.BookRoomVm)">
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.BookRoomController.SuccessBookingByAccommodation(System.Guid)">
             <summary>
             Xác nhận đặt phòng bởi CSLT
             </summary>
@@ -242,6 +242,12 @@
             <summary>
             Cập nhật loại phòng
             </summary>
+        </member>
+        <member name="M:DaNangBayBooking.BackendApi.Controllers.RoomTypesController.UpdateStatusRoomType(System.Guid,System.Boolean)">
+            <summary>
+            Cập nhật trạng thái của loại phòng
+            </summary>
+            
         </member>
         <member name="M:DaNangBayBooking.BackendApi.Controllers.StorageController.Create(DaNangBayBooking.ViewModels.Catalog.Images.ImageCreateRequest)">
             <summary>

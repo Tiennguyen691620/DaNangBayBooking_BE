@@ -37,7 +37,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
 
         public async Task<ApiResult<List<RoomTypeVm>>> GetAll()
         {
-            var query = await _context.RoomTypes.Select(x => new RoomTypeVm()
+            var query = await _context.RoomTypes.Where(item => item.Status == true).Select(x => new RoomTypeVm()
             {
                 RoomTypeID = x.RoomTypeID,
                 Name = x.Name,
@@ -124,6 +124,22 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
             updateRoomType.Status = request.Status;
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<bool>(true);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusRoomType(Guid RoomTypeId, bool Status)
+        {
+            var checkStatus = await _context.RoomTypes.FindAsync(RoomTypeId);
+            if (checkStatus == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
     }
 }

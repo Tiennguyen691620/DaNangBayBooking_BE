@@ -16,5 +16,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
         Task<ApiResult<bool>> Delete(RoomTypeDeleteRequest request);
         Task<ApiResult<bool>> Update(RoomTypeUpdateRequest request);
         Task<ApiResult<RoomTypeVm>> GetByID(Guid RoomTypeID);
+        Task<ApiResult<bool>> UpdateStatusRoomType(Guid RoomTypeId, bool Status);
+
     }
 }

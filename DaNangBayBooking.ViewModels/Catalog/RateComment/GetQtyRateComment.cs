@@ -6,6 +6,7 @@ namespace DaNangBayBooking.ViewModels.Catalog.RateComment
 {
     public class GetQtyRateComment
     {
+        public Guid Id { get; set; }
         public long Qty { get; set; }
 
         public long Point { get; set; }
