@@ -17,6 +17,8 @@ namespace DaNangBayBooking.ViewModels.Catalog.Rooms
 
         public int MaximumPeople { get; set; }
 
+        public string? Description { get; set; }
+
         public Decimal Price { get; set; }
 
         public List<ImageAccommodationCreateRequest> Images { get; set; }

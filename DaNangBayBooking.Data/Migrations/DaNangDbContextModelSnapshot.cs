@@ -147,7 +147,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "1b865279-df8c-4aa3-bb1b-c360044e49a8",
+                            ConcurrencyStamp = "cb39fa04-92ed-4aaf-ab37-7f31fef0b4d1",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +155,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "04acb26e-e28a-46cb-94a3-fcd5a767b74e",
+                            ConcurrencyStamp = "f6c3369d-9584-42e9-a4b6-e34a37b71f05",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"
@@ -201,8 +201,7 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasMaxLength(200);
 
                     b.Property<bool>("Gender")
-                        .HasColumnType("bit")
-                        .HasMaxLength(10);
+                        .HasColumnType("bit");
 
                     b.Property<string>("IdentityCard")
                         .IsRequired()
@@ -271,6 +270,9 @@ namespace DaNangBayBooking.Data.Migrations
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("BookingUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CheckInIdentityCard")
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
@@ -316,9 +318,6 @@ namespace DaNangBayBooking.Data.Migrations
 
                     b.Property<Guid>("UserID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("bookingUser")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookRoomID");
 
@@ -533,9 +532,8 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasMaxLength(200);
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(2147483647);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -543,7 +541,6 @@ namespace DaNangBayBooking.Data.Migrations
                         .HasMaxLength(200);
 
                     b.Property<string>("No")
-                        .IsRequired()
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 

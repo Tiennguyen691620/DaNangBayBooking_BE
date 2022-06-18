@@ -1,11 +1,12 @@
 ﻿using DaNangBayBooking.Data.Enums;
+using DaNangBayBooking.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 {
-    public class FilterBookRoomReportRequest
+    public class FilterBookRoomReportRequest : PagingRequestBase
     {
         public Guid? AccommodationId { get; set; }
 

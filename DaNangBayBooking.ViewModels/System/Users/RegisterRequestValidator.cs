@@ -18,7 +18,7 @@ namespace DaNangBayBooking.ViewModels.System.Users
                 .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")
                 .WithMessage("Email format not match");
 
-            RuleFor(x => x.Gender).NotEmpty().WithMessage("Gender is required");
+            //RuleFor(x => x.Gender).NotEmpty().WithMessage("Gender is required");
 
             RuleFor(x => x.IdentityCard).NotEmpty().WithMessage("IdentityCard is required");
 

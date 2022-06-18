@@ -11,7 +11,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
     public interface IRoomTypeService
     {
         Task<ApiResult<List<RoomTypeVm>>> GetAll();
-        Task<ApiResult<RoomType>> Create( RoomTypeRequest request );
+        Task<ApiResult<bool>> Create( RoomTypeRequest request );
         Task<ApiResult<PagedResult<RoomTypeVm>>> GetAllPaging( GetRoomTypePagingRequest request );
         Task<ApiResult<bool>> Delete(RoomTypeDeleteRequest request);
         Task<ApiResult<bool>> Update(RoomTypeUpdateRequest request);

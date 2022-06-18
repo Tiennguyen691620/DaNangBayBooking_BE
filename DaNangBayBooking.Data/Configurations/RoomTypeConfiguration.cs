@@ -16,8 +16,8 @@ namespace DaNangBayBooking.Data.Configurations
             builder.HasKey(x => x.RoomTypeID);
 
             builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.No).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(int.MaxValue);
+            builder.Property(x => x.No).HasMaxLength(200);
 
         }
     }

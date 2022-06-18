@@ -102,7 +102,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             string appDomain = _config.GetSection("Application:AppDomain").Value;
             string AcceptBooking = _config.GetSection("Application:AcceptBooking").Value;
             string CancelBooking = _config.GetSection("Application:CancelBooking").Value;
-            
+
             UserEmailOptions options = new UserEmailOptions
             {
                 ToEmails = new List<string>() { accommodation.Email },
@@ -260,7 +260,8 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     TotalPrice = x.br.TotalPrice,
                     Status = x.br.Status,
                     CheckComment = x.rc == null ? true : false,
-                    Accommodation = new AccommodationVm() { 
+                    Accommodation = new AccommodationVm()
+                    {
                         Name = x.a.Name,
                     },
                     BookRoomDetail = new BookRoomDetailVm()
@@ -301,7 +302,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
         public async Task<ApiResult<bool>> CancelBooking(CancelBookingRequest request)
         {
             var checkStatusBooking = await _context.BookRooms.FindAsync(request.Id);
-            if(checkStatusBooking == null)
+            if (checkStatusBooking == null)
             {
                 return new ApiSuccessResult<bool>(false);
             }
@@ -310,7 +311,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             var bookDetail = await _context.BookRoomDetails.FindAsync(checkCancelReson.BookRoomDetailID);
             var room = await _context.Rooms.FindAsync(bookDetail.RoomID);
             var roomType = await _context.RoomTypes.FindAsync(room.RoomTypeID);
-            if(bookDetail == null)
+            if (bookDetail == null)
             {
                 return new ApiSuccessResult<bool>(false);
             }
@@ -321,7 +322,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             var sendMailAccommodation = await _context.Accommodations.FindAsync(checkStatusBooking.AccommodationID);
             if (result != 0)
             {
-                await SendEmailCancelToAccommodation(sendMailAccommodation, checkStatusBooking, bookDetail, room, roomType);
+                SendEmailCancelToAccommodation(sendMailAccommodation, checkStatusBooking, bookDetail, room, roomType);
                 return new ApiSuccessResult<bool>(true);
             }
             return new ApiSuccessResult<bool>(false);
@@ -359,7 +360,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
         public async Task<ApiResult<BookRoomVm>> GetById(Guid id)
         {
             var bookRoom = await _context.BookRooms.FindAsync(id);
-            if(bookRoom == null)
+            if (bookRoom == null)
             {
                 return new ApiErrorResult<BookRoomVm>("Đặt phòng không tồn tại");
             }
@@ -376,7 +377,8 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             var d = await _context.Locations.FindAsync(sd.ParentID);
             var p = await _context.Locations.FindAsync(d.ParentID);
 
-            var bookRoomVm = new BookRoomVm() { 
+            var bookRoomVm = new BookRoomVm()
+            {
                 BookRoomID = bookRoom.BookRoomID,
                 No = bookRoom.No,
                 Qty = bookRoom.Qty,
@@ -392,7 +394,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 CheckInNote = bookRoom.CheckInNote,
                 bookingUser = bookRoom.BookingUser,
                 Status = bookRoom.Status,
-                
+
                 Accommodation = new AccommodationVm()
                 {
                     AccommodationID = accommodation.AccommodationID,
@@ -477,12 +479,12 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                         Image = imageRoom.Image,
                     },
                 }
-                
+
             };
             return new ApiSuccessResult<BookRoomVm>(bookRoomVm);
         }
 
-        public async Task<ApiResult<List<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request)
+        public async Task<ApiResult<PagedResult<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request)
         {
             var query = from br in _context.BookRooms
                         join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
@@ -501,7 +503,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             {
                 query = query.Where(x => x.a.AccommodationID == request.AccommodationId);
             }
-            
+
             if (request.Status != null)
             {
                 var status = (BookingStatus)request.Status;
@@ -522,7 +524,14 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                 query = query.Where(x => x.br.BookingDate >= fromDate && x.br.BookingDate <= toDate);
             }
 
-            var data = await query.Select(x => new BookRoomVm() {
+            //3. Paging
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+               .Take(request.PageSize)
+               .Select(x => new BookRoomVm()
+           /*var data = await query.Select(x => new BookRoomVm()*/
+            {
                 BookRoomID = x.br.BookRoomID,
                 No = x.br.No,
                 Qty = x.br.Qty,
@@ -623,7 +632,15 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     },
                 }
             }).ToListAsync();
-            return new ApiSuccessResult<List<BookRoomVm>>(data);
+            var pagedResult = new PagedResult<BookRoomVm>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = data
+            };
+            return new ApiSuccessResult<PagedResult<BookRoomVm>>(pagedResult);
+            //return new ApiSuccessResult<List<BookRoomVm>>(data);
         }
 
         public async Task<ApiResult<string>> CancelBookingByAccommodation(Guid Id)
@@ -635,7 +652,18 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             }
             if (checkStatusBooking.Status != BookingStatus.Confirmed)
             {
-                return new ApiSuccessResult<string>("Hủy không thành công");
+                if (checkStatusBooking.Status == BookingStatus.Success)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được xác nhận");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Canceled)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được hủy");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Closed)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đóng");
+                }
             }
             checkStatusBooking.Status = BookingStatus.Canceled;
             var checkCancelReson = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
@@ -644,9 +672,20 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             {
                 return new ApiSuccessResult<string>("Hủy không thành công");
             }
-            if(cancelReson.Status != BookingStatus.Confirmed)
+            if (cancelReson.Status != BookingStatus.Confirmed)
             {
-                return new ApiSuccessResult<string>("Hủy không thành công");
+                if (checkStatusBooking.Status == BookingStatus.Success)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được xác nhận");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Canceled)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được hủy");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Closed)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đóng");
+                }
             }
             cancelReson.Status = BookingStatus.Canceled;
             cancelReson.CancelReason = "Không hợp lệ";
@@ -685,7 +724,18 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             }
             if (checkStatusBooking.Status != BookingStatus.Confirmed)
             {
-                return new ApiSuccessResult<string>("Xác nhận không thành công");
+                if (checkStatusBooking.Status == BookingStatus.Success)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được xác nhận");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Canceled)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được hủy");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Closed)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đóng");
+                }
             }
             checkStatusBooking.Status = BookingStatus.Success;
             var checkStatus = _context.BookRoomDetails.FirstOrDefault(x => x.BookRoomID == checkStatusBooking.BookRoomID);
@@ -696,7 +746,18 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             }*/
             if (statusBookRoomDetail.Status != BookingStatus.Confirmed)
             {
-                return new ApiSuccessResult<string>("Xác nhận không thành công");
+                if (checkStatusBooking.Status == BookingStatus.Success)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được xác nhận");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Canceled)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đã được hủy");
+                }
+                if (checkStatusBooking.Status == BookingStatus.Closed)
+                {
+                    return new ApiSuccessResult<string>("Đơn đặt phòng đóng");
+                }
             }
             statusBookRoomDetail.Status = BookingStatus.Success;
             //cancelReson.CancelReason = request.CancelReason;

@@ -51,10 +51,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Tạo mới loại phòng
         /// </summary>
         [HttpPost("create")]
-        public async Task<ActionResult<RoomType>> Post(RoomTypeRequest request)
+        public async Task<ActionResult<ApiResult<bool>>> Post(RoomTypeRequest request)
         {
-            var roomTypes = await _roomTypeService.Create(request);
-            return Ok(roomTypes);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _roomTypeService.Create(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         /// <summary>

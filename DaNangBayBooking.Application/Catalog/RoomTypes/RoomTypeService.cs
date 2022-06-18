@@ -93,7 +93,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
             return  new ApiSuccessResult<RoomTypeVm>(result);
         }
 
-        public async Task<ApiResult<RoomType>> Create( RoomTypeRequest request )
+        public async Task<ApiResult<bool>> Create( RoomTypeRequest request )
         {
             string year = DateTime.Now.ToString("yy");
             int count = await _context.RoomTypes.Where(x => x.No.Contains("RT-" + year)).CountAsync();
@@ -109,8 +109,12 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
                 Status = true,
             };
             _context.RoomTypes.Add(clinics);
-            await _context.SaveChangesAsync();
-            return new ApiSuccessResult<RoomType>(clinics);
+            var result = await _context.SaveChangesAsync();
+            if (result == 1)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
 
         public async Task<ApiResult<bool>> Update(RoomTypeUpdateRequest request)

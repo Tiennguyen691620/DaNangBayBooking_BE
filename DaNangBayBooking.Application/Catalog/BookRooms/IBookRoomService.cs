@@ -19,7 +19,7 @@ namespace DaNangBayBooking.Application.Catalog.BookRooms
 
         Task<ApiResult<BookRoomVm>> GetById(Guid id);
 
-        Task<ApiResult<List<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request);
+        Task<ApiResult<PagedResult<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request);
 
         Task<ApiResult<string>> CancelBookingByAccommodation(Guid Id);
 

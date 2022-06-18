@@ -182,8 +182,16 @@ namespace DaNangBayBooking.BackendApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<bool>>> CreateAccommodationType(AccommodationTypeCreateRequest request)
         {
-            var AccommodationType = await _accommodationTypeService.Create(request);
-            return Ok(AccommodationType);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _accommodationTypeService.Create(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         /// <summary>
