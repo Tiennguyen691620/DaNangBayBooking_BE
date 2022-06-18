@@ -15,10 +15,10 @@ namespace DaNangBayBooking.Data.Configurations
 
             builder.HasKey(x => x.RateCommentID);
 
-            builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.RateCommentDate).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Title).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Rating).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Description).HasMaxLength(int.MaxValue);
+            builder.Property(x => x.RateCommentDate);
+            builder.Property(x => x.Title);
+            builder.Property(x => x.Rating);
 
             builder.HasOne(x => x.BookRoom).WithOne(x => x.RateComments).HasForeignKey<RateComment>(x => x.BookRoomID);
         }

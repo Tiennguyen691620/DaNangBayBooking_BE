@@ -41,6 +41,7 @@ namespace DaNangBayBooking.Application.Catalog.Rooms
                 MaximumPeople = request.MaximumPeople,
                 Price = request.Price,
                 BookedQty = 0,
+                Description = request.Description,
                 ImageRooms = request.Images.Select(i => new ImageRoom()
                 {
                     ImageRoomID = i.Id,

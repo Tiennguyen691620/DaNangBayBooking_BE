@@ -17,6 +17,6 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public Guid? SubDistrictID { get; set; }
 
-
+        /*public List<Guid?> UltilityId { get; set; }*/
     }
 }

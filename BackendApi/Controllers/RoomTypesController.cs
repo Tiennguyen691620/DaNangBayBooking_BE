@@ -2,6 +2,7 @@
 using DaNangBayBooking.Data.Entities;
 using DaNangBayBooking.ViewModels.Catalog.RoomTypes;
 using DaNangBayBooking.ViewModels.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -50,10 +51,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Tạo mới loại phòng
         /// </summary>
         [HttpPost("create")]
-        public async Task<ActionResult<RoomType>> Post(RoomTypeRequest request)
+        public async Task<ActionResult<ApiResult<bool>>> Post(RoomTypeRequest request)
         {
-            var roomTypes = await _roomTypeService.Create(request);
-            return Ok(roomTypes);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _roomTypeService.Create(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         /// <summary>
@@ -84,6 +93,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         {
             var roomTypes = await _roomTypeService.Update(request);
             return Ok(roomTypes);
+        }
+
+        /// <summary>
+        /// Cập nhật trạng thái của loại phòng
+        /// </summary>
+        /// 
+        [HttpPut("update/{RoomTypeId}/status")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<bool>>> UpdateStatusRoomType(Guid RoomTypeId, bool Status)
+        {
+            var RoomType = await _roomTypeService.UpdateStatusRoomType(RoomTypeId, Status);
+            return Ok(RoomType);
         }
     }
 }

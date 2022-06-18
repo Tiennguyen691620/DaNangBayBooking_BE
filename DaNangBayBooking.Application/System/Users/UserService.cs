@@ -64,7 +64,7 @@ namespace DaNangBayBooking.Application.System.Users
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
+                return new ApiErrorResult<LoginUser>("Tài khoản hoặc mật khẩu không đúng");
             }
             //var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -89,6 +89,7 @@ namespace DaNangBayBooking.Application.System.Users
                 FullName = user.FullName,
                 Dob = user.Dob,
                 Id = user.Id,
+                Avatar = user.Avatar,
                 UserName = user.UserName,
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RoleName = roles.Name
@@ -112,7 +113,7 @@ namespace DaNangBayBooking.Application.System.Users
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<LoginUser>("Đăng nhập không đúng");
+                return new ApiErrorResult<LoginUser>("Tài khoản hoặc mật khẩu không đúng");
             }
             //var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -147,22 +148,26 @@ namespace DaNangBayBooking.Application.System.Users
 
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
-            string year = DateTime.Now.ToString("yy");
-            int count = await _context.Users.Where(x => x.No.Contains("CUSTOMER-" + year)).CountAsync();
+            string year = DateTime.Now.ToString("ddMMyy");
+            int count = await _context.Users.Where(x => x.No.Contains("CUS-" + year)).CountAsync();
             string str = "";
-            if (count < 9) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-000" + (count + 1);
-            else if (count < 99) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-00" + (count + 1);
-            else if (count < 999) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-0" + (count + 1);
-            else if (count < 9999) str = "CUSTOMER-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
+            if (count < 9) str = "CUS-" + DateTime.Now.ToString("ddMMyy") + "-000" + (count + 1);
+            else if (count < 99) str = "CUS-" + DateTime.Now.ToString("ddMMyy") + "-00" + (count + 1);
+            else if (count < 999) str = "CUS-" + DateTime.Now.ToString("ddMMyy") + "-0" + (count + 1);
+            else if (count < 9999) str = "CUS-" + DateTime.Now.ToString("ddMMyy") + "-" + (count + 1);
 
             var role = await _roleManager.FindByNameAsync("Client");
-            if (await _userManager.FindByNameAsync(request.PhoneNumber) != null)
+            if (_context.AppUsers.FirstOrDefault(x => x.PhoneNumber == request.PhoneNumber) != null)
             {
                 return new ApiErrorResult<bool>("Số điện thoại đã tồn tại");
             }
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
                 return new ApiErrorResult<bool>("Emai đã tồn tại");
+            }
+            if (_context.AppUsers.FirstOrDefault(x => x.IdentityCard == request.IdentityCard) != null)
+            {
+                return new ApiErrorResult<bool>("CMND/CCCD đã tồn tại");
             }
 
             var user = new AppUser()
@@ -210,7 +215,7 @@ namespace DaNangBayBooking.Application.System.Users
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<UserVm>("User không tồn tại");
+                return new ApiErrorResult<UserVm>("Người dùng không tồn tại");
             }
 
             var sd = await _context.Locations.FindAsync(user.LocationID);
@@ -453,9 +458,9 @@ namespace DaNangBayBooking.Application.System.Users
             string year = DateTime.Now.ToString("yy");
             int count = await _context.Users.Where(x => x.No.Contains("USER-" + year)).CountAsync();
             string str = "";
-            if (count < 9) str = "USER-" + DateTime.Now.ToString("yy") + "-00" + (count + 1);
-            else if (count < 99) str = "USER-" + DateTime.Now.ToString("yy") + "-0" + (count + 1);
-            else if (count < 999) str = "USER-" + DateTime.Now.ToString("yy") + "-" + (count + 1);
+            if (count < 9) str = "USER-" + DateTime.Now.ToString("ddMMyy") + "-00" + (count + 1);
+            else if (count < 99) str = "USER-" + DateTime.Now.ToString("ddMMyy") + "-0" + (count + 1);
+            else if (count < 999) str = "USER-" + DateTime.Now.ToString("ddMMyy") + "-" + (count + 1);
 
             var role = await _roleManager.FindByNameAsync("Admin");
             if (await _userManager.FindByNameAsync(request.PhoneNumber) != null)

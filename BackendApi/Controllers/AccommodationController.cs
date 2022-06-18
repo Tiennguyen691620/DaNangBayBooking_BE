@@ -52,6 +52,19 @@ namespace DaNangBayBooking.BackendApi.Controllers
             var Accommodation = await _accommodationService.GetAccommodationsAllPaging(request);
             return Ok(Accommodation);
         }
+        
+        
+        /// <summary>
+        /// Lấy danh sách CSLT phân trang 
+        /// </summary>
+        /// 
+        [HttpGet("filter/client")]
+        [AllowAnonymous]
+        public async Task<ActionResult<PagedResult<AccommodationVm>>> GetAllPagingClient([FromQuery] GetAccommodationPagingRequest request)
+        {
+            var Accommodation = await _accommodationService.GetAccommodationsAllPagingClient(request);
+            return Ok(Accommodation);
+        }
 
 
         /// <summary>
@@ -67,7 +80,7 @@ namespace DaNangBayBooking.BackendApi.Controllers
         }
         
         /// <summary>
-        /// Lấy thông tin chi tiết CSLT
+        /// Lấy thông tin chi tiết CSLT Client
         /// </summary>
         /// 
         [HttpGet("detail-show/{id}")]
@@ -79,6 +92,18 @@ namespace DaNangBayBooking.BackendApi.Controllers
         }
 
         /// <summary>
+        /// Lấy tất cả CSLT
+        /// </summary>
+        /// 
+        [HttpGet("get-all")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ApiResult<List<AccommodationVm>>>> GetAllAccommodation()
+        {
+            var Accommodation = await _accommodationService.GetAllAccommodation();
+            return Ok(Accommodation);
+        }
+
+        /// <summary>
         /// Tạo mới CSLT
         /// </summary>
         /// 
@@ -86,8 +111,17 @@ namespace DaNangBayBooking.BackendApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<bool>>> Post(AccommodationCreateRequest request)
         {
-            var Accommodation = await _accommodationService.CreateAccommodation(request);
-            return Ok(Accommodation);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _accommodationService.CreateAccommodation(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
 
@@ -148,8 +182,16 @@ namespace DaNangBayBooking.BackendApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<ApiResult<bool>>> CreateAccommodationType(AccommodationTypeCreateRequest request)
         {
-            var AccommodationType = await _accommodationTypeService.Create(request);
-            return Ok(AccommodationType);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _accommodationTypeService.Create(request);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
         /// <summary>
