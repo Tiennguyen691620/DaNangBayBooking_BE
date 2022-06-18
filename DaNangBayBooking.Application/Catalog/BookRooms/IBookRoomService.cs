@@ -1,4 +1,4 @@
-﻿using DaNangBayBooking.ViewModels.Catalog.BookRoom;
+﻿using DaNangBayBooking.ViewModels.Catalog.BookRooms;
 using DaNangBayBooking.ViewModels.Common;
 using System;
 using System.Collections.Generic;
@@ -10,5 +10,21 @@ namespace DaNangBayBooking.Application.Catalog.BookRooms
     public interface IBookRoomService
     {
         Task<ApiResult<bool>> CreateBookingRoom(BookRoomCreateRequest request);
+
+        Task<ApiResult<PagedResult<BookRoomVm>>> FilterBookingClient(FilterBookRoomRequest request);
+
+        Task<ApiResult<PagedResult<BookRoomVm>>> FilterBooking(FilterBookRoomRequest request);
+
+        Task<ApiResult<bool>> CancelBooking(CancelBookingRequest request);
+
+        Task<ApiResult<BookRoomVm>> GetById(Guid id);
+
+        Task<ApiResult<PagedResult<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request);
+
+        Task<ApiResult<string>> CancelBookingByAccommodation(Guid Id);
+
+        Task<ApiResult<string>> SuccessBookingByAccommodation(Guid bookRoomId);
+
+        Task<ApiResult<bool>> CloseBooking(FilterBookRoomRequest request);
     }
 }

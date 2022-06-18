@@ -12,9 +12,13 @@ namespace DaNangBayBooking.ViewModels.Catalog.Accommodation
 
         public string RoomTypeName { get; set; }
 
-        public long?  Date { get; set; }
+        public int MaximumPeople { get; set; }
 
-        public DateTime DateAvailable { get; set; }
+        public decimal Price { get; set; }
+
+        public long? DateAvailable  { get; set; }
+
+        public DateTime Date { get; set; }
 
         public long Qty { get; set; }
     }

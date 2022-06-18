@@ -37,7 +37,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
 
         public async Task<ApiResult<List<RoomTypeVm>>> GetAll()
         {
-            var query = await _context.RoomTypes.Select(x => new RoomTypeVm()
+            var query = await _context.RoomTypes.Where(item => item.Status == true).Select(x => new RoomTypeVm()
             {
                 RoomTypeID = x.RoomTypeID,
                 Name = x.Name,
@@ -93,7 +93,7 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
             return  new ApiSuccessResult<RoomTypeVm>(result);
         }
 
-        public async Task<ApiResult<RoomType>> Create( RoomTypeRequest request )
+        public async Task<ApiResult<bool>> Create( RoomTypeRequest request )
         {
             string year = DateTime.Now.ToString("yy");
             int count = await _context.RoomTypes.Where(x => x.No.Contains("RT-" + year)).CountAsync();
@@ -109,8 +109,12 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
                 Status = true,
             };
             _context.RoomTypes.Add(clinics);
-            await _context.SaveChangesAsync();
-            return new ApiSuccessResult<RoomType>(clinics);
+            var result = await _context.SaveChangesAsync();
+            if (result == 1)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
 
         public async Task<ApiResult<bool>> Update(RoomTypeUpdateRequest request)
@@ -124,6 +128,22 @@ namespace DaNangBayBooking.Application.Catalog.RoomTypes
             updateRoomType.Status = request.Status;
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<bool>(true);
+        }
+
+        public async Task<ApiResult<bool>> UpdateStatusRoomType(Guid RoomTypeId, bool Status)
+        {
+            var checkStatus = await _context.RoomTypes.FindAsync(RoomTypeId);
+            if (checkStatus == null)
+            {
+                return new ApiSuccessResult<bool>(false);
+            }
+            checkStatus.Status = Status;
+            var result = await _context.SaveChangesAsync();
+            if (result != 0)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiSuccessResult<bool>(false);
         }
     }
 }

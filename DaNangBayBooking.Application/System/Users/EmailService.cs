@@ -27,18 +27,45 @@ namespace Webgentle.BookStore.Service
 
         public async Task SendEmailForgotAndResetPass(UserEmailOptions userEmailOptions)
         {
-            userEmailOptions.Subject = UpdatePlaceHolders("Xin Chào {{FullName}} !", userEmailOptions.PlaceHolders);
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin Chào {{FullName}} !, bạn có thông báo đổi mật khẩu mới", userEmailOptions.PlaceHolders);
 
             userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailForgotAndResetPassword"), userEmailOptions.PlaceHolders);
 
             await SendEmail(userEmailOptions);
         }
 
-        public async Task SendEmailToAccommodation(UserEmailOptions userEmailOptions)
+        public async Task SendEmailBookRoomToAccommodation(UserEmailOptions userEmailOptions)
         {
-            userEmailOptions.Subject = UpdatePlaceHolders("Hello {{FullName}}, Confirm your email id.", userEmailOptions.PlaceHolders);
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin xác nhận đặt phòng !", userEmailOptions.PlaceHolders);
 
             userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailBookRoomToAccommodation"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+        
+        public async Task SendEmailCancelToAccommodation(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{Name}}, bạn có thông tin hủy đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailCancelToAccommodation"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+
+        public async Task SendEmailCancelToUser(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{FullName}}, bạn có thông tin hủy đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailCancelToUser"), userEmailOptions.PlaceHolders);
+
+            await SendEmail(userEmailOptions);
+        }
+        
+        public async Task SendEmailSuccessBookingToUser(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin chào {{FullName}}, bạn có thông tin về xác nhận đặt phòng !", userEmailOptions.PlaceHolders);
+
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("SendEmailSuccessBookingToUser"), userEmailOptions.PlaceHolders);
 
             await SendEmail(userEmailOptions);
         }

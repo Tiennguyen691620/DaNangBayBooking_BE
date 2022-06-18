@@ -89,7 +89,6 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
         {
             var query = from a in _context.Accommodations
                         join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
-                        //join l in _context.Locations on a.LocationID equals l.LocationID
                         join sd in _context.Locations on a.LocationID equals sd.LocationID
                         join d in _context.Locations on sd.ParentID equals d.LocationID
                         join p in _context.Locations on d.ParentID equals p.LocationID
@@ -478,61 +477,244 @@ namespace DaNangBayBooking.Application.Catalog.Accommodations
 
         public async Task<ApiResult<List<AccommodationAvailable>>> GetByIdAvailable(Guid AccommodationId, GetAccommodationAvailableRequest request)
         {
-            var convertFromDate = DateTime.Parse( request.FromDate.FromUnixTimeStamp().ToShortDateString() + " 00:00:00.0000000");
+            var convertFromDate = DateTime.Parse(request.FromDate.FromUnixTimeStamp().ToShortDateString() + " 00:00:00.0000000");
             var convertToDate = DateTime.Parse(request.ToDate.FromUnixTimeStamp().ToShortDateString() + " 00:00:00.0000000");
+            convertToDate = convertToDate.AddDays(1);
             var bookRooms = from br in _context.BookRooms
                             join brd in _context.BookRoomDetails on br.BookRoomID equals brd.BookRoomID
-                            join r in _context.Rooms on brd.RoomID equals r.RoomID 
+                            join r in _context.Rooms on brd.RoomID equals r.RoomID
                             join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
-                            where a.AccommodationID == AccommodationId && br.FromDate >= convertFromDate && br.ToDate <= convertToDate
+                            where a.AccommodationID == AccommodationId && br.FromDate >= convertFromDate && br.ToDate <= convertToDate && br.Status != BookingStatus.Canceled
                             select new { br, brd, r, a };
             var room = await _context.Rooms.Where(x => x.AccommodationID == AccommodationId).ToListAsync();
-            if(request.RoomId != null)
+            if (request.RoomId != null)
             {
                 bookRooms = bookRooms.Where(x => x.r.RoomID == request.RoomId);
                 room = room.Where(x => x.RoomID == request.RoomId).ToList();
             }
-            var day = convertFromDate;
-            var countDate = (convertToDate - convertFromDate).Days + 1;
+            var countDate = (convertToDate - convertFromDate).Days;
             var availables = new List<AccommodationAvailable>();
             var checkRemove = 0;
             foreach (var item in room)
             {
+                var day = convertFromDate;
                 var roomType = await _context.RoomTypes.FindAsync(item.RoomTypeID);
                 for (var i = 1; i <= countDate; i++)
                 {
-                    var bookRoom = bookRooms.Where(x => x.r.RoomID == item.RoomID && x.br.FromDate <= day && x.br.ToDate >= day);
+                    var bookRoom = await bookRooms.Where(x => x.r.RoomID == item.RoomID && x.br.FromDate <= day && x.br.ToDate >= day).ToListAsync();
                     var available = new AccommodationAvailable()
                     {
                         Id = item.RoomID,
                         RoomName = item.Name,
                         RoomTypeName = roomType.Name,
+                        MaximumPeople = item.MaximumPeople,
+                        Price = item.Price,
                         Qty = bookRoom != null ? item.AvailableQty - bookRoom.Sum(x => x.br.Qty) : item.AvailableQty,
-                        DateAvailable = day,
-                        Date = day.ToSecondsTimestamp(),
+                        DateAvailable = day.ToSecondsTimestamp(),
+                        Date = day,
                     };
                     var dayRemove = convertFromDate;
                     checkRemove = 0;
                     for (var j = i; j <= countDate; j++)
                     {
-                        var remove = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.br.FromDate <= day && x.br.ToDate >= day);
-                        if(remove != null)
+                        var remove = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID && x.br.FromDate <= dayRemove && x.br.ToDate >= dayRemove);
+                        if (remove != null)
                         {
                             checkRemove = checkRemove + 1;
                         }
-                        dayRemove.AddDays(1);
+                        dayRemove = dayRemove.AddDays(1);
                     };
                     day = day.AddDays(1);
                     if (checkRemove == 0)
                     {
-                        var removeBookRoom = bookRooms.FirstOrDefault();
-                        bookRooms = bookRooms.Where(x => x.br.BookRoomID != removeBookRoom.br.BookRoomID);
+                        var removeBookRoom = bookRooms.FirstOrDefault(x => x.r.RoomID == item.RoomID);
+                        if (removeBookRoom != null)
+                        {
+                            bookRooms = bookRooms.Where(x => x.br.BookRoomID != removeBookRoom.br.BookRoomID);
+                        }
                     }
                     availables.Add(available);
                 }
-
             }
             return new ApiSuccessResult<List<AccommodationAvailable>>(availables);
+        }
+
+        public async Task<ApiResult<List<AccommodationVm>>> GetAllAccommodation()
+        {
+            var query = from a in _context.Accommodations
+                        join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
+                        join sd in _context.Locations on a.LocationID equals sd.LocationID
+                        join d in _context.Locations on sd.ParentID equals d.LocationID
+                        join p in _context.Locations on d.ParentID equals p.LocationID
+                        select new { a, t, sd, d, p };
+            var imageAccommodations = from img in _context.ImageAccommodations select img;
+
+            var result = await query.Select(x => new AccommodationVm()
+            {
+                AccommodationID = x.a.AccommodationID,
+                Name = x.a.Name,
+                AbbreviationName = x.a.AbbreviationName,
+                Description = x.a.Description,
+                Email = x.a.Email,
+                Phone = x.a.Phone,
+                MapURL = x.a.MapURL,
+                No = x.a.No,
+                Address = x.a.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
+                Status = x.a.Status,
+                Province = new LocationProvince()
+                {
+                    LocationID = x.p.LocationID,
+                    Name = x.p.Name,
+                    IsDeleted = x.p.IsDeleted,
+                    ParentID = x.p.ParentID,
+                    Code = x.p.Code,
+                    Type = x.p.Type,
+                    SortOrder = x.p.SortOrder
+                },
+                District = new LocationDistrict()
+                {
+                    LocationID = x.d.LocationID,
+                    Name = x.d.Name,
+                    IsDeleted = x.d.IsDeleted,
+                    ParentID = x.d.ParentID,
+                    Code = x.d.Code,
+                    Type = x.d.Type,
+                    SortOrder = x.d.SortOrder
+                },
+                SubDistrict = new LocationSubDistrict()
+                {
+                    LocationID = x.sd.LocationID,
+                    Name = x.sd.Name,
+                    IsDeleted = x.sd.IsDeleted,
+                    ParentID = x.sd.ParentID,
+                    Code = x.sd.Code,
+                    Type = x.sd.Type,
+                    SortOrder = x.sd.SortOrder
+                },
+                AccommodationType = new AccommodationTypeVm()
+                {
+                    AccommodationTypeID = x.t.AccommodationTypeID,
+                    Name = x.t.Name,
+                    Description = x.t.Description,
+                    No = x.t.No,
+                },
+                Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
+                {
+                    Id = i.ImageAccommodationID,
+                    Image = i.Image,
+                }).ToList(),
+            }).ToListAsync();
+            return new ApiSuccessResult<List<AccommodationVm>>(result);
+        }
+
+        public async Task<ApiResult<PagedResult<AccommodationVm>>> GetAccommodationsAllPagingClient(GetAccommodationPagingRequest request)
+        {
+            var query = from a in _context.Accommodations
+                        join t in _context.AccommodationTypes on a.AccommodationTypeID equals t.AccommodationTypeID
+                        join sd in _context.Locations on a.LocationID equals sd.LocationID
+                        join d in _context.Locations on sd.ParentID equals d.LocationID
+                        join p in _context.Locations on d.ParentID equals p.LocationID
+                        where a.Status == true
+                        select new { a, t, sd, d, p };
+
+
+            var utilities = from ul in _context.Utilities select ul;
+            var rooms = from rm in _context.Rooms select rm;
+            var imageAccommodations = from img in _context.ImageAccommodations select img;
+
+            //var patient = _context.Patients;
+
+            if (!string.IsNullOrEmpty(request.SearchKey))
+            {
+                query = query.Where(x => x.a.Name.Contains(request.SearchKey)
+                 || x.a.Email.Contains(request.SearchKey));
+            }
+
+            if (!string.IsNullOrEmpty(request.AccommodationTypeID.ToString()))
+            {
+                query = query.Where(x => x.a.AccommodationTypeID == request.AccommodationTypeID);
+            }
+
+            if (!string.IsNullOrEmpty(request.ProvinceID.ToString()))
+            {
+                query = query.Where(x => x.p.LocationID == request.ProvinceID);
+            }
+
+            if (!string.IsNullOrEmpty(request.DistrictID.ToString()))
+            {
+                query = query.Where(x => x.d.LocationID == request.DistrictID);
+            }
+
+            //3. Paging
+            int totalRow = await query.CountAsync();
+
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new AccommodationVm()
+                {
+                    AccommodationID = x.a.AccommodationID,
+                    Name = x.a.Name,
+                    AbbreviationName = x.a.AbbreviationName,
+                    Description = x.a.Description,
+                    Email = x.a.Email,
+                    Phone = x.a.Phone,
+                    MapURL = x.a.MapURL,
+                    No = x.a.No,
+                    Address = x.a.Address + ", " + x.sd.Name + ", " + x.d.Name + ", " + x.p.Name,
+                    Status = x.a.Status,
+                    AccommodationType = new AccommodationTypeVm()
+                    {
+                        AccommodationTypeID = x.t.AccommodationTypeID,
+                        Name = x.t.Name,
+                        Description = x.t.Description,
+                        No = x.t.No,
+                    },
+                    Province = new LocationProvince()
+                    {
+                        LocationID = x.p.LocationID,
+                        Name = x.p.Name,
+                        SortOrder = x.p.SortOrder,
+                        Code = x.p.Code,
+                        IsDeleted = x.p.IsDeleted,
+                        ParentID = x.p.ParentID,
+                        Type = x.p.Type
+                    },
+                    District = new LocationDistrict()
+                    {
+                        LocationID = x.d.LocationID,
+                        Name = x.d.Name,
+                        IsDeleted = x.d.IsDeleted,
+                        ParentID = x.d.ParentID,
+                        Code = x.d.Code,
+                        Type = x.d.Type,
+                        SortOrder = x.d.SortOrder
+                    },
+                    SubDistrict = new LocationSubDistrict()
+                    {
+                        LocationID = x.sd.LocationID,
+                        Name = x.sd.Name,
+                        IsDeleted = x.sd.IsDeleted,
+                        ParentID = x.sd.ParentID,
+                        Code = x.sd.Code,
+                        Type = x.sd.Type,
+                        SortOrder = x.sd.SortOrder
+                    },
+                    Images = imageAccommodations.Where(i => i.AccommodationID == x.a.AccommodationID).Select(i => new ImageAccommodationVm()
+                    {
+                        Id = i.ImageAccommodationID,
+                        Image = i.Image,
+                    }).ToList(),
+                }).ToListAsync();
+
+            //4. Select and projection
+            var pagedResult = new PagedResult<AccommodationVm>()
+            {
+                TotalRecords = totalRow,
+                PageIndex = request.PageIndex,
+                PageSize = request.PageSize,
+                Items = data
+            };
+            return new ApiSuccessResult<PagedResult<AccommodationVm>>(pagedResult);
         }
     }
 }

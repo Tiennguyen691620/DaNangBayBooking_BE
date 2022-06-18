@@ -35,9 +35,11 @@ namespace DaNangBayBooking.Data.Entities
          
         public string CheckInPhoneNumber { get; set; }
 
+        public string BookingUser { get; set; }
+
         public Decimal TotalPrice { get; set; }
 
-        public Enums.BookingStatus Status { get; set; }
+        public BookingStatus Status { get; set; }
 
         public Accommodation Accommodation { get; set; }
 

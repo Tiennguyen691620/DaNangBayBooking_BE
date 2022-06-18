@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DaNangBayBooking.Data.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,7 @@ namespace DaNangBayBooking.Data.Entities
 
         public string Description { get; set; }
 
-        public string Rating { get; set; }
+        public long Rating { get; set; }
 
         public DateTime RateCommentDate { get; set; }
 
