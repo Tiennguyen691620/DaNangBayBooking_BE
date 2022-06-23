@@ -474,3 +474,4 @@ C:\Users\PC\Desktop\DaNangBayBooking_BE\BackendApi\obj\Debug\netcoreapp3.1\DaNan
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.Collection.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\libman.json
