@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>G:\DATA\TestApi</_PublishTargetUrl>
+    <History>True|2022-10-19T11:21:29.4969162Z;True|2022-10-19T14:20:24.0034909+07:00;True|2022-10-19T14:09:55.7079157+07:00;True|2022-10-19T13:37:05.9299630+07:00;True|2022-10-19T13:10:18.8466542+07:00;</History>
+  </PropertyGroup>
+</Project>
