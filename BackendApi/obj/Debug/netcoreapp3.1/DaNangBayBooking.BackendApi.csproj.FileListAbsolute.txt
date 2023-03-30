@@ -474,3 +474,14 @@ C:\Users\PC\Desktop\DaNangBayBooking_BE\BackendApi\obj\Debug\netcoreapp3.1\DaNan
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.Collection.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\System.Web.Cors.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\MailKit.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\MimeKit.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\System.Formats.Asn1.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Cng.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Cng.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Text.Encoding.CodePages.dll

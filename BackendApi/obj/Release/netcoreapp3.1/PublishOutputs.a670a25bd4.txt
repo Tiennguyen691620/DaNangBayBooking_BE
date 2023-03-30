@@ -139,6 +139,8 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\FluentValidation.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\FluentValidation.AspNetCore.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\FluentValidation.DependencyInjectionExtensions.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\MailKit.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Web.Cors.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -191,8 +193,10 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\MimeKit.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\NuGet.Frameworks.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\BouncyCastle.Crypto.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Prometheus.NetCore.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Prometheus.NetStandard.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
@@ -206,11 +210,15 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Composition.TypedParts.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Formats.Asn1.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.IO.Pipelines.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Runtime.Caching.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.Cng.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.Pkcs.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\System.Text.Encoding.CodePages.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\cs\Microsoft.CodeAnalysis.resources.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\de\Microsoft.CodeAnalysis.resources.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\es\Microsoft.CodeAnalysis.resources.dll
@@ -270,7 +278,10 @@ G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win-x86\native\sni.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp3.0\System.Security.Cryptography.Cng.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\lib\netcoreapp3.1\System.Text.Encoding.CodePages.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\DaNangBayBooking.Application.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\DaNangBayBooking.Data.dll
 G:\DATA\Graduation-Thesis\DaNangBayBooking\BackendApi\obj\Release\netcoreapp3.1\PubTmp\Out\DaNangBayBooking.Utilities.dll

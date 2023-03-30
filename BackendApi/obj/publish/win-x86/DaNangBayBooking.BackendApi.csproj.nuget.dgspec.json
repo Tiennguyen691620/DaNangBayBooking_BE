@@ -58,6 +58,10 @@
               "target": "Package",
               "version": "[10.4.0, )"
             },
+            "Microsoft.AspNet.Cors": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.22, )"
@@ -87,7 +91,19 @@
           "warn": true,
           "downloadDependencies": [
             {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
+              "version": "[3.1.25, 3.1.25]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Host.win-x86",
+              "version": "[3.1.25, 3.1.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x86",
+              "version": "[3.1.25, 3.1.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
               "version": "[3.1.25, 3.1.25]"
             }
           ],

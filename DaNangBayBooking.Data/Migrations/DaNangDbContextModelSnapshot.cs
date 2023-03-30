@@ -147,7 +147,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("3fbc6c82-5ea2-47c8-bc7c-0d9ed0281045"),
-                            ConcurrencyStamp = "cb39fa04-92ed-4aaf-ab37-7f31fef0b4d1",
+                            ConcurrencyStamp = "56a1bb58-74be-436f-badf-c1742ed02ca6",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -155,7 +155,7 @@ namespace DaNangBayBooking.Data.Migrations
                         new
                         {
                             Id = new Guid("1a31c9df-861d-4e53-b076-c3081e1c2666"),
-                            ConcurrencyStamp = "f6c3369d-9584-42e9-a4b6-e34a37b71f05",
+                            ConcurrencyStamp = "15cd89f1-2c6c-4d59-a59e-141c0b2c4611",
                             Description = "Cliener role",
                             Name = "Client",
                             NormalizedName = "Client"

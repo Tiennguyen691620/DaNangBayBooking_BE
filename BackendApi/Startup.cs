@@ -46,6 +46,7 @@ namespace BackendApi
             Configuration = configuration;
         }
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -77,7 +78,19 @@ namespace BackendApi
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddCors();
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:4200", "http://localhost:5200",
+                                          "https://danangbooking-app.web.app", "https://danangbooking-app.firebaseapp.com",
+                                          "https://danangbookingadmin-app.web.app", "https://danangbookingadmin-app.firebaseapp.com")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                                  });
+            });
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
@@ -166,9 +179,11 @@ namespace BackendApi
 
             app.UseAuthentication();
             app.UseRouting();
-            app.UseCors( options => options.WithOrigins("http://localhost:4200", "http://localhost:5200")   
+            /*app.UseCors( options => options.WithOrigins("http://localhost:4200", "http://localhost:5200", 
+                "https://danangbooking-app.web.app", "https://danangbooking-app.firebaseapp.com")   
                         .AllowAnyMethod()
-                        .AllowAnyHeader());
+                        .AllowAnyHeader());*/
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
             app.UseSwagger();
