@@ -484,7 +484,7 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             return new ApiSuccessResult<BookRoomVm>(bookRoomVm);
         }
 
-        public async Task<ApiResult<PagedResult<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request)
+        public async Task<ApiResult<List<BookRoomVm>>> ReportBooking(FilterBookRoomReportRequest request)
         {
             var query = from br in _context.BookRooms
                         join a in _context.Accommodations on br.AccommodationID equals a.AccommodationID
@@ -525,12 +525,14 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
             }
 
             //3. Paging
-            int totalRow = await query.CountAsync();
+            /*int totalRow = await query.CountAsync();
 
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
                .Take(request.PageSize)
-               .Select(x => new BookRoomVm()
-           /*var data = await query.Select(x => new BookRoomVm()*/
+               .Select(x => new BookRoomVm()*/
+            /*var data = await query.Select(x => new BookRoomVm()*/
+            //{
+            var data = await query.Select(x => new BookRoomVm()
             {
                 BookRoomID = x.br.BookRoomID,
                 No = x.br.No,
@@ -632,14 +634,15 @@ namespace DaNangBayBooking.Application.Catalog.Bookings
                     },
                 }
             }).ToListAsync();
-            var pagedResult = new PagedResult<BookRoomVm>()
+            return new ApiSuccessResult<List<BookRoomVm>>(data);
+            /*var pagedResult = new PagedResult<BookRoomVm>()
             {
                 TotalRecords = totalRow,
                 PageIndex = request.PageIndex,
                 PageSize = request.PageSize,
                 Items = data
             };
-            return new ApiSuccessResult<PagedResult<BookRoomVm>>(pagedResult);
+            return new ApiSuccessResult<PagedResult<BookRoomVm>>(pagedResult);*/
             //return new ApiSuccessResult<List<BookRoomVm>>(data);
         }
 

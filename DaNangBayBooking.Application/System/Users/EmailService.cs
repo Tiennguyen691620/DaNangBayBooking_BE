@@ -27,7 +27,7 @@ namespace Webgentle.BookStore.Service
 
         public async Task SendEmailForgotAndResetPass(UserEmailOptions userEmailOptions)
         {
-            userEmailOptions.Subject = UpdatePlaceHolders("Xin Chào {{FullName}} !, bạn có thông báo đổi mật khẩu mới", userEmailOptions.PlaceHolders);
+            userEmailOptions.Subject = UpdatePlaceHolders("Xin Chào {{FullName}}!, bạn có thông báo đổi mật khẩu mới", userEmailOptions.PlaceHolders);
 
             userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailForgotAndResetPassword"), userEmailOptions.PlaceHolders);
 
@@ -101,7 +101,7 @@ namespace Webgentle.BookStore.Service
 
             NetworkCredential networkCredential = new NetworkCredential(_smtpConfig.UserName, _smtpConfig.Password);
 
-            SmtpClient smtpClient = new SmtpClient
+            SmtpClient smtpClient = new SmtpClient()
             {
                 Host = _smtpConfig.Host,
                 Port = _smtpConfig.Port,

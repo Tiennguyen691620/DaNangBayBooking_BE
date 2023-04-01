@@ -149,9 +149,9 @@ namespace DaNangBayBooking.BackendApi.Controllers
         /// Lấy báo cáo danh sách hủy/đặt phòng
         /// </summary>
         /// 
-        [HttpGet("filter/report")]
+        [HttpGet("report")]
         [AllowAnonymous]
-        public async Task<ActionResult<PagedResult<BookRoomVm>>> ReportBooking([FromQuery] FilterBookRoomReportRequest request)
+        public async Task<ActionResult<List<BookRoomVm>>> ReportBooking([FromQuery] FilterBookRoomReportRequest request)
         {
             var bookRoomReport = await _bookRoomService.ReportBooking(request);
             return Ok(bookRoomReport);

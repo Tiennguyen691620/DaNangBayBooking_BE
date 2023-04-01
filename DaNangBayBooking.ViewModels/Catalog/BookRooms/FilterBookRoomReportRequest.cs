@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DaNangBayBooking.ViewModels.Catalog.BookRooms
 {
-    public class FilterBookRoomReportRequest : PagingRequestBase
+    public class FilterBookRoomReportRequest
     {
         public Guid? AccommodationId { get; set; }
 
