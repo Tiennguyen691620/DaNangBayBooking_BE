@@ -390,7 +390,7 @@
       },
       "MailKit/3.6.0": {
         "dependencies": {
-          "MimeKit": "3.6.0"
+          "MimeKit": "3.6.1"
         },
         "runtime": {
           "lib/netstandard2.1/MailKit.dll": {
@@ -1391,19 +1391,19 @@
           "System.Security.Principal.Windows": "4.5.0"
         }
       },
-      "MimeKit/3.6.0": {
+      "MimeKit/3.6.1": {
         "dependencies": {
           "Portable.BouncyCastle": "1.9.0",
           "System.Buffers": "4.5.1",
           "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
-          "System.Security.Cryptography.Pkcs": "6.0.0",
+          "System.Security.Cryptography.Pkcs": "6.0.2",
           "System.Text.Encoding.CodePages": "6.0.0"
         },
         "runtime": {
           "lib/netstandard2.1/MimeKit.dll": {
             "assemblyVersion": "3.6.0.0",
-            "fileVersion": "3.6.0.0"
+            "fileVersion": "3.6.1.0"
           }
         },
         "compile": {
@@ -2440,7 +2440,7 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         }
       },
-      "System.Security.Cryptography.Pkcs/6.0.0": {
+      "System.Security.Cryptography.Pkcs/6.0.2": {
         "dependencies": {
           "System.Formats.Asn1": "6.0.0",
           "System.Security.Cryptography.Cng": "5.0.0"
@@ -2448,7 +2448,7 @@
         "runtime": {
           "lib/netcoreapp3.1/System.Security.Cryptography.Pkcs.dll": {
             "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+            "fileVersion": "6.0.1423.7309"
           }
         },
         "runtimeTargets": {
@@ -2456,7 +2456,7 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.21.52210"
+            "fileVersion": "6.0.1423.7309"
           }
         },
         "compile": {
@@ -2682,7 +2682,9 @@
           "DaNangBayBooking.Data": "1.0.0",
           "DaNangBayBooking.Utilities": "1.0.0",
           "DaNangBayBooking.ViewModels": "1.0.0",
+          "MailKit": "3.6.0",
           "Microsoft.IdentityModel.Tokens": "6.16.0",
+          "MimeKit": "3.6.1",
           "System.IdentityModel.Tokens.Jwt": "6.16.0"
         },
         "runtime": {
@@ -4761,12 +4763,12 @@
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
     },
-    "MimeKit/3.6.0": {
+    "MimeKit/3.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-R7WNYvUA+qn4PHt1rMaIUJ3nyloZ2SlWyLjnLfGm90kbMcU/4sYS2QSQMs1dWbtcts5B0CSfB5a2jB9fWX9DAQ==",
-      "path": "mimekit/3.6.0",
-      "hashPath": "mimekit.3.6.0.nupkg.sha512"
+      "sha512": "sha512-1Dz7OunFfocmlPpA77Qq8oG7eP9js3edY5SGhYVf3rUy2vYhwBoCB+/jUn97F5XynPKxNXApZl5bVoKdYoDbIQ==",
+      "path": "mimekit/3.6.1",
+      "hashPath": "mimekit.3.6.1.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",
@@ -5454,12 +5456,12 @@
       "path": "system.security.cryptography.openssl/4.3.0",
       "hashPath": "system.security.cryptography.openssl.4.3.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Pkcs/6.0.0": {
+    "System.Security.Cryptography.Pkcs/6.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-elM3x+xSRhzQysiqo85SbidJJ2YbZlnvmh+53TuSZHsD7dNuuEWser+9EFtY+rYupBwkq2avc6ZCO3/6qACgmg==",
-      "path": "system.security.cryptography.pkcs/6.0.0",
-      "hashPath": "system.security.cryptography.pkcs.6.0.0.nupkg.sha512"
+      "sha512": "sha512-1YcPZrdfjbHtzA2Y9EeAZ1zt7EWPBs30lgpG9PXgwP7onF91+sX1qijegcnuo4cULCcT8GiaaJFsDcEqdc9PVg==",
+      "path": "system.security.cryptography.pkcs/6.0.2",
+      "hashPath": "system.security.cryptography.pkcs.6.0.2.nupkg.sha512"
     },
     "System.Security.Cryptography.Primitives/4.3.0": {
       "type": "package",

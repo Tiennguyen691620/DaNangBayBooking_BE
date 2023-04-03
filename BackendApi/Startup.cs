@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DaNangBayBooking.Data.Entities;
-using DaNangBayBooking.ViewModels.System.Roles;
 using DaNangBayBooking.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using DaNangBayBooking.Utilities.Constants;
@@ -21,7 +17,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using DaNangBayBooking.Application.System.Users;
 using DaNangBayBooking.ViewModels.System.Users;
-using Microsoft.AspNetCore.Http;
 using DaNangBayBooking.Application.Catalog.Wards;
 using System.Reflection;
 using System.IO;
@@ -75,6 +70,7 @@ namespace BackendApi
             services.AddTransient<IBookRoomService, BookRoomService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IRateCommentService, RateCommentService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();

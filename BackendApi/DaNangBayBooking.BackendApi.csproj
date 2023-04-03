@@ -30,6 +30,14 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="wwwroot\EmailTemplate\assets\logo_copy.png" />
+    <None Include="wwwroot\EmailTemplate\EmailForgotAndResetPassword.html" />
+    <None Include="wwwroot\EmailTemplate\ForgotPassword.html" />
+    <None Include="wwwroot\EmailTemplate\SendEmailBookRoomToAccommodation.html" />
+    <None Include="wwwroot\EmailTemplate\SendEmailCancelToAccommodation.html" />
+    <None Include="wwwroot\EmailTemplate\SendEmailCancelToUser.html" />
+    <None Include="wwwroot\EmailTemplate\SendEmailSuccessBookingToUser.html" />
+    <None Include="wwwroot\EmailTemplate\TestEmail.html" />
   </ItemGroup>
 
 </Project>

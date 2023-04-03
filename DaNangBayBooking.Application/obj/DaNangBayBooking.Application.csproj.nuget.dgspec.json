@@ -59,9 +59,17 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[6.16.0, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.6.1, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

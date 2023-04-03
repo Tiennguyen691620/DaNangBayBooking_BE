@@ -1,4 +1,5 @@
-﻿using DaNangBayBooking.ViewModels.System.Users;
+﻿using DaNangBayBooking.ViewModels.Common;
+using DaNangBayBooking.ViewModels.System.Users;
 using System.Threading.Tasks;
 
 namespace Webgentle.BookStore.Service
@@ -19,5 +20,9 @@ namespace Webgentle.BookStore.Service
 
 
         Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions);
+
+        Task<ApiResult<string>> ResetPassword(UserResetPassRequest request);
+        Task<ApiResult<UserForgotPass>> ForgotPassword(string Email);
+        Task<ApiResult<bool>> ChangePassword(UserChangePassRequest request);
     }
 }

@@ -1,11 +1,18 @@
-﻿using DaNangBayBooking.ViewModels.System.Users;
+﻿using DaNangBayBooking.ViewModels.Common;
+using DaNangBayBooking.ViewModels.System.Users;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+//using MailKit.Net.Smtp;
+//using MailKit.Security;
 using Microsoft.Extensions.Options;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+//using System.Net.Mail.SmptClient;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +22,32 @@ namespace Webgentle.BookStore.Service
     {
         private const string templatePath = @"EmailTemplate/{0}.html";
         private readonly SMTPConfigModel _smtpConfig;
+
+        private readonly string _userContentFolder;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IConfiguration _configuration;
+
+        private const string EMAILTEMPLATE_CONTENT_FOLDER_NAME = "EmailTemplate";
+        private const string ASSETS_CONTENT_FOLDER_NAME = "assets";
+
+        public EmailService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration, IOptions<SMTPConfigModel> smtpConfig)
+        {
+            _configuration = configuration;
+            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, Path.Combine(EMAILTEMPLATE_CONTENT_FOLDER_NAME));
+            _webHostEnvironment = webHostEnvironment;
+            _smtpConfig = smtpConfig.Value;
+        }
+
+        /*public EmailService(IOptions<SMTPConfigModel> smtpConfig)
+        {
+            _smtpConfig = smtpConfig.Value;
+        }*/
+
+
+        public string GetFileUrl(string fileName)
+        {
+            return $"/{EMAILTEMPLATE_CONTENT_FOLDER_NAME}/{fileName}";
+        }
 
         public async Task SendTestEmail(UserEmailOptions userEmailOptions)
         {
@@ -79,13 +112,19 @@ namespace Webgentle.BookStore.Service
             await SendEmail(userEmailOptions);
         }
 
-        public EmailService(IOptions<SMTPConfigModel> smtpConfig)
-        {
-            _smtpConfig = smtpConfig.Value;
-        }
-
+        
         private async Task SendEmail(UserEmailOptions userEmailOptions)
         {
+            //var email = new MimeMessage();
+            /*email.From.Add(MailboxAddress.Parse(_smtpConfig.SenderAddress));*/
+
+            /*email.Subject = userEmailOptions.Subject;
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = userEmailOptions.Body };
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_smtpConfig.Host, _smtpConfig.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_smtpConfig.UserName, _smtpConfig.Password);*/
+
             MailMessage mail = new MailMessage
             {
                 Subject = userEmailOptions.Subject,
@@ -113,15 +152,18 @@ namespace Webgentle.BookStore.Service
             mail.BodyEncoding = Encoding.Default;
 
             await smtpClient.SendMailAsync(mail);
+            /*smtp.Send(email);
+            smtp.Disconnect(true);*/
         }
 
-        private string GetEmailBody(string templateName)
+        public string GetEmailBody(string templateName)
         {
-            var body = File.ReadAllText(string.Format(templatePath, templateName));
+            var body = File.ReadAllText($"{_userContentFolder}/{templateName}.html");
+            //var body = File.ReadAllText(string.Format(templatePath, templateName));
             return body;
         }
 
-        private string UpdatePlaceHolders(string text, List<KeyValuePair<string, string>> keyValuePairs)
+        public string UpdatePlaceHolders(string text, List<KeyValuePair<string, string>> keyValuePairs)
         {
             if (!string.IsNullOrEmpty(text) && keyValuePairs != null)
             {
@@ -135,6 +177,21 @@ namespace Webgentle.BookStore.Service
             }
 
             return text;
+        }
+
+        public Task<ApiResult<string>> ResetPassword(UserResetPassRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiResult<UserForgotPass>> ForgotPassword(string Email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApiResult<bool>> ChangePassword(UserChangePassRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

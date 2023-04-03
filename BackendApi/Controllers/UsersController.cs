@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DaNangBayBooking.BackendApi.Controllers
 {
-    //[EnableCors()]
+    [EnableCors()]
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
